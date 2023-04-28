@@ -9,7 +9,6 @@ import Home from './components/main/Home';
 import Feedback from './components/main/Feedback';
 import Footer from './components/main/Footer';
 import FormulaHandler from './components/user/FormulaHandler';
-import Sheet from './components/user/Sheet';
 import ManageTools from './components/user/ManageTools';
 import ManageDataset from './components/user/ManageDataset';
 import Userprofile from './components/user/Userprofile';
@@ -21,6 +20,7 @@ import AdminDashboard from './components/admin/AdminDashboard';
 import Managetools from './components/admin/Managetools';
 import ManageUser from './components/admin/ManageUser';
 import Admin from './components/admin';
+import Toolbar from './components/user/Toolbar';
 
 
 
@@ -50,9 +50,9 @@ function App() {
           <Route path="userprofile" element={<Userprofile />} />
           <Route path="FormulaHandler" element={<FormulaHandler />} />
           <Route path="feedback" element={<Feedback />} />
-          <Route path="sheet" element={<Sheet />} />
           <Route path="ManageTools" element={<ManageTools />} />
           <Route path="ManageDataset" element={<ManageDataset />} />
+          <Route path="toolbar " element={<Toolbar/>} />
 
         </Route>
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
+
 const Navbar = () => {
 	return (
 		<>
@@ -37,34 +38,34 @@ const Navbar = () => {
          
          
           <li className="nav-item">
-		  <NavLink   className="nav-link" to="/home">
-              home
+		  <NavLink   className="nav-link" to="/main/home">
+            Home
             
 			</NavLink>
           </li>
 
 
           <li className="nav-item">
-            <NavLink className="nav-link" to="/login">
+            <NavLink className="nav-link" to="/main/login">
               login
             </NavLink>
           </li>
 
 		  
           <li className="nav-item">
-          <NavLink className="nav-link" to="/signup">
+          <NavLink className="nav-link" to="/main/signup">
               Signup
           
             </NavLink>
           </li>
           <li className="nav-item">
-          <NavLink className="nav-link" to="/feedback">
+          <NavLink className="nav-link" to="/main/feedback">
               Feedback
           
             </NavLink>
           </li>
           <li className="nav-item">
-          <NavLink className="nav-link" to="/footer">
+          <NavLink className="nav-link" to="/main/footer">
               Footer
           
             </NavLink>
@@ -166,5 +167,9 @@ const Navbar = () => {
 
 	)
 }
+
+
+
+
 
 export default Navbar
