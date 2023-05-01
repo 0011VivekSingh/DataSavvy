@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { HotTable } from "@handsontable/react";
 import { HyperFormula } from "hyperformula";
+import ReactModal from 'react-modal-resizable-draggable';
 
 const Toolpack = () => {
   const sheetData = Array.from({ length: 100 }, () => new Array(100).fill(null));
@@ -34,10 +35,28 @@ const Toolpack = () => {
   });
 
 
+  const [modalOpen, setModalOpen] = useState(false);
+
 
   return (
     <>
       <h3 className="demo-preview">Sheet 1</h3>
+      <button className="btn btn-primary" onClick={e => setModalOpen(true)}>Mean</button>
+      <ReactModal
+        initWidth={800}
+        initHeight={400}
+        onFocus={() => console.log("Modal is clicked")}
+        className={"my-modal-custom-class"}
+        onRequestClose={e => setModalOpen(false)}
+        isOpen={modalOpen}>
+        <h3>My Modal</h3>
+        <div className="body">
+          <p>This is the modal&apos;s body.</p>
+        </div>
+        <button onClick={e => setModalOpen(false)}>
+          Close modal
+        </button>
+      </ReactModal>
       <HotTable
         data={sheetData}
         colHeaders={showColumnHeaders}

@@ -1,5 +1,6 @@
 import { useFormik, validateYupSchema } from "formik";
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import * as Yup from 'yup';
 
@@ -28,6 +29,8 @@ const SignupSchema = Yup.object().shape({
 
 const Signup = () => {
 
+  const navigate = useNavigate();
+
   const signupForm = useFormik({
     initialValues: {
       name: '',
@@ -53,9 +56,10 @@ const Signup = () => {
         Swal.fire({
 
           icon: 'success',
-          title: 'nice',
+          title: 'Success',
           text: 'you have sucessfully registered'
         })
+        navigate('/main/login');
       } else {
 
         Swal.fire({
@@ -90,7 +94,9 @@ const Signup = () => {
                   <h2 className="text-uppercase text-center mb-5">
                     Create an account
                   </h2>
+
                   <form onSubmit={signupForm.handleSubmit}>
+
                     <div className=" mb-4">
                       <label className="form-label" htmlFor="form3Example1cg">
                         Your Name
@@ -104,6 +110,7 @@ const Signup = () => {
                       />
                       <span classname="text-danger">{signupForm.errors.name}</span>
                     </div>
+
                     <div className=" mb-4">
                       <label className="form-label" htmlFor="form3Example3cg">
                         Your Email
@@ -117,6 +124,8 @@ const Signup = () => {
                       />
                       <span classname="text-danger">{signupForm.errors.email}</span>
                     </div>
+
+
                     <div className=" mb-4">
                       <label className="form-label" htmlFor="form3Example4cg">
                         Password
@@ -129,8 +138,9 @@ const Signup = () => {
                         className="form-control form-control-lg"
                       />
                       <span classname="text-danger">{signupForm.errors.password}</span>
-
                     </div>
+
+
                     <div className=" mb-4">
                       <label className="form-label" htmlFor="form3Example4cdg">
                         Repeat your password
@@ -143,6 +153,8 @@ const Signup = () => {
                         className="form-control form-control-lg"
                       />
                     </div>
+
+
                     <div className="form-check d-flex justify-content-center mb-5">
                       <input
                         className="form-check-input me-2"
@@ -173,9 +185,9 @@ const Signup = () => {
                     </div>
                     <p className="text-center text-muted mt-5 mb-0">
                       Have already an account?{" "}
-                      <a href="#!" className="fw-bold text-body">
+                      <Link to="/main/login" className="fw-bold text-body">
                         <u>Login here</u>
-                      </a>
+                      </Link>
                     </p>
                   </form>
                 </div>
