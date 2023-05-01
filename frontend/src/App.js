@@ -21,6 +21,7 @@ import Managetools from './components/admin/Managetools';
 import ManageUser from './components/admin/ManageUser';
 import Admin from './components/admin';
 import Toolbar from './components/user/Toolbar';
+import UserAuth from './auth/UserAuth';
 
 
 
@@ -43,7 +44,7 @@ function App() {
 </Route>
 
 
-        <Route path='user' element={<User />} >
+        <Route path='user' element={<UserAuth> <User /> </UserAuth>} >
 
           <Route path="toolpack" element={<Toolpack />} />
           <Route path="Workspace" element={<WorkSpace />} />
@@ -59,7 +60,7 @@ function App() {
 
 <Route path='admin' element={<Admin/>}>
 
-<Route path='admindashboard' element={<AdminDashboard/>} />
+<Route path='dashboard' element={<AdminDashboard/>} />
 <Route path='managetools' element={<Managetools />} />
 <Route path='manageuser' element={<ManageUser/>} />
 

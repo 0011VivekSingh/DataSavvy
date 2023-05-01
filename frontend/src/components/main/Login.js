@@ -2,12 +2,12 @@ import React from 'react'
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
 import { MDBInput } from "mdb-react-ui-kit";
-import { Link } from 'react-router-dom';
-
-
-
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+
+  const navigate = useNavigate();
+
   const loginform = useFormik({
     initialValues: {
       email: '',
@@ -30,6 +30,15 @@ const Login = () => {
           title: "Nice",
           text: "You have successfully logged in",
         });
+        const data = await res.json();
+        if(data.role==='admin'){
+          sessionStorage.setItem('admin', JSON.stringify(data));
+          navigate('/admin/dashboard');
+        }else{
+          sessionStorage.setItem('user', JSON.stringify(data));
+          navigate('/user/toolpack');
+        }
+
       } else if (res.status === 401) {
         Swal.fire({
           icon: "error",
