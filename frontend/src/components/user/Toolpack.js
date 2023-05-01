@@ -43,8 +43,8 @@ const Toolpack = () => {
       <h3 className="demo-preview">Sheet 1</h3>
       <button className="btn btn-primary" onClick={e => setModalOpen(true)}>Mean</button>
       <ReactModal
-        initWidth={800}
-        initHeight={400}
+        initWidth={700}
+        initHeight={300}
         onFocus={() => console.log("Modal is clicked")}
         className={"my-modal-custom-class"}
         onRequestClose={e => setModalOpen(false)}
