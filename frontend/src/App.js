@@ -53,7 +53,7 @@ function App() {
           <Route path="feedback" element={<Feedback />} />
           <Route path="ManageTools" element={<ManageTools />} />
           <Route path="ManageDataset" element={<ManageDataset />} />
-          <Route path="toolbar " element={<Toolbar/>} />
+          <Route path="toolbar" element={<Toolbar/>} />
 
         </Route>
 

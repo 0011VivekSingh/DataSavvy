@@ -59,14 +59,13 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li className="nav-item">
-          <NavLink className="nav-link" to="/main/feedback">
-              Feedback
-          
+          <NavLink className="nav-link" to="/user/toolpack">
+              Toolpack
             </NavLink>
           </li>
           <li className="nav-item">
-          <NavLink className="nav-link" to="/main/footer">
-              Footer
+          <NavLink className="nav-link" to="/main/feedback">
+              Feedback
           
             </NavLink>
           </li>

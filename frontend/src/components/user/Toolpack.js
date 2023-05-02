@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { HotTable } from "@handsontable/react";
 import { HyperFormula } from "hyperformula";
 import ReactModal from 'react-modal-resizable-draggable';
+import Toolbar from "./Toolbar";
 
 const Toolpack = () => {
   const sheetData = Array.from({ length: 100 }, () => new Array(100).fill(null));
@@ -12,6 +13,10 @@ const Toolpack = () => {
   const [showDropDownMenu, setShowDropDownMenu] = useState(true);
   const [enableMultiColumnSorting, setEnableMultiColumnSorting] = useState(true);
   const [enableManualRowMove, setEnableManualRowMove] = useState(true);
+
+  const [rangeInput, setRangeInput] = useState('');
+  const rangeInp = useRef(null);
+
 
   const data1 = [
     ["10.26", null, "Sum", "=SUM(A:A)"],
@@ -37,10 +42,48 @@ const Toolpack = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
 
+  const sheetRef = useRef(null);
+
+  const getSelectedSheetData = () => {
+    const sheet = sheetRef.current.hotInstance;
+    const data = sheet.getData(1, 1, 3, 3); // get data from range (1,1) to (3,3)
+    console.log(data);
+    return;
+    const selected = sheet.getSelectedRange();
+    console.log(selected);
+    return;
+    // const data = sheet.getData(selected[0], selected[1], selected[2], selected[3]);
+    // console.log(data);
+  }
+
+  const convertExcelRange = (range) => {
+    const startCol = range.charCodeAt(0) - 65; // A is the 0th column, B is 1st, etc.
+    const startRow = parseInt(range.charAt(1), 10) - 1; // subtract 1 to account for 0-based indexing
+    const endCol = range.charCodeAt(2) - 65;
+    const endRow = parseInt(range.charAt(3), 10) - 1;
+    console.log(startCol, startRow, endCol, endRow);
+
+    return [startRow, startCol, endRow, endCol];
+  }
+
+  const calculateMean = (numArray) => {
+    let sum = 0;
+    numArray.forEach(num => sum += num);
+    return sum / numArray.length;
+  }
+
+  const performCalculation = (calcFunc, range) => {
+    const sheet = sheetRef.current.hotInstance;
+    const coords = convertExcelRange(rangeInp.current.value);
+    const data = sheet.getData(coords[0], coords[1], coords[2], coords[3]);
+    console.log(data);
+  }
 
   return (
     <>
+      <Toolbar />
       <h3 className="demo-preview">Sheet 1</h3>
+      <button className="btn btn-dark" onClick={getSelectedSheetData}>Get selection</button>
       <button className="btn btn-primary" onClick={e => setModalOpen(true)}>Mean</button>
       <ReactModal
         initWidth={700}
@@ -50,14 +93,24 @@ const Toolpack = () => {
         onRequestClose={e => setModalOpen(false)}
         isOpen={modalOpen}>
         <h3>My Modal</h3>
+
         <div className="body">
-          <p>This is the modal&apos;s body.</p>
+          <div className="card-body">
+            <input className="form-control" ref={ rangeInp } />
+            <button className="btn btn-primary" onClick={e => performCalculation(calculateMean)}>
+              Calculate Mean
+            </button>
+          </div>
         </div>
+
+
         <button onClick={e => setModalOpen(false)}>
           Close modal
         </button>
       </ReactModal>
       <HotTable
+        ref={sheetRef}
+        contextMenu={true}
         data={sheetData}
         colHeaders={showColumnHeaders}
         rowHeaders={showRowHeaders}

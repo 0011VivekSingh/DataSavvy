@@ -1,6 +1,7 @@
 import Handsontable from 'handsontable/base';
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 
 const Main = () => {
@@ -8,6 +9,7 @@ const Main = () => {
     <div>
       <Navbar />
       <Outlet />
+      <Footer />
     </div>
   )
 }
