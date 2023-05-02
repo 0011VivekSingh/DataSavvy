@@ -56,11 +56,22 @@ const Toolpack = () => {
     // console.log(data);
   }
 
+
+  function columnToNumber(colName) {
+    let result = 0;
+    for (let i = 0; i < colName.length; i++) {
+      const char = colName.charCodeAt(i) - 64;
+      result = result * 26 + char;
+    }
+    console.log(result);
+    return result;
+  }
+
   const convertExcelRange = (range) => {
-    const startCol = range.charCodeAt(0) - 65; // A is the 0th column, B is 1st, etc.
+    const startCol = columnToNumber(range.charAt(0));
     const startRow = parseInt(range.charAt(1), 10) - 1; // subtract 1 to account for 0-based indexing
-    const endCol = range.charCodeAt(2) - 65;
-    const endRow = parseInt(range.charAt(3), 10) - 1;
+    const endCol = columnToNumber(range.charAt(3));
+    const endRow = parseInt(range.charAt(4), 10) - 1;
     console.log(startCol, startRow, endCol, endRow);
 
     return [startRow, startCol, endRow, endCol];
@@ -69,6 +80,7 @@ const Toolpack = () => {
   const calculateMean = (numArray) => {
     let sum = 0;
     numArray.forEach(num => sum += num);
+    console.log(sum / numArray.length);
     return sum / numArray.length;
   }
 
@@ -77,6 +89,7 @@ const Toolpack = () => {
     const coords = convertExcelRange(rangeInp.current.value);
     const data = sheet.getData(coords[0], coords[1], coords[2], coords[3]);
     console.log(data);
+    calcFunc(data.flat());
   }
 
   return (
