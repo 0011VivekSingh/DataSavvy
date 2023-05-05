@@ -1,9 +1,30 @@
 import React from 'react'
 
+
 const Home = () => {
   return (
-    <div>Home</div>
+    <>
+    <header>
+        <div className="row">
+          <div className="col-md-7">
+
+          </div>
+          <div className="col-md-5">
+            
+          </div>
+        </div>
+    </header>
+    
+  </>
+  
+    
   )
+
+    
+
+
+
+  
 }
 
-export default Home
+        export default Home

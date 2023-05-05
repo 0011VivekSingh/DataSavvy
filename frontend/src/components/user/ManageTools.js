@@ -1,8 +1,19 @@
 import React from 'react'
 
+const AddNewTool = () => {
+  return (
+    <div>AddNewTool</div>
+  )
+}
+
 const ManageTools = () => {
   return (
-    <div>ManageTools</div>
+    <div>
+      <AddNewTool />
+
+      {/* card row design */}
+
+    </div>
   )
 }
 
