@@ -193,4 +193,46 @@ function anovaTwoFactorWithoutReplication(data) {
   
     return cov / (n - 1);
   }
+
+  // Correlation
+  function calculateCorrelation(arr1, arr2) {
+    // Check if arrays have the same length
+    if (arr1.length !== arr2.length) {
+      throw new Error('Input arrays must have the same length');
+    }
+    
+    const n = arr1.length;
+    let sumX = 0;
+    let sumY = 0;
+    let sumXY = 0;
+    let sumX2 = 0;
+    let sumY2 = 0;
+  
+    for (let i = 0; i < n; i++) {
+      const x = arr1[i];
+      const y = arr2[i];
+  
+      sumX += x;
+      sumY += y;
+      sumXY += x * y;
+      sumX2 += x ** 2;
+      sumY2 += y ** 2;
+    }
+  
+    const numerator = n * sumXY - sumX * sumY;
+    const denominator = Math.sqrt((n * sumX2 - sumX ** 2) * (n * sumY2 - sumY ** 2));
+    
+    if (denominator === 0) {
+      return 0; // If denominator is zero, return zero to avoid division by zero error
+    }
+  
+    return numerator / denominator;
+  }
+  
+  // Example usage:
+  const arr1 = [1, 2, 3, 4, 5];
+  const arr2 = [5, 4, 3, 2, 1];
+  const correlation = calculateCorrelation(arr1, arr2);
+  console.log(correlation);
+  
   

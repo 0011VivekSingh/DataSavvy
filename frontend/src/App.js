@@ -33,15 +33,14 @@ function App() {
         <Route path='/' element={<Navigate to="/main/home" />} />
 
 
-        <Route path='main' element={<Main />} >
-
+        <Route path='main' element={<Main />} > 
           <Route path="home" element={<Home />} />
           <Route path="navbar" element={<Navbar />} />
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
           <Route path="feedback" element={<Feedback />} />
           <Route path="footer" element={<Footer />} />
-</Route>
+        </Route>
 
 
         <Route path='user' element={<UserAuth> <User /> </UserAuth>} >
@@ -53,25 +52,25 @@ function App() {
           <Route path="feedback" element={<Feedback />} />
           <Route path="ManageTools" element={<ManageTools />} />
           <Route path="ManageDataset" element={<ManageDataset />} />
-          <Route path="toolbar" element={<Toolbar/>} />
+          <Route path="toolbar" element={<Toolbar />} />
 
         </Route>
 
 
-<Route path='admin' element={<Admin/>}>
+        <Route path='admin' element={<Admin />}>
 
-<Route path='dashboard' element={<AdminDashboard/>} />
-<Route path='managetools' element={<Managetools />} />
-<Route path='manageuser' element={<ManageUser/>} />
-
-
+          <Route path='dashboard' element={<AdminDashboard />} />
+          <Route path='managetools' element={<Managetools />} />
+          <Route path='manageuser' element={<ManageUser />} />
 
 
 
 
 
 
-</Route>
+
+
+        </Route>
 
 
 

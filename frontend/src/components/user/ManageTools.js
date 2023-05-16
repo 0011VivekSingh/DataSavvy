@@ -1,22 +1,11 @@
 import React from 'react'
 
 const AddNewTool = () => {
+
+  
+
   return (
-    <>
-    <title>Bootstrap Form</title>
-    <meta charSet="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {/* Bootstrap CSS */}
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    />
-    <style
-      dangerouslySetInnerHTML={{
-        __html:
-          "\n\t\tbody {\n\t\t\tbackground-color: #f8f9fa; /* Set the background color */\n\t\t}\n\t"
-      }}
-    />
+    
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-6">
@@ -64,10 +53,6 @@ const AddNewTool = () => {
         </div>
       </div>
     </div>
-    {/* Bootstrap JS */}
-  </>
-  
-
   )
 }
 
