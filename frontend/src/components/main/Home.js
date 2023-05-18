@@ -17,14 +17,25 @@ const Home = () => {
 
 
   {/* Cover Page */}
-  <div className="jumbotron jumbotron-fluid">
-    <div className="container">
-      <h1 className="display-4">Safe and secure data handling with DataSavvy</h1>
+  <div className="container-fluid py-10 " style={{height:"100vh" , backgroundColor:"blueviolet"}}>
+<div className="row ">
+
+    <div className="col-lg-6 ">
+      <h1 className="display-4 " style={{color:'white',margin:'10%'}}>Safe and Secure Data handling with DataSavvy</h1>
       <p className="lead">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
+        DataSavvy,is single platform for all your data handling needs.
+        
       </p>
     </div>
-  </div>
+
+    <div className="col-lg-6  "  >
+      
+      <img className='w-100' src="/section.png"  alt="" />
+      
+      </div>
+    </div>
+    </div>
+
 
   {/* Section */}
   <section className="container my-5">

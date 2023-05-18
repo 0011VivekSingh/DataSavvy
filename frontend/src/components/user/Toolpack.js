@@ -91,12 +91,6 @@ const Toolpack = () => {
     // console.log(sum / numArray.length);
     return sum / numArray.length;
   }
-  // corelation
-  const calculatecorelation = (numArray) => {
-    
-
-
-
 
   const performCalculation = (calcFunc, range) => {
     const sheet = sheetRef.current.hotInstance;
@@ -106,8 +100,6 @@ const Toolpack = () => {
     console.log(data);
     const res = calcFunc(data.flat());
     console.log(res);
-
-    
   }
 
   return (
@@ -151,6 +143,7 @@ const Toolpack = () => {
           engine: hyperformulaInstance,
           sheetName: "Sheet1",
         }}
+        
 
         licenseKey="non-commercial-and-evaluation"
       />

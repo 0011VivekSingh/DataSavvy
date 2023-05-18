@@ -6,7 +6,7 @@ const Navbar = () => {
 	return (
 		<>
   {/* Navbar */}
-  <nav className="navbar navbar-expand-md navbar-light bg-light">
+  <nav className="navbar navbar-expand-md navbar-light fixed-top bg-light">
     {/* Container wrapper */}
     <div className="container-fluid">
       {/* Toggle button */}
@@ -22,16 +22,20 @@ const Navbar = () => {
         <i className="fas fa-bars" />
       </button>
       {/* Collapsible wrapper */}
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <div className="collapse navbar-collapse " id="navbarSupportedContent">
         {/* Navbar brand */}
-        <a className="navbar-brand mt-2 mt-lg-0" href="#">
+        <a className="navbar-brand mt-1 mt-lg-0" href="#">
           <img
-            src="/ds.png"
-            height={30}
-            alt="MDB Logo"
+            src="/pp.png"
+            height={35}
+            width={35}
+            className='d-inline-block align-top'
+            alt="MDB Logo" 
             loading="lazy"
           />
+          <b>DATASAVVY</b> 
         </a>
+        
         {/* Left links */}
         <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
          
