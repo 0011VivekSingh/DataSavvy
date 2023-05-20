@@ -25,7 +25,7 @@ const Navbar = () => {
         {/* Navbar brand */}
         <a className="navbar-brand mt-2 mt-lg-0" href="#">
           <img
-            src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+            src=""
             height={15}
             alt="MDB Logo"
             loading="lazy"
@@ -135,7 +135,7 @@ const Navbar = () => {
           </ul>
         </div>
         {/* Avatar */}
-        <div className="dropdown">
+        {/* <div className="dropdown">
           <a
             className="dropdown-toggle d-flex align-items-center hidden-arrow"
             href="#"
@@ -170,9 +170,9 @@ const Navbar = () => {
               <a className="dropdown-item" href="#">
                 Logout
               </a>
-            </li>
-          </ul>
-        </div>
+            </li> */}
+          {/* </ul>
+        </div> */}
       </div>
       {/* Right elements */}
     </div>

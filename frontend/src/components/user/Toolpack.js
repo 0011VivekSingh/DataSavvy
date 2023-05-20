@@ -68,9 +68,9 @@ const Toolpack = () => {
   }
 
   const convertExcelRange = (range) => {
-    const startCol = columnToNumber(range.charAt(0));
+    const startCol = columnToNumber(range.charAt(0))-1;
     const startRow = parseInt(range.charAt(1), 10) - 1; // subtract 1 to account for 0-based indexing
-    const endCol = columnToNumber(range.charAt(3));
+    const endCol = columnToNumber(range.charAt(3))-1;
     const endRow = parseInt(range.charAt(4), 10) - 1;
     console.log(startCol, startRow, endCol, endRow);
 
@@ -80,7 +80,15 @@ const Toolpack = () => {
   const calculateMean = (numArray) => {
     let sum = 0;
     numArray.forEach(num => sum += num);
-    console.log(sum / numArray.length);
+    // console.log(sum / numArray.length);
+    return sum / numArray.length;
+  }
+
+  const calculateVariance = (numArray) => {
+    let mean = calculateMean(numArray);
+    let sum = 0;
+    numArray.forEach(num => sum += Math.pow(num - mean, 2));
+    // console.log(sum / numArray.length);
     return sum / numArray.length;
   }
 
@@ -88,8 +96,10 @@ const Toolpack = () => {
     const sheet = sheetRef.current.hotInstance;
     const coords = convertExcelRange(rangeInp.current.value);
     const data = sheet.getData(coords[0], coords[1], coords[2], coords[3]);
+    console.log(coords);
     console.log(data);
-    calcFunc(data.flat());
+    const res = calcFunc(data.flat());
+    console.log(res);
   }
 
   return (
@@ -110,7 +120,7 @@ const Toolpack = () => {
         <div className="body">
           <div className="card-body">
             <input className="form-control" ref={ rangeInp } />
-            <button className="btn btn-primary" onClick={e => performCalculation(calculateMean)}>
+            <button className="btn btn-primary" onClick={e => performCalculation(calculateVariance)}>
               Calculate Mean
             </button>
           </div>
@@ -133,6 +143,7 @@ const Toolpack = () => {
           engine: hyperformulaInstance,
           sheetName: "Sheet1",
         }}
+        
 
         licenseKey="non-commercial-and-evaluation"
       />
