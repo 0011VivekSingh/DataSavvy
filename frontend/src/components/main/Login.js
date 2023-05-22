@@ -52,18 +52,18 @@ const Login = () => {
 
 
   return (
-    <section className="" style={{ backgroundColor: "##021B79", height: '150vh' }}>
-      <div className="container py-5 h-100">
+    <section className="" style={{ backgroundColor: "#021B79", height: '150vh' }}>
+      <div className="container py-3 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col col-xl-10">
-            <div className="card" style={{ borderRadius: "1rem" }}>
+            <div className="card " style={{ borderRadius: "1rem" }}>
               <div className="row g-0">
                 <div className="col-md-6 col-lg-5 d-none d-md-block dis-block my-auto">
                   <img
                     src="/login.jpg"
                     alt="login form"
                     className="img-fluid "
-                    style={{ borderRadius: "1rem 0 0 1rem" }}
+                    style={{ borderRadius: "1rem 0 0 1rem",margin:'2 auto'  }}
                   />
                 </div>
                 <div className="col-md-6 col-lg-7 d-flex align-items-center">
@@ -72,10 +72,8 @@ const Login = () => {
                     <form onSubmit={loginform.handleSubmit}>
 
                       <div className="d-flex align-items-center mb-3 pb-1">
-                        <i
-                          className="fas fa-cubes fa-2x me-3"
-                          style={{ color: "#ff6219" }}
-                        />
+                      <img src="/pp.png" alt="logo" width="40" height="40" className="me-3 img-fluid" />
+                        
                         <span className="h1 fw-bold mb-0">DataSavvy</span>
                       </div>
                       <h5
