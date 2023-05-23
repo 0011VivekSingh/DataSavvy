@@ -28,44 +28,44 @@ import SheetProvider from "./context/SheetProvider";
 function App() {
   return (
     <BrowserRouter>
-    <SheetProvider>
-      <Routes>
-        <Route path="/" element={<Navigate to="/main/home" />} />
+      <SheetProvider>
+        <Routes>
+          <Route path="/" element={<Navigate to="/main/home" />} />
 
-        <Route path="main" element={<Main />}>
-          <Route path="home" element={<Home />} />
-          <Route path="navbar" element={<Navbar />} />
-          <Route path="signup" element={<Signup />} />
-          <Route path="login" element={<Login />} />
-          <Route path="feedback" element={<Feedback />} />
-          <Route path="footer" element={<Footer />} />
-        </Route>
+          <Route path="main" element={<Main />}>
+            <Route path="home" element={<Home />} />
+            <Route path="navbar" element={<Navbar />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="login" element={<Login />} />
+            <Route path="feedback" element={<Feedback />} />
+            <Route path="footer" element={<Footer />} />
+          </Route>
 
-        <Route
-          path="user"
-          element={
-            <UserAuth>
-              <User />
-            </UserAuth>
-          }
-        >
+          <Route
+            path="user"
+            element={
+              <UserAuth>
+                <User />
+              </UserAuth>
+            }
+          >
             <Route path="excelsheet" element={<ExcelSheet />} />
-          <Route path="toolpack" element={<Toolpack />} />
-          <Route path="Workspace" element={<WorkSpace />} />
-          <Route path="userprofile" element={<Userprofile />} />
-          <Route path="FormulaHandler" element={<FormulaHandler />} />
-          <Route path="feedback" element={<Feedback />} />
-          <Route path="ManageTools" element={<ManageTools />} />
-          <Route path="ManageDataset" element={<ManageDataset />} />
-          <Route path="toolbar" element={<Toolbar />} />
-        </Route>
+            <Route path="toolpack" element={<Toolpack />} />
+            <Route path="Workspace" element={<WorkSpace />} />
+            <Route path="userprofile" element={<Userprofile />} />
+            <Route path="FormulaHandler" element={<FormulaHandler />} />
+            <Route path="feedback" element={<Feedback />} />
+            <Route path="ManageTools" element={<ManageTools />} />
+            <Route path="ManageDataset" element={<ManageDataset />} />
+            <Route path="toolbar" element={<Toolbar />} />
+          </Route>
 
-        <Route path="admin" element={<Admin />}>
-          <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="managetools" element={<Managetools />} />
-          <Route path="manageuser" element={<ManageUser />} />
-        </Route>
-      </Routes>
+          <Route path="admin" element={<Admin />}>
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="managetools" element={<Managetools />} />
+            <Route path="manageuser" element={<ManageUser />} />
+          </Route>
+        </Routes>
       </SheetProvider>
     </BrowserRouter>
   );

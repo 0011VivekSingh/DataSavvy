@@ -161,6 +161,7 @@ const Navbar = () => {
                       >
                         {tool}
                       </a>
+                      {/* <p className="text-small text-muted">{toolpack[tool].type}</p> */}
                     </li>
                   ))}
                 </ul>
