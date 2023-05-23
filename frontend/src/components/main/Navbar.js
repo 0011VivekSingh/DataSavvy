@@ -6,7 +6,7 @@ const Navbar = () => {
 	return (
 		<>
   {/* Navbar */}
-  <nav className="navbar navbar-expand-md navbar-light fixed-top bg-light">
+  <nav className="navbar navbar-expand-md navbar-light  bg-light">
     {/* Container wrapper */}
     <div className="container-fluid">
       {/* Toggle button */}
