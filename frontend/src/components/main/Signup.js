@@ -79,7 +79,7 @@ const Signup = () => {
 
   return (
     <section
-      className="bg-image"
+      className=""
       style={{
         backgroundImage:
           'url("https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp")',
@@ -87,17 +87,17 @@ const Signup = () => {
     >
       <div className="d-flex align-items-center h-100 gradient-custom-3">
         <div className="container h-100">
-          <div className="row d-flex justify-content-center align-items-center h-100">
+          <div className="row d-flex  align-items-center h-100">
             <div className="col-12 col-md-9 col-lg-7 col-xl-6">
-              <div className="card" style={{ borderRadius: 15 }}>
+              <div className="card mt-5" style={{ borderRadius: 15 }}>
                 <div className="card-body p-5">
-                  <h2 className="text-uppercase text-center mb-5">
+                  <h2 className="text-uppercase text-center mb-2">
                     Create an account
                   </h2>
 
                   <form onSubmit={signupForm.handleSubmit}>
 
-                    <div className=" mb-4">
+                    <div className=" mb-2">
                       <label className="form-label" htmlFor="form3Example1cg">
                         Your Name
                       </label>
@@ -111,7 +111,7 @@ const Signup = () => {
                       <span classname="text-danger">{signupForm.errors.name}</span>
                     </div>
 
-                    <div className=" mb-4">
+                    <div className=" mb-2">
                       <label className="form-label" htmlFor="form3Example3cg">
                         Your Email
                       </label>
@@ -126,7 +126,7 @@ const Signup = () => {
                     </div>
 
 
-                    <div className=" mb-4">
+                    <div className=" mb-2">
                       <label className="form-label" htmlFor="form3Example4cg">
                         Password
                       </label>
@@ -141,7 +141,7 @@ const Signup = () => {
                     </div>
 
 
-                    <div className=" mb-4">
+                    <div className=" mb-2">
                       <label className="form-label" htmlFor="form3Example4cdg">
                         Repeat your password
                       </label>
@@ -155,7 +155,7 @@ const Signup = () => {
                     </div>
 
 
-                    <div className="form-check d-flex justify-content-center mb-5">
+                    <div className="form-check d-flex justify-content-center mb-2">
                       <input
                         className="form-check-input me-2"
                         type="checkbox"
@@ -183,7 +183,7 @@ const Signup = () => {
                         Register
                       </button>
                     </div>
-                    <p className="text-center text-muted mt-5 mb-0">
+                    <p className="text-center text-muted mt-2 mb-0">
                       Have already an account?{" "}
                       <Link to="/main/login" className="fw-bold text-body">
                         <u>Login here</u>

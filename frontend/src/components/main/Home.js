@@ -176,7 +176,9 @@ const Home = () => {
                 width={500}
               />
               <div class="carousel-caption d-none d-md-block">
+        <h1><div class="carousel-caption d-none d-md-block">
         <h1>First slide label</h1>
+        </div></h1>
         </div>
             </div>
             <div className="carousel-item ">
