@@ -11,10 +11,17 @@ const app_config = {
 
     toolpack: {
       mean: {
-        name: "mean",
+        name: "Mean",
         description: "mean",
         icon: "mean",
         type: "statistical",
+        inputs: [{
+          name: "values",
+          type: "array",
+          description: "values",
+          placeholder: "Enter Range Here",
+          required: true,
+        }],
         calc: (values) => {
           console.log(values);
         }
@@ -24,6 +31,39 @@ const app_config = {
         description: "median",
         icon: "median",
         type: "statistical",
+        inputs: [{
+          name: "values",
+          type: "array",
+          description: "values",
+          placeholder: "Enter Range Here",
+          required: true,
+        }],
+        calc: (values) => {
+          console.log(values);
+        }
+      },
+      regression : {
+        name: "Regression",
+        description: "regression analysis",
+        icon: "",
+        type: "forecasting",
+        inputs: [{
+          name: "X-Range",
+          section: 'Input',
+          type: "array",
+          description: "independent variable",
+          placeholder: "Enter X-Range Here",
+          required: true,
+        },
+        {
+          name: "Y-Range",
+          section: 'Input',
+          type: "array",
+          description: "independent variable",
+          placeholder: "Enter Y-Range Here",
+          required: true,
+        }
+      ],
         calc: (values) => {
           console.log(values);
         }
