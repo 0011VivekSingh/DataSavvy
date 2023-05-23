@@ -7,6 +7,27 @@ const app_config = {
         success: 200,
         fail: 401,
       },
+    },
+
+    toolpack: {
+      mean: {
+        name: "mean",
+        description: "mean",
+        icon: "mean",
+        type: "statistical",
+        calc: (values) => {
+          console.log(values);
+        }
+      },
+      median: {
+        name: "median",
+        description: "median",
+        icon: "median",
+        type: "statistical",
+        calc: (values) => {
+          console.log(values);
+        }
+      }
     }
   };
   
