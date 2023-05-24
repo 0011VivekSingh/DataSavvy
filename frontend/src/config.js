@@ -69,18 +69,26 @@ const app_config = {
           console.log(values);
         }
       },
-      descriptive: {
-        name: "descriptive",
-        description: "median",
-        icon: "median",
+      correlation: {
+        name: "correlation",
+        description: "correlation analysis",
+        icon: "correlation",
         type: "statistical",
         inputs: [{
-          name: "values",
+          name: "input range",
           type: "array",
           description: "values",
           placeholder: "Enter Range Here",
           required: true,
+        },
+        {
+          name: "Group by",
+          type: "radio",
+          description: "values",
+          placeholder: "Enter Range Here",
+          required: true,
         }],
+
         calc: (values) => {
           console.log(values);
         }
