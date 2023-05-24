@@ -46,66 +46,61 @@ const app_config = {
         console.log(values);
       },
 
-      regression : {
+      regression: {
         name: "Regression",
         description: "regression analysis",
         icon: "",
         type: "forecasting",
-        inputs: [{
-          name: "X-Range",
-          section: "Input",
-          type: "array",
-          description: "independent variable",
-          placeholder: "Enter X-Range Here",
-          required: true,
-        },
-        {
-          name: "Y-Range",
-          section: "Input",
-          type: "array",
-          description: "independent variable",
-          placeholder: "Enter Y-Range Here",
-          required: true,
-        },
-      ],
+        inputs: [
+          {
+            name: "X-Range",
+            section: "Input",
+            type: "array",
+            description: "independent variable",
+            placeholder: "Enter X-Range Here",
+            required: true,
+          },
+          {
+            name: "Y-Range",
+            section: "Input",
+            type: "array",
+            description: "independent variable",
+            placeholder: "Enter Y-Range Here",
+            required: true,
+          },
+        ],
         calc: (values) => {
           console.log(values);
-        }
+        },
       },
       correlation: {
         name: "correlation",
         description: "correlation analysis",
         icon: "correlation",
         type: "statistical",
-        inputs: [{
-          name: "input range",
-          type: "array",
-          description: "values",
-          placeholder: "Enter Range Here",
-          required: true,
-        },
-        {
-          name: "Group by",
-          type: "radio",
-          description: "values",
-          placeholder: "Enter Range Here",
-          required: true,
-        }],
+        inputs: [
+          {
+            name: "input range",
+            type: "array",
+            description: "values",
+            placeholder: "Enter Range Here",
+            required: true,
+          },
+          {
+            name: "Group by",
+            type: "radio",
+            description: "values",
+            placeholder: "Enter Range Here",
+            required: true,
+          },
+        ],
 
         calc: (values) => {
           console.log(values);
-        }
-      }
+        },
+      },
+    },
+  },
+};
 
-
-
-
-
-
-
-
-    }
-  };
-  
-  export default app_config;
-  
+export default app_config;
