@@ -17,7 +17,7 @@ const Home = () => {
 
 
         {/* Cover Page */}
-        <div className="  container-fluid " style={{ height: "100vh", backgroundColor: "blueviolet" }}>
+        <div className="  container-fluid " style={{ height: "90vh", backgroundColor: "blueviolet" }}>
           <div className="row ">
 
             <div className="col-md-8 col-lg-6 ">
@@ -34,7 +34,7 @@ const Home = () => {
                 className="d-block mx-lg-auto img-fluid"
                 alt="Bootstrap Themes"
                 width={700}
-                height={5000}
+                height={500}
                 loading="lazy"
               />
             </div>
@@ -154,7 +154,7 @@ const Home = () => {
           data-mdb-ride="carousel"
         >
           <div className="carousel-inner">
-            <div className="carousel-item active">
+            <div className="carousel-item active " style={{backgroundColor:'lightgray'}}>
               <img
                 src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
                 className="d-block w-100"
@@ -164,12 +164,14 @@ const Home = () => {
                 
               />
               <div class="carousel-caption d-none d-md-block">
-        <h1>First slide label</h1>
+        <h1>“Data is like garbage. You’d better know what you are going to do with it before you collect it.”
+~ Mark Twain</h1>
         </div>
             </div>
             <div className="carousel-item ">
               <img
-                src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp"
+                // src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp"
+              
                 className="d-block w-100"
                 alt="Camera"
                 height={200}
@@ -213,15 +215,84 @@ const Home = () => {
             <span className="visually-hidden">Next</span>
           </button>
         </div>
+        <div data-draggable="true" className="" style={{ position: "relative" }}>
+  <section draggable="false" className="container pt-5" data-v-271253ee="">
+    <section className="mb-10 text-center">
+      <div className="d-flex justify-content-center">
+        <div className="text-center" style={{ maxWidth: 700 }}>
+          <h2 className="fw-bold mb-4 text-center">
+            <span className="me-2">Why is it so</span>
+            <u className="text-primary">great?</u>
+          </h2>
+          <p className="text-muted mb-5">
+            Minus fuga aliquid vero facere ducimus quos, quisquam nemo?
+            Molestias ullam provident vitae error aliquam dolorum temporibus?
+            Doloremque, quasi
+          </p>
+        </div>
+      </div>
+      <div className="row gx-lg-5">
+        <div className="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <div className="p-3 bg-primary rounded-circle shadow-2-strong d-inline-block mb-4">
+            <i
+              className="fas fa-headset fa-lg text-white fa-fw"
+              aria-controls="#picker-editor"
+            />
+          </div>
+          <h5 className="fw-bold mb-3">Support 24/7</h5>
+          <p className="text-muted mb-0">
+            Laudantium totam quas cumque pariatur at doloremque hic quos quia
+            eius. Reiciendis optio minus mollitia rerum labore
+          </p>
+        </div>
+        <div className="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <div className="p-3 bg-primary rounded-circle shadow-2-strong d-inline-block mb-4">
+            <i
+              className="fas fa-shield-alt fa-lg text-white fa-fw"
+              aria-controls="#picker-editor"
+            />
+          </div>
+          <h5 className="fw-bold mb-3">Safe and solid</h5>
+          <p className="text-muted mb-0">
+            Eum nostrum fugit numquam, voluptates veniam neque quibusdam ullam
+            aspernatur odio soluta, quisquam dolore animi
+          </p>
+        </div>
+        <div className="col-lg-3 col-md-6 mb-5 mb-md-0">
+          <div className="p-3 bg-primary rounded-circle shadow-2-strong d-inline-block mb-4">
+            <i
+              className="fas fa-shipping-fast fa-lg text-white fa-fw"
+              aria-controls="#picker-editor"
+            />
+          </div>
+          <h5 className="fw-bold mb-3">Extremely fast</h5>
+          <p className="text-muted mb-0">
+            Enim cupiditate, minus nulla dolor cumque iure eveniet facere ullam
+            beatae hic voluptatibus dolores exercitationem
+          </p>
+        </div>
+        <div className="col-lg-3 col-md-6 mb-5 mb-md-0">
+          <div className="p-3 bg-primary rounded-circle shadow-2-strong d-inline-block mb-4">
+            <i
+              className="fas fa-chart-pie fa-lg text-white fa-fw"
+              aria-controls="#picker-editor"
+            />
+          </div>
+          <h5 className="fw-bold mb-3">Live analytics</h5>
+          <p className="text-muted mb-0">
+            Illum doloremque ea, blanditiis sed dolor laborum praesentium maxime
+            sint, consectetur atque ipsum ab adipisci
+          </p>
+        </div>
+      </div>
+    </section>
+  </section>
+</div>
 
 
 
         <>
-
           <main>
-
-
-
             <div className="b-example-divider" />
             <div className="container col-xxl-8 px-4 py-5">
               <div className="row flex-lg-row-reverse align-items-center g-5 py-5">

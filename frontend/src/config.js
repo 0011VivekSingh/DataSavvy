@@ -42,6 +42,7 @@ const app_config = {
           console.log(values);
         }
       },
+
       regression : {
         name: "Regression",
         description: "regression analysis",
@@ -67,7 +68,31 @@ const app_config = {
         calc: (values) => {
           console.log(values);
         }
+      },
+      descriptive: {
+        name: "descriptive",
+        description: "median",
+        icon: "median",
+        type: "statistical",
+        inputs: [{
+          name: "values",
+          type: "array",
+          description: "values",
+          placeholder: "Enter Range Here",
+          required: true,
+        }],
+        calc: (values) => {
+          console.log(values);
+        }
       }
+
+
+
+
+
+
+
+
     }
   };
   
