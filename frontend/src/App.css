@@ -1,3 +1,6 @@
 .bg{
  background-color: rgb(170, 125, 212);
 }
+.signup{
+  background-image: linear-gradient(90deg, #7950f2 43%, #f783ac 95%);
+}

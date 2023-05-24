@@ -79,11 +79,11 @@ const Signup = () => {
 
   return (
     <section
-      className=""
-      style={{
-        backgroundImage:
-          'url("https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp")',
-      }}
+      className="signup"
+      // style={{
+      //   backgroundImage:
+      //     'url("https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp")',
+      // }}
     >
       <div className="d-flex align-items-center h-100 gradient-custom-3">
         <div className="container h-100">
