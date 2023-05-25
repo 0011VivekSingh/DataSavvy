@@ -17,7 +17,7 @@ const Home = () => {
 
 
         {/* Cover Page */}
-        <div className="  container-fluid home " style={{ height: "90vh",   backgroundImage:"url('/homepage.jpg')" }}>
+        <div className="  container-fluid home " style={{ height: "90vh",backgroundColor:("lightblue")}}>
           <div className="row ">
 
             <div className="col-md-8 col-lg-6 ">
