@@ -20,6 +20,12 @@ const ExcelSheet = () => {
       <>
         {selTool.inputs.map((input) => (
           <>
+          <button onClick={() => {
+            const data = window.luckysheet.getRangeArray('twoDimensional');
+            const range = window.luckysheet.getRange();
+            console.log(data);
+            console.log(range);
+          }}>get data</button>
             <label htmlFor={input.name}>{input.name}</label>
             <input className="form-control mb-3" id={input.name} name={input.name} />
           </>
@@ -28,10 +34,10 @@ const ExcelSheet = () => {
     );
   };
 
-  window.addEventListener("mousemove", () => {
-    const arr = window.luckysheet.getRangeArray('twoDimensional');
-    console.log(arr);
-  });
+  // window.addEventListener("mousemove", () => {
+  //   const arr = window.luckysheet.getRangeArray('twoDimensional');
+  //   console.log(arr);
+  // });
 
   return (
     <div>
