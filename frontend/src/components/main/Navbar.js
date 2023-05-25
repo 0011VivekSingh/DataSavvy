@@ -120,11 +120,11 @@ const Navbar = () => {
                   Signup
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink className="nav-link" to="/user/toolpack">
                   Toolpack
                 </NavLink>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <NavLink className="nav-link" to="/main/feedback">
                   Feedback

@@ -1,5 +1,9 @@
 .bg{
  background-color: rgb(170, 125, 212);
+ background-image: url('../public/homepage.jpg');
+ background-size: contain;
+ 
+               background-repeat: "no-repeat",
 }
 .signup{
   background-image: linear-gradient(90deg, #7950f2 43%, #f783ac 95%);
