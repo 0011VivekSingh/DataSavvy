@@ -3,7 +3,7 @@ import React from 'react';
 const Home = () => {
   return (
 <>
-      <>
+      <header>
      
         <title>Home Page</title>
         <meta charSet="UTF-8" />
