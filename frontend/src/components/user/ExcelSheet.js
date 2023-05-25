@@ -28,6 +28,11 @@ const ExcelSheet = () => {
     );
   };
 
+  window.addEventListener("mousemove", () => {
+    const arr = window.luckysheet.getRangeArray('twoDimensional');
+    console.log(arr);
+  });
+
   return (
     <div>
       <div className="row">
