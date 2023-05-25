@@ -52,7 +52,7 @@ const Login = () => {
 
 
   return (
-    <section className=" bg" style={{ background:"/" , height: '150vh'}}>
+    <section className=" bg" style={{ backgroundColor:"blue" , height: '150vh'}}>
       <div className="container py-3 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col col-xl-10">
@@ -97,7 +97,7 @@ const Login = () => {
                       className='mt-3'
                       label='Password' 
                       id='password'
-                       type='text'
+                       type='password'
                        value={loginform.values.password} 
                        onChange={loginform.handleChange} 
                        />

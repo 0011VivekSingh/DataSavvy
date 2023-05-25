@@ -17,11 +17,12 @@ const Home = () => {
 
 
         {/* Cover Page */}
-        <div className="  container-fluid " style={{ height: "90vh", backgroundColor: "blueviolet" }}>
+        <div className="  container-fluid " style={{ height: "90vh", backgroundColor: "#19A7CE",  backgroundImage:URL("") }}>
           <div className="row ">
 
             <div className="col-md-8 col-lg-6 ">
-              <h1 className="display-3 " style={{ color: 'white', marginTop: "15%", width: "100%" }}>Safe and Secure Data handling with DataSavvy</h1>
+              <h1 className="display-4 " style={{ color: 'white', marginTop: "15%", width: "100%" , marginBottom:"10%" }}>Safe and Secure Data handling with DataSavvy</h1>
+              
               <p className="lead display-5" style={{ color: "white" }} >
                 "Unlock the power of data with DataSavvy - Your personalized data analysis platform."
 
@@ -40,8 +41,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-
-
 
       
         
@@ -133,7 +132,7 @@ const Home = () => {
           className="carousel slide"
           data-mdb-ride="carousel"
         >
-          <div className="carousel-inner " style={{backgroundColor:'red'}}>
+          <div className="carousel-inner " style={{backgroundColor:'#FFD95A'}}>
             <div className="carousel-item active " >
               <img
                 src="dx.jpg"
