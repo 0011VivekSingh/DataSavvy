@@ -36,7 +36,7 @@ const Login = () => {
           navigate('/admin/dashboard');
         }else{
           sessionStorage.setItem('user', JSON.stringify(data));
-          navigate('/user/toolpack');
+          navigate('/user/excelsheet');
         }
 
       } else if (res.status === 401) {
