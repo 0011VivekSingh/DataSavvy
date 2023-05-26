@@ -95,12 +95,12 @@ const Signup = () => {
               <div className="card mt-5" style={{ borderTopRightRadius: 50 }}>
                 <div className="card-body p-5">
                   <h2 className="text-uppercase text-center mb-2">
-                    Create an account
+                    Create your account
                   </h2>
 
                   <form onSubmit={signupForm.handleSubmit}>
 
-                    <div className=" mb-2">
+                    <div className=" mb-3">
                     <MDBInput
                        label='Name' 
                        id='name'
@@ -110,64 +110,40 @@ const Signup = () => {
                       />
                       <span classname="text-danger">{signupForm.errors.name}</span>
                       </div>
-                      
-                    
 
-                      
-
-
-                    <div className=" mb-2">
-                      <label className="form-label" htmlFor="form3Example3cg">
-                        Your Email
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        value={signupForm.values.email}
-                        onChange={signupForm.handleChange}
-                        className="form-control form-control-lg"
+                    <div className=" mb-3">
+                    <MDBInput
+                       label='email' 
+                       id='email'
+                      type='email'
+                      value={signupForm.values.email} 
+                      onChange={signupForm.handleChange}
                       />
                       <span classname="text-danger">{signupForm.errors.email}</span>
-                    </div>
+                      </div>
 
-
-
-
-
-
-
-
-
-
-                    <div className=" mb-2">
-                      <label className="form-label" htmlFor="form3Example4cg">
-                        Password
-                      </label>
-                      <input
-                        type="password"
-                        id="password"
-                        value={signupForm.values.password}
-                        onChange={signupForm.handleChange}
-                        className="form-control form-control-lg"
+                    <div className=" mb-3">
+                    <MDBInput
+                       label='Password' 
+                       id='password'
+                      type='password'
+                      value={signupForm.values.password} 
+                      onChange={signupForm.handleChange}
                       />
                       <span classname="text-danger">{signupForm.errors.password}</span>
-                    </div>
-
-
-                    <div className=" mb-2">
-                      <label className="form-label" htmlFor="form3Example4cdg">
-                        Repeat your password
-                      </label>
-                      <input
-                        type="password"
-                        id="cPassword"
-                        value={signupForm.values.cPassword}
-                        onChange={signupForm.handleChange}
-                        className="form-control form-control-lg"
+                      </div>
+                    <div className=" mb-3">
+                    <MDBInput
+                       label='Confirm Password' 
+                       id='password'
+                      type='password'
+                      value={signupForm.values.password} 
+                      onChange={signupForm.handleChange}
                       />
-                    </div>
-
-
+                      <span classname="text-danger">{signupForm.errors.password}</span>
+                      </div>
+                      
+                    
                     <div className="form-check d-flex justify-content-center mb-2">
                       <input
                         className="form-check-input me-2"
