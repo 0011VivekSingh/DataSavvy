@@ -3,6 +3,8 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import * as Yup from 'yup';
+import { MDBInput } from "mdb-react-ui-kit";
+
 
 
 const SignupSchema = Yup.object().shape({
@@ -99,18 +101,20 @@ const Signup = () => {
                   <form onSubmit={signupForm.handleSubmit}>
 
                     <div className=" mb-2">
-                      <label className="form-label" htmlFor="form3Example1cg">
-                        Your Name
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        value={signupForm.values.name}
-                        onChange={signupForm.handleChange}
-                        className="form-control form-control-lg"
+                    <MDBInput
+                       label='Name' 
+                       id='name'
+                      type='text'
+                      value={signupForm.values.name} 
+                      onChange={signupForm.handleChange}
                       />
                       <span classname="text-danger">{signupForm.errors.name}</span>
-                    </div>
+                      </div>
+                      
+                    
+
+                      
+
 
                     <div className=" mb-2">
                       <label className="form-label" htmlFor="form3Example3cg">
@@ -125,6 +129,14 @@ const Signup = () => {
                       />
                       <span classname="text-danger">{signupForm.errors.email}</span>
                     </div>
+
+
+
+
+
+
+
+
 
 
                     <div className=" mb-2">
