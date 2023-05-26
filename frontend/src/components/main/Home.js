@@ -27,7 +27,7 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="col-md-8 col-sm-8 col-lg-6 my-auto animated-fade-out">
+            <div className="col-md-8 col-sm-8 col-lg-6 my-auto ">
               <img src="/section.png" className="d-block w-100 m-auto mt-4" alt="Bootstrap Themes" loading="lazy" />
             </div>
           </div>
