@@ -97,6 +97,7 @@ const Home = () => {
               <h1>“Data is like garbage. You’d better know what you are going to do with it before you collect it.” ~ Mark Twain</h1>
             </div>
           </div>
+
           <div className="carousel-item ">
             <img
               // src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp"
@@ -122,7 +123,7 @@ const Home = () => {
               width={500}
             />
             <div class="carousel-caption d-none d-md-block">
-              <h1>First slide label</h1>
+              <h1>second slide label</h1>
             </div>
           </div>
         </div>

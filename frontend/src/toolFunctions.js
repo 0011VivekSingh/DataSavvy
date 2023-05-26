@@ -1,98 +1,13 @@
-function correlation(x, y) {
-    // Calculate the means of x and y
-    const xMean = x.reduce((acc, val) => acc + val, 0) / x.length;
-    const yMean = y.reduce((acc, val) => acc + val, 0) / y.length;
-  
-    // Calculate the standard deviations of x and y
-    const xStdDev = Math.sqrt(
-      x.reduce((acc, val) => acc + Math.pow(val - xMean, 2), 0) / (x.length - 1)
-    );
-    const yStdDev = Math.sqrt(
-      y.reduce((acc, val) => acc + Math.pow(val - yMean, 2), 0) / (y.length - 1)
-    );
-  
-    // Calculate the correlation coefficient
-    const sumOfProducts = x.reduce((acc, val, i) => acc + ((val - xMean) * (y[i] - yMean)), 0);
-    const correlationCoefficient = sumOfProducts / ((x.length - 1) * xStdDev * yStdDev);
-  
-    return correlationCoefficient;
-  }
 
 
-//   anova two factor with replication
 
 
 
 
 
 
-function twoWayANOVA(data, factor1, factor2, replication) {
-  // Calculate the mean for each factor combination
-  const means = {};
-  for (let i = 0; i < data.length; i++) {
-    const row = data[i];
-    const f1Value = row[factor1];
-    const f2Value = row[factor2];
-    if (!means[f1Value]) means[f1Value] = {};
-    if (!means[f1Value][f2Value]) means[f1Value][f2Value] = [];
-    means[f1Value][f2Value].push(row[replication]);
-  }
-  for (let f1Value in means) {
-    for (let f2Value in means[f1Value]) {
-      means[f1Value][f2Value] = mean(means[f1Value][f2Value]);
-    }
-  }
+//   anova two factor with replication
 
-  // Calculate the total mean
-  const totalMean = mean(data.map(row => row[replication]));
-
-  // Calculate the sums of squares for each factor and interaction
-  let ssFactor1 = 0;
-  let ssFactor2 = 0;
-  let ssInteraction = 0;
-  let ssError = 0;
-  for (let f1Value in means) {
-    for (let f2Value in means[f1Value]) {
-      const n = means[f1Value][f2Value].length;
-      const f1Mean = mean(means[f1Value][f2Value]);
-      ssFactor1 += n * Math.pow(f1Mean - totalMean, 2);
-      const f2Mean = mean(data.filter(row => row[factor2] === f2Value).map(row => row[replication]));
-      ssFactor2 += n * Math.pow(f2Mean - totalMean, 2);
-      ssInteraction += n * Math.pow(f1Mean - f2Mean, 2);
-      ssError += sum(means[f1Value][f2Value].map(x => Math.pow(x - f1Mean, 2)));
-    }
-  }
-
-  // Calculate the degrees of freedom for each factor and interaction
-  const dfFactor1 = Object.keys(means).length - 1;
-  const dfFactor2 = Object.keys(means[Object.keys(means)[0]]).length - 1;
-  const dfInteraction = dfFactor1 * dfFactor2;
-  const dfError = data.length - 1 - dfFactor1 - dfFactor2 - dfInteraction;
-
-  // Calculate the mean squares for each factor and interaction
-  const msFactor1 = ssFactor1 / dfFactor1;
-  const msFactor2 = ssFactor2 / dfFactor2;
-  const msInteraction = ssInteraction / dfInteraction;
-  const msError = ssError / dfError;
-
-  // Calculate the F-statistics for each factor and interaction
-  const fFactor1 = msFactor1 / msError;
-  const fFactor2 = msFactor2 / msError;
-  const fInteraction = msInteraction / msError;
-
-  // Calculate the p-values for each F-statistic
-  const pFactor1 = 1 - jStat.centralF.cdf(fFactor1, dfFactor1, dfError);
-  const pFactor2 = 1 - jStat.centralF.cdf(fFactor2, dfFactor2, dfError);
-  const pInteraction = 1 - jStat.centralF.cdf(fInteraction, dfInteraction, dfError);
-
-  // Return the results
-  return {
-    ssFactor1,
-    dfFactor1,
-    msFactor1,
-    fFactor1,
-  };
-}
 
 // anova two factor without replication
 function anovaTwoFactorWithoutReplication(data) {
@@ -117,7 +32,6 @@ function anovaTwoFactorWithoutReplication(data) {
 
     sums[2 + n + i] = rowSum;
   }
-
   // calculate the sums of squares
   const ssA = Math.pow(sums[2 + n] / k, 2) * n;
   const ssB = Math.pow(sums[2] / n, 2) * k;
@@ -197,77 +111,427 @@ function anovaTwoFactorWithoutReplication(data) {
 
 
 
-  // Correlation
-  function calculateCorrelation(arr1, arr2) {
-    // Check if arrays have the same length
-    if (arr1.length !== arr2.length) {
-      throw new Error('Input arrays must have the same length');
-    }
-    
-    const n = arr1.length;
-    let sumX = 0;
-    let sumY = 0;
-    let sumXY = 0;
-    let sumX2 = 0;
-    let sumY2 = 0;
-  
-    for (let i = 0; i < n; i++) {
-      const x = arr1[i];
-      const y = arr2[i];
-  
-      sumX += x;
-      sumY += y;
-      sumXY += x * y;
-      sumX2 += x ** 2;
-      sumY2 += y ** 2;
-    }
-  
-    const numerator = n * sumXY - sumX * sumY;
-    const denominator = Math.sqrt((n * sumX2 - sumX ** 2) * (n * sumY2 - sumY ** 2));
-    
-    if (denominator === 0) {
-      return 0; // If denominator is zero, return zero to avoid division by zero error
-    }
-  
-    return numerator / denominator;
-  }
-  
-  // Example usage:
-  const arr1 = [1, 2, 3, 4, 5];
-  const arr2 = [5, 4, 3, 2, 1];
-  const correlation = calculateCorrelation(arr1, arr2);
-  console.log(correlation);
 
+  // Correlation
+  function calculateCorrelation(array1, array2) {
+    if (array1.length !== array2.length) {
+      throw new Error('Array lengths must be equal.');
+    }
+    const n = array1.length;
+    // Calculate the means of the two arrays
+    const mean1 = array1.reduce((sum, value) => sum + value, 0) / n;
+    const mean2 = array2.reduce((sum, value) => sum + value, 0) / n;
+  
+    // Calculate the numerator and denominator for correlation
+    let numerator = 0;
+    let denominator1 = 0;
+    let denominator2 = 0;
+    for (let i = 0; i < n; i++) {
+      const deviation1 = array1[i] - mean1;
+      const deviation2 = array2[i] - mean2;
+  
+      numerator += deviation1 * deviation2;
+      denominator1 += deviation1 ** 2;
+      denominator2 += deviation2 ** 2;
+    }
+    // Calculate the correlation coefficient
+    const correlation = numerator / Math.sqrt(denominator1 * denominator2);
+   return correlation;
+  }
+    
+  
+  
+  
+  
+  
+  
 
   // median
-  
-    function calculateMedian(numbers) {
-      // Sort the array in ascending order
-      const sortedNumbers = numbers.sort((a, b) => a - b);
-      
-      const length = sortedNumbers.length;
-      const middleIndex = Math.floor(length / 2);
-    
-      if (length % 2 === 0) {
-        // If the array length is even, calculate the average of the two middle values
-        return (sortedNumbers[middleIndex - 1] + sortedNumbers[middleIndex]) / 2;
-      } else {
-        // If the array length is odd, return the middle value
-        return sortedNumbers[middleIndex];
-      }
+  function calculateMedian(array) {
+    // Sort the array in ascending order
+    const sortedArray = array.slice().sort((a, b) => a - b);
+    const length = sortedArray.length;
+    const middleIndex = Math.floor(length / 2);
+    if (length % 2 === 0) {
+      // If the array length is even, calculate the average of the middle two elements
+      const median = (sortedArray[middleIndex - 1] + sortedArray[middleIndex]) / 2;
+      return median;
+    } else {
+      // If the array length is odd, return the middle element
+      const median = sortedArray[middleIndex];
+      return median;
     }
+  }
+  
 
-
-    exponentialSmoothing = (data, alpha) => {
-      const result = [data[0]];
-      for (let i = 1; i < data.length; i++) {
-        result.push(alpha * data[i] + (1 - alpha) * result[i - 1]);
-      }
-      return result;
+  // exponential smoothing
+  exponentialSmoothing = (data, alpha) => {
+    const result = [data[0]];
+    for (let i = 1; i < data.length; i++) {
+      result.push(alpha * data[i] + (1 - alpha) * result[i - 1]);
     }
+    return result;
+  }
+  
+
+
+  //covariance
+function calculateCovariance(array1, array2) {
+  if (array1.length !== array2.length) {
+    throw new Error('Arrays must have the same length');
+  }
+
+  const n = array1.length;
+  const mean1 = calculateMean(array1);
+  const mean2 = calculateMean(array2);
+  let covariance = 0;
+
+  for (let i = 0; i < n; i++) {
+    const deviation1 = array1[i] - mean1;
+    const deviation2 = array2[i] - mean2;
+    covariance += deviation1 * deviation2;
+  }
+covariance /= n;
+return covariance;
+}
+function calculateMean(array) {
+  const sum = array.reduce((acc, val) => acc + val, 0);
+  return sum / array.length;
+}
+
+// f-test for two samples for variances
+function fTest(array1, array2) {
+  const variance1 = calculateVariance(array1);
+  const variance2 = calculateVariance(array2);
+  const f = variance1 / variance2;
+  return f;
+}
+function calculateVariance(array) {
+  const mean = calculateMean(array);
+  const n = array.length;
+  let sum = 0;
+  for (let i = 0; i < n; i++) {
+    sum += (array[i] - mean) ** 2;
+  }
+  const variance = sum / (n - 1);
+  return variance;
+}
+function calculateMean(array) {
+  const sum = array.reduce((acc, val) => acc + val, 0);
+  return sum / array.length;
+}
+
+
+//fourier analysis
+function fourierAnalysis(array) {
+  const n = array.length;
+  const real = new Array(n);
+  const imag = new Array(n);
+  for (let i = 0; i < n; i++) {
+    real[i] = 0;
+    imag[i] = 0;
+    for (let j = 0; j < n; j++) {
+      real[i] += array[j] * Math.cos(2 * Math.PI * i * j / n);
+      imag[i] += -array[j] * Math.sin(2 * Math.PI * i * j / n);
+    }
+  }
+  return { real, imag };
+}
+
+
+
+//histogram
+function histogram(array, bins) {
+  const n = array.length;
+  const min = Math.min(...array);
+  const max = Math.max(...array);
+  const binWidth = (max - min) / bins;
+  const result = new Array(bins).fill(0);
+  for (let i = 0; i < n; i++) {
+    const bin = Math.floor((array[i] - min) / binWidth);
+    if (bin < 0) {
+      result[0]++;
+    } else if (bin >= bins) {
+      result[bins - 1]++;
+    } else {
+      result[bin]++;
+    }
+  }
+  return result;
+}
+
+//moving average
+function movingAverage(array, windowSize) {
+  const result = [];
+  const n = array.length;
+  for (let i = 0; i < n; i++) {
+    let sum = 0;
+    let count = 0;
+    for (let j = Math.max(0, i - windowSize + 1); j <= i; j++) {
+      sum += array[j];
+      count++;
+    }
+    result.push(sum / count);
+  }
+  return result;
+}
+
+
+//Random number generation
+function randomInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function randomFloat(min, max) {
+  return Math.random() * (max - min) + min;
+}
+function randomNormal(mean, standardDeviation) {
+  let u = 0;
+  let v = 0;
+  while (u === 0) {
+    u = Math.random();
+  }
+  while (v === 0) {
+    v = Math.random();
+  }
+  const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+  return mean + standardDeviation * z;
+}
+function randomExponential(lambda) {
+  return -Math.log(1.0 - Math.random()) / lambda;
+}
+function randomPoisson(lambda) {
+  const L = Math.exp(-lambda);
+  let k = 0;
+  let p = 1;
+  do {
+    k++;
+    p *= Math.random();
+  } while (p > L);
+  return k - 1;
+}
+
+
+function randomBernoulli(p) { 
+  return Math.random() < p ? 1 : 0;
+}
+function randomBinomial(n, p) {
+  let x = 0;
+  for (let i = 0; i < n; i++) {
+    x += randomBernoulli(p);
+  }
+  return x;
+}
+
+//regression
+function linearRegression(x, y) {
+  const n = x.length;
+  // Calculate sum of x, y, x^2, xy
+  let sumX = 0;
+  let sumY = 0;
+  let sumXSquare = 0;
+  let sumXY = 0;
+  for (let i = 0; i < n; i++) {
+    sumX += x[i];
+    sumY += y[i];
+    sumXSquare += x[i] * x[i];
+    sumXY += x[i] * y[i];
+  }
+  // Calculate coefficients (slope and intercept)
+  const slope = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX * sumX);
+  const intercept = (sumY - slope * sumX) / n;
+
+  // Return the coefficients as an object
+  return {
+    slope,
+    intercept
+  };
+}
+
+// sampling
+function sample(array, size) {
+  const n = array.length;
+  const result = new Array(size);
+  for (let i = 0; i < size; i++) {
+    const j = Math.floor(Math.random() * n);
+    result[i] = array[j];
+  }
+  return result;
+}
+
+//t-test for two samples for means
+function tTest(array1, array2) {
+  const mean1 = calculateMean(array1);
+  const mean2 = calculateMean(array2);
+  const variance1 = calculateVariance(array1);
+  const variance2 = calculateVariance(array2);
+  const n1 = array1.length;
+  const n2 = array2.length;
+  const t = Math.abs(mean1 - mean2) / Math.sqrt(variance1 / n1 + variance2 / n2);
+  return t;
+}
+function calculateMean(array) {
+  const sum = array.reduce((acc, val) => acc + val, 0);
+  return sum / array.length;
+}
+function calculateVariance(array) {
+  const mean = calculateMean(array);
+  const n = array.length;
+  let sum = 0;
+  for (let i = 0; i < n; i++) {
+    sum += (array[i] - mean) ** 2;
+  }
+  const variance = sum / (n - 1);
+  return variance;
+}
+
+//t-test assuming equal variances
+function tTestEqualVariance(array1, array2) {
+  const mean1 = calculateMean(array1);
+  const mean2 = calculateMean(array2);
+  const variance1 = calculateVariance(array1);
+  const variance2 = calculateVariance(array2);
+  const n1 = array1.length;
+  const n2 = array2.length;
+  const pooledVariance = ((n1 - 1) * variance1 + (n2 - 1) * variance2) / (n1 + n2 - 2);
+  const t = Math.abs(mean1 - mean2) / Math.sqrt(pooledVariance * (1 / n1 + 1 / n2));
+  return t;
+}
+
+//t-test assuming unequal variances
+function tTestUnequalVariance(array1, array2) {
+  const mean1 = calculateMean(array1);
+  const mean2 = calculateMean(array2);
+  const variance1 = calculateVariance(array1);
+  const variance2 = calculateVariance(array2);
+  const n1 = array1.length;
+  const n2 = array2.length;
+  const t =
+    Math.abs(mean1 - mean2) /
+    Math.sqrt(variance1 / n1 + variance2 / n2);
+  return t;
+}
+
+//z-test for two samples for means
+function zTest(array1, array2) {
+  const mean1 = calculateMean(array1);
+  const mean2 = calculateMean(array2);
+  const variance1 = calculateVariance(array1);
+  const variance2 = calculateVariance(array2);
+  const n1 = array1.length;
+  const n2 = array2.length;
+  const z = Math.abs(mean1 - mean2) / Math.sqrt(variance1 / n1 + variance2 / n2);
+  return z;
+}
+
+//ANOVA single factor
+function anovaSingleFactor(data) {
+  const n = data.length;
+  const k = data[0].length;
+  const mean = [];
+  const variance = [];
+  for (let i = 0; i < k; i++) {
+    mean.push(calculateMean(data[i]));
+    variance.push(calculateVariance(data[i]));
+  }
+  let sumOfSquaresBetween = 0;
+  for (let i = 0; i < k; i++) {
+    sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
+  }
+  const degreesOfFreedomBetween = k - 1;
+  const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
+  let sumOfSquaresWithin = 0;
+  for (let i = 0; i < k; i++) {
+    sumOfSquaresWithin += (data[i].length - 1) * variance[i];
+  }
+  const degreesOfFreedomWithin = n - k;
+  const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
+  const f = meanSquareBetween / meanSquareWithin;
+  return f;
+}
+
+//ANOVA two factor with replication
+function anovaTwoFactorReplication(data) {
+  const n = data.length;
+  const k = data[0].length;
+  const mean = [];
+  const variance = [];
+  for (let i = 0; i < k; i++) {
+    mean.push(calculateMean(data[i]));
+    variance.push(calculateVariance(data[i]));
+  }
+  let sumOfSquaresBetween = 0;
+  for (let i = 0; i < k; i++) {
+    sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
+  }
+  const degreesOfFreedomBetween = k - 1;
+  const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
+  let sumOfSquaresWithin = 0;
+  for (let i = 0; i < k; i++) {
+    sumOfSquaresWithin += (data[i].length - 1) * variance[i];
+  }
+  const degreesOfFreedomWithin = n - k;
+  const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
+  const f = meanSquareBetween / meanSquareWithin;
+  return f;
+}
+
+//ANOVA two factor without replication
+function anovaTwoFactorWithoutReplication(data) {
+  const n = data.length;
+  const k = data[0].length;
+  const mean = [];
+  const variance = [];
+  for (let i = 0; i < k; i++) {
+    mean.push(calculateMean(data[i]));
+    variance.push(calculateVariance(data[i]));
+  }
+  let sumOfSquaresBetween = 0;
+  for (let i = 0; i < k; i++) {
+    sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
+  }
+  const degreesOfFreedomBetween = k - 1;
+  const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
+  let sumOfSquaresWithin = 0;
+  for (let i = 0; i < k; i++) {
+    sumOfSquaresWithin += (data[i].length - 1) * variance[i];
+  }
+  const degreesOfFreedomWithin = n - k;
+  const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
+  const f = meanSquareBetween / meanSquareWithin;
+  return f;
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
     
 
 
   
   
-  
+}

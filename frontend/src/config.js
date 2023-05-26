@@ -30,6 +30,9 @@ const app_config = {
         return sum / arr1.length;
       }
     },
+
+
+
     median: {
       name: 'median',
       description: 'median',
@@ -39,7 +42,7 @@ const app_config = {
         {
           name: 'values',
           type: 'array',
-          description: 'values',
+          description: 'this is median',
           placeholder: 'Enter Range Here',
           required: true
         }
@@ -49,10 +52,29 @@ const app_config = {
       }
     },
 
+    mode: {
+      name: 'mode',
+      description: 'mode',
+      icon: 'mode',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'values', 
+          type: 'array',
+          description: 'this is mode',
+          placeholder: 'Enter Range Here',
+          required: true
+        }
+      ],
+      calc: (values) => {
+        console.log(values);
+      }
+    },
+// regression
     regression: {
       name: 'Regression',
       description: 'regression analysis',
-      icon: '',
+      icon: 'regression',
       type: 'forecasting',
       inputs: [
         {
@@ -76,6 +98,8 @@ const app_config = {
         console.log(values);
       }
     },
+
+    
     correlation: {
       name: 'correlation',
       description: 'correlation analysis',
@@ -93,16 +117,19 @@ const app_config = {
           name: 'Group by',
           type: 'radio',
           description: 'values',
-          placeholder: 'Enter Range Here',
+          options: [
+            { label: 'Option 1', value: 'option1' },
+            { label: 'Option 2', value: 'option2' },
+            { label: 'Option 3', value: 'option3' }
+          ],
           required: true
         }
       ],
-
       calc: (values) => {
         console.log(values);
       }
-    },
-
+    }
+    
 
 
 
