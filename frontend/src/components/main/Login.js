@@ -52,7 +52,7 @@ const Login = () => {
 
 
   return (
-    <section className="bg" style={{ backgroundColor:"blue" , minHeight: '100vh'}}>
+    <section className="bg" style={{ backgroundColor:"#fcb900" , minHeight: '100vh'}}>
       <div className="container py-3 h-100">
         <div className="row d-flex justify-content-center align-items-center" style={{minHeight: '100vh'}}>
           <div className="col col-xl-10">
