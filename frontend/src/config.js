@@ -101,8 +101,35 @@ const app_config = {
       calc: (values) => {
         console.log(values);
       }
+    },
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
-  }
-};
+  };
+
+
+  
 
 export default app_config;

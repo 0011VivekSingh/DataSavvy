@@ -181,18 +181,21 @@ function anovaTwoFactorWithoutReplication(data) {
     if (arr1.length !== arr2.length) {
       throw new Error('Arrays must have the same length');
     }
-  
-    const n = arr1.length;
+   const n = arr1.length;
     const mean1 = arr1.reduce((acc, val) => acc + val, 0) / n;
     const mean2 = arr2.reduce((acc, val) => acc + val, 0) / n;
-  
-    let cov = 0;
+   let cov = 0;
     for (let i = 0; i < n; i++) {
       cov += (arr1[i] - mean1) * (arr2[i] - mean2);
     }
   
     return cov / (n - 1);
   }
+
+
+
+
+
 
   // Correlation
   function calculateCorrelation(arr1, arr2) {
@@ -234,5 +237,37 @@ function anovaTwoFactorWithoutReplication(data) {
   const arr2 = [5, 4, 3, 2, 1];
   const correlation = calculateCorrelation(arr1, arr2);
   console.log(correlation);
+
+
+  // median
+  
+    function calculateMedian(numbers) {
+      // Sort the array in ascending order
+      const sortedNumbers = numbers.sort((a, b) => a - b);
+      
+      const length = sortedNumbers.length;
+      const middleIndex = Math.floor(length / 2);
+    
+      if (length % 2 === 0) {
+        // If the array length is even, calculate the average of the two middle values
+        return (sortedNumbers[middleIndex - 1] + sortedNumbers[middleIndex]) / 2;
+      } else {
+        // If the array length is odd, return the middle value
+        return sortedNumbers[middleIndex];
+      }
+    }
+
+
+    exponentialSmoothing = (data, alpha) => {
+      const result = [data[0]];
+      for (let i = 1; i < data.length; i++) {
+        result.push(alpha * data[i] + (1 - alpha) * result[i - 1]);
+      }
+      return result;
+    }
+    
+
+
+  
   
   
