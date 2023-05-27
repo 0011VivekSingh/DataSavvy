@@ -118,10 +118,18 @@ const app_config = {
           type: 'radio',
           description: 'values',
           options: [
-            { label: 'Option 1', value: 'option1' },
-            { label: 'Option 2', value: 'option2' },
-            { label: 'Option 3', value: 'option3' }
+            { label: 'Columns', value: 'option1' },
+            { label: 'Rows', value: 'option2' },
+         
           ],
+          required: true
+        },
+        {
+          name: 'Labels in the first row',
+
+
+          type: 'checkbox',
+          description: 'this is chwckbox',
           required: true
         }
       ],
@@ -129,6 +137,12 @@ const app_config = {
         console.log(values);
       }
     }
+          
+         
+          
+        
+
+
     
 
 

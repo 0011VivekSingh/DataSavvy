@@ -81,16 +81,16 @@ const Signup = () => {
 
   return (
     <section
-      // className="signup"
+      className="signup"
       // style={{
       //   backgroundImage:
-      //     'url("/bbb.png")', 
+      //     'url("/sss.jpg")', 
       // }}
-      className="signup"
+      // className="signup"
     >
-      <div className="d-flex align-items-center h-100 gradient-custom-3">
-        <div className="container h-100">
-          <div className="row d-flex  align-items-center h-100">
+      <div className=" d-flex align-items-center  h-100 gradient-custom-3" >
+        <div className="container  h-100">
+          <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-12 col-md-9 col-lg-7 col-xl-6">
               <div className="card mt-5" style={{ borderTopRightRadius: 50 }}>
                 <div className="card-body p-5">

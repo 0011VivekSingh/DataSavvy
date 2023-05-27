@@ -3,9 +3,9 @@ import React from 'react'
 const Feedback = () => {
   return (
     <>
-    <div className=" container h-100vh mt-5 col-md-6 col-lg-5  align-items-center " >
+    <div className=" container h-100vh mt-5 col-md-6 col-lg-5  align-items-center  " >
   <h1>Contact Form</h1>
-  <form id="contact_form" name="contact_form" method="post">
+  <form id="contact_form" name="contact_form" method="post" >
     <div className="mb-5 row">
       <div className="col">
         <label>First Name</label>

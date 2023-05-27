@@ -60,7 +60,7 @@ const Home = () => {
                 <div className="p-3 bg-primary rounded-circle shadow-2-strong d-inline-block mb-4">
                   <i className="fas fa-headset fa-lg text-white fa-fw" aria-controls="#picker-editor" />
                 </div>
-                <h5 className="fw-bold mb-3">Support 24/7</h5>
+                <h5 className="fw-bold mb-3">Customisation</h5>
                 <p className="text-muted mb-0">Laudantium totam quas cumque pariatur at doloremque hic quos quia eius. Reiciendis optio minus mollitia rerum labore</p>
               </div>
               <div className="col-lg-3 col-md-6 mb-5 mb-lg-0">
@@ -171,7 +171,9 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       </>
+      
   
   );
 };
