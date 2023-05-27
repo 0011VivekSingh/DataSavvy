@@ -109,7 +109,7 @@ const toolboxCss = {
   width: '30%',
   height: '100%',
   right: '0px',
-  top: '0px'
+  top: '65px'
   //   zIndex: "-1",
 };
 

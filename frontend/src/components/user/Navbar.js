@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useSheetContext } from '../../context/SheetProvider';
+import app_config from '../../config';
 
 const Navbar = () => {
+
+  const { selTool, setSelTool } = useSheetContext();
+  const { toolpack } = app_config;
+
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <>
       {/* Navbar */}
@@ -24,16 +32,15 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {/* Navbar brand */}
             <a className="navbar-brand mt-2 mt-lg-0" href="#">
-              <img src="/ds.png" height={15} alt="MDB Logo" loading="lazy" />
+              <img src="/ds.png" height={60} alt="MDB Logo" loading="lazy" />
             </a>
             {/* Left links */}
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {/*          
           <li className="nav-item">
-		  <NavLink   className="nav-link" to="/user/Home">
+		        <NavLink className="nav-link" to="/user/Home">
               home
-            
-			</NavLink>
+			      </NavLink>
           </li> */}
               <li className="nav-item">
                 <NavLink className="nav-link" to="/user/useprofile">
@@ -80,39 +87,54 @@ const Navbar = () => {
             </ul>
             {/* Left links */}
           </div>
+          
           {/* Collapsible wrapper */}
-          {/* Right elements */}
-          <div className="d-flex align-items-center">
-            {/* Icon */}
-            <a className="text-reset me-3" href="#">
-              <i className="fas fa-shopping-cart" />
-            </a>
-            {/* Notifications */}
-            <div className="dropdown">
-              <a className="text-reset me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                <i className="fas fa-bell" />
-                <span className="badge rounded-pill badge-notification bg-danger">1</span>
-              </a>
-              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Some news
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Another news
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          {/* Right elements */}
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <div class="dropdown">
+                <a
+                  class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                  href="#"
+                  id="navbarDropdownMenuAvatar"
+                  role="button"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                    class="rounded-circle"
+                    height="25"
+                    alt="Black and White Portrait of a Man"
+                    loading="lazy"
+                  />
+                </a>
+                <ul
+                  class="dropdown-menu dropdown-menu-end"
+                  aria-labelledby="navbarDropdownMenuAvatar"
+                >
+                  {Object.keys(toolpack).map((tool) => (
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        onClick={(e) => setSelTool(toolpack[tool])}
+                      >
+                        {tool}
+                      </a>
+                      {/* <p className="text-small text-muted">{toolpack[tool].type}</p> */}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </ul>
+            <h3>
+              Selected Tool : {selTool ? selTool.name : "no tool selected"}
+            </h3>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onClick={e => setModalOpen(true)}
+            >
+              Open Tool
+            </button>
         </div>
         {/* Container wrapper */}
       </nav>
