@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom';
-import Navbar from '../main/Navbar';
+import Navbar from './Navbar';
 
 const User = () => {
   return (
@@ -11,4 +11,4 @@ const User = () => {
   )
 }
 
-export default User
+export default User;
