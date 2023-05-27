@@ -98,7 +98,7 @@ const luckyCss = {
   width: '70%',
   height: '100%',
   left: '0px',
-  top: '0px'
+  top: '65px'
   //   zIndex: "-1",
 };
 

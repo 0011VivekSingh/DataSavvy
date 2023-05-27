@@ -2,22 +2,10 @@ import React from 'react';
 
 const Home = () => {
   return (
-<>
+    <>
       <header>
-     
-        <title>Home Page</title>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        {/* Bootstrap CSS */}
-        <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        />
-
-
-
         {/* Cover Page */}
-        <div className="  container-fluid home " style={{ height: "90vh",backgroundImage:"url('/sky.png')"}}>
+        <div className="  container-fluid home " style={{ height: '90vh', backgroundImage: "url('/sky.png')" }}>
           <div className="row ">
             <div className="col-md-8 col-lg-6 my-auto">
               <h1 className="display-4 fw-bold text-white">Safe and Secure Data handling with DataSavvy</h1>
@@ -171,8 +159,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      </>
-  
+    </>
   );
 };
 
