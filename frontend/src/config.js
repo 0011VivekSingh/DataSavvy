@@ -211,12 +211,20 @@ const app_config = {
           required: true
         }
       ],
-      calc: (array1, array2) => {
+      calc: (data, alpha) => {
+       
+          const result = [data[0]];
+          for (let i = 1; i < data.length; i++) {
+            result.push(alpha * data[i] + (1 - alpha) * result[i - 1]);
+          }
+          return result;
+        }
+      },
+        
         
 
 
-      }
-    },
+
 
 
 
