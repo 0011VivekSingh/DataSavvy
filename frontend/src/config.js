@@ -1,3 +1,5 @@
+import { calculateMean, calculateMedian, calculateMode } from "./toolFunctions";
+
 const app_config = {
   apiUrl: 'http://localhost:5000',
   title: 'DataSavvy',
@@ -10,6 +12,38 @@ const app_config = {
   },
 
   toolpack: {
+    descrtiveStatistics: {
+      name: 'Descriptive Statistics',
+      description: 'Descriptive Statistics',
+      icon: 'descriptiveStatistics',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'values',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        }
+      ],
+      calc: (arr1) => {
+        let mean =  calculateMean(arr1);
+        let median = calculateMedian(arr1);
+        let mode = calculateMode(arr1);
+        return [mean, median, mode];
+      },
+      outputFormat: [
+        {
+          name : 'Mean'
+        },
+        {
+          name : 'Median'
+        },
+        {
+          name : 'Mode'
+        }
+      ]
+    },
     mean: {
       name: 'Mean',
       description: 'mean',

@@ -13,7 +13,8 @@ const ExcelSheet = () => {
 
   useEffect(() => {
     sheet.create({
-      container: 'sheet'
+      container: 'sheet',
+      title: 'My WorkBook'
       //   plugins: ["chart"],
     });
     setSheet(sheet);
@@ -51,6 +52,7 @@ const ExcelSheet = () => {
 
   const calculateResult = () => {
       const res = selTool.calc(currentInputs[selInput].value);
+      // res will contain array of results
       console.log(res);
       showOutputInSheet(res);
   }
@@ -75,14 +77,18 @@ const ExcelSheet = () => {
     return [startRow, startCol, endRow, endCol];
   }
 
-  const showOutputInSheet = (result) => {
+  const showOutputInSheet = (results) => {
     console.log(outputRange);
-    const rowCol = convertExcelRange(outputRange);
-    console.log(rowCol);
+    // const rowCol = convertExcelRange(outputRange);
+    // console.log(rowCol);
     // let startCell = [rowCol[0], rowCol[1]];
-    let [row, col] = [10, 6]
-    window.luckysheet.setCellValue(row, col, 'Mean Result : ');
-    window.luckysheet.setCellValue(row, col+1, result);
+    let [row, col] = [10, 6];
+    results.forEach((result, index) => {
+      console.log(selTool.outputFormat[index]);
+      window.luckysheet.setCellValue(row+index, col, selTool.outputFormat[index].name);
+      window.luckysheet.setCellValue(row+index, col+1, result);
+    })
+    
   }
 
   const showToolBox = () => {
@@ -132,7 +138,7 @@ const luckyCss = {
   width: '70%',
   height: '100%',
   left: '0px',
-  top: '65px'
+  top: '80px'
   //   zIndex: "-1",
 };
 
@@ -143,7 +149,7 @@ const toolboxCss = {
   width: '30%',
   height: '100%',
   right: '0px',
-  top: '65px'
+  top: '80px'
   //   zIndex: "-1",
 };
 
