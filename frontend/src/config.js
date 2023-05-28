@@ -24,14 +24,13 @@ const app_config = {
           required: true
         }
       ],
+      outputRange: '',
       calc: (arr1) => {
         let sum = 0;
         arr1.forEach((num) => (sum += num));
         return sum / arr1.length;
       }
     },
-
-
 
     median: {
       name: 'median',
@@ -47,6 +46,7 @@ const app_config = {
           required: true
         }
       ],
+      outputRange: '',
       calc: (values) => {
         console.log(values);
       }
@@ -59,7 +59,7 @@ const app_config = {
       type: 'statistical',
       inputs: [
         {
-          name: 'values', 
+          name: 'values',
           type: 'array',
           description: 'this is mode',
           placeholder: 'Enter Range Here',
@@ -70,7 +70,7 @@ const app_config = {
         console.log(values);
       }
     },
-// regression
+    // regression
     regression: {
       name: 'Regression',
       description: 'regression analysis',
@@ -94,8 +94,8 @@ const app_config = {
           required: true
         }
       ],
-      calc: (x,y) => {
-         {
+      calc: (x, y) => {
+        {
           const n = x.length;
           // Calculate sum of x, y, x^2, xy
           let sumX = 0;
@@ -111,7 +111,7 @@ const app_config = {
           // Calculate coefficients (slope and intercept)
           const slope = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX * sumX);
           const intercept = (sumY - slope * sumX) / n;
-        
+
           // Return the coefficients as an object
           return {
             slope,
@@ -121,7 +121,6 @@ const app_config = {
       }
     },
 
-    
     correlation: {
       name: 'correlation',
       description: 'correlation analysis',
@@ -141,14 +140,12 @@ const app_config = {
           description: 'values',
           options: [
             { label: 'Columns', value: 'option1' },
-            { label: 'Rows', value: 'option2' },
-         
+            { label: 'Rows', value: 'option2' }
           ],
           required: true
         },
         {
           name: 'Labels in the first row',
-
 
           type: 'checkbox',
           description: 'this is chwckbox',
@@ -163,7 +160,7 @@ const app_config = {
         // Calculate the means of the two arrays
         const mean1 = array1.reduce((sum, value) => sum + value, 0) / n;
         const mean2 = array2.reduce((sum, value) => sum + value, 0) / n;
-      
+
         // Calculate the numerator and denominator for correlation
         let numerator = 0;
         let denominator1 = 0;
@@ -171,52 +168,19 @@ const app_config = {
         for (let i = 0; i < n; i++) {
           const deviation1 = array1[i] - mean1;
           const deviation2 = array2[i] - mean2;
-      
+
           numerator += deviation1 * deviation2;
           denominator1 += deviation1 ** 2;
           denominator2 += deviation2 ** 2;
         }
         // Calculate the correlation coefficient
         const correlation = numerator / Math.sqrt(denominator1 * denominator2);
-       return correlation;
+        return correlation;
       }
-    },
+    }
 
     // exponential smoothing
-          
-         
-          
-        
-
-
-    
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-  };
-
-
-  
+  }
+};
 
 export default app_config;
