@@ -94,8 +94,30 @@ const app_config = {
           required: true
         }
       ],
-      calc: (values) => {
-        console.log(values);
+      calc: (x,y) => {
+         {
+          const n = x.length;
+          // Calculate sum of x, y, x^2, xy
+          let sumX = 0;
+          let sumY = 0;
+          let sumXSquare = 0;
+          let sumXY = 0;
+          for (let i = 0; i < n; i++) {
+            sumX += x[i];
+            sumY += y[i];
+            sumXSquare += x[i] * x[i];
+            sumXY += x[i] * y[i];
+          }
+          // Calculate coefficients (slope and intercept)
+          const slope = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX * sumX);
+          const intercept = (sumY - slope * sumX) / n;
+        
+          // Return the coefficients as an object
+          return {
+            slope,
+            intercept
+          };
+        }
       }
     },
 
@@ -133,10 +155,34 @@ const app_config = {
           required: true
         }
       ],
-      calc: (values) => {
-        console.log(values);
+      calc: (array1, array2) => {
+        if (array1.length !== array2.length) {
+          throw new Error('Array lengths must be equal.');
+        }
+        const n = array1.length;
+        // Calculate the means of the two arrays
+        const mean1 = array1.reduce((sum, value) => sum + value, 0) / n;
+        const mean2 = array2.reduce((sum, value) => sum + value, 0) / n;
+      
+        // Calculate the numerator and denominator for correlation
+        let numerator = 0;
+        let denominator1 = 0;
+        let denominator2 = 0;
+        for (let i = 0; i < n; i++) {
+          const deviation1 = array1[i] - mean1;
+          const deviation2 = array2[i] - mean2;
+      
+          numerator += deviation1 * deviation2;
+          denominator1 += deviation1 ** 2;
+          denominator2 += deviation2 ** 2;
+        }
+        // Calculate the correlation coefficient
+        const correlation = numerator / Math.sqrt(denominator1 * denominator2);
+       return correlation;
       }
-    }
+    },
+
+    // exponential smoothing
           
          
           
