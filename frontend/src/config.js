@@ -10,6 +10,26 @@ const app_config = {
   },
 
   toolpack: {
+    descriptiveStatistics: {
+      name: 'Descrptive Statistics',
+      description: 'Descriptive Statistics',
+      icon: 'descriptiveStatistics',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'values',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        }
+      ],
+      calc: (arr1) => {
+        let sum = 0;
+        arr1.forEach((num) => (sum += num));
+        return sum / arr1.length;
+      }
+    },
     mean: {
       name: 'Mean',
       description: 'mean',

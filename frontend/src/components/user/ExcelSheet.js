@@ -75,11 +75,14 @@ const ExcelSheet = () => {
     return [startRow, startCol, endRow, endCol];
   }
 
-  const showOutputInSheet = (excelRange, result) => {
+  const showOutputInSheet = (result) => {
     console.log(outputRange);
     const rowCol = convertExcelRange(outputRange);
     console.log(rowCol);
-    window.luckysheet.setCellValue(0, 9, 7, 'sdsdsds');
+    // let startCell = [rowCol[0], rowCol[1]];
+    let [row, col] = [10, 6]
+    window.luckysheet.setCellValue(row, col, 'Mean Result : ');
+    window.luckysheet.setCellValue(row, col+1, result);
   }
 
   const showToolBox = () => {
