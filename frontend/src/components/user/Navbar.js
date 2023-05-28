@@ -59,18 +59,18 @@ const Navbar = () => {
                 </NavLink>
               </li>
 
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink className="nav-link" to="/user/Signup">
                   Signup
                 </NavLink>
-              </li>
-              <li className="nav-item">
+              </li> */}
+              {/* <li className="nav-item">
                 <NavLink className="nav-link" to="/user/Feedback">
                   Feedback
                 </NavLink>
-              </li>
+              </li> */}
               <li className="nav-item">
-                <NavLink className="nav-link" to="/user/Toolpack">
+                <NavLink className="nav-link" to="/user/excelsheet">
                   Toolpack
                 </NavLink>
               </li>
@@ -79,11 +79,11 @@ const Navbar = () => {
                   Toolbar
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink className="nav-link" to="/user/excelsheet">
                   Excelsheet
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
             {/* Left links */}
           </div>
