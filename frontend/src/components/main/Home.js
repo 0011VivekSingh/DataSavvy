@@ -5,18 +5,21 @@ const Home = () => {
     <>
       <header>
         {/* Cover Page */}
-        <div className="  container-fluid home " style={{backgroundImage: "url('/sky.png')" }}>
-          <div className="row ">
-            <div className="col-md-8 col-lg-6 my-auto">
-              <h1 className="display-4 fw-bold text-white">Safe and Secure Data handling with DataSavvy</h1>
+        <div className="  container-fluid home " style={{ backgroundImage: "url('/sky.png')" }}>
+          <div className="container">
 
-              <p className="h5" style={{ color: 'white' }}>
-                "Unlock the power of data with DataSavvy - Your personalized data analysis platform."
-              </p>
-            </div>
+            <div className="row ">
+              <div className="col-md-6 my-auto">
+                <h1 className="display-4 fw-bold text-white">Safe and Secure Data handling with DataSavvy</h1>
 
-            <div className="col-md-8 col-sm-8 col-lg-6">
-              <img src="/section.png" className="d-block w-100 m-auto mt-4" alt="Bootstrap Themes" loading="lazy" />
+                <p className="h5" style={{ color: 'white' }}>
+                  "Unlock the power of data with DataSavvy - Your personalized data analysis platform."
+                </p>
+              </div>
+
+              <div className="col-md-6">
+                <img src="/v (3).gif" className="d-block w-100 m-auto mt-4" alt="Bootstrap Themes" loading="lazy" />
+              </div>
             </div>
           </div>
         </div>
@@ -162,31 +165,31 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="container-fluid col-xl-10 col-xxl-8 px-1 py-3" style={{backgroundImage:"url('/sky.png')"}} >
-      <>
-      <div className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
-      <div className="col-md-5 p-lg-5 mx-auto my-5">
-        <h1 className="display-4 fw-normal " style={{color:"white"}}>Punhnny headline</h1>
-        <p className="lead fw-normal">
-          And an even wittier subheading to boot. Jumpstart your marketing
-          efforts with this example based on Appleâ€™s marketing pages.
-        </p>
-        <a className="btn btn-outline-secondary" href="#">
-          Coming soon
-        </a>
+      <div className="container-fluid col-xl-10 col-xxl-8 px-1 py-3" style={{ backgroundImage: "url('/sky.png')" }} >
+        <>
+          <div className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
+            <div className="col-md-5 p-lg-5 mx-auto my-5">
+              <h1 className="display-4 fw-normal " style={{ color: "white" }}>Punhnny headline</h1>
+              <p className="lead fw-normal">
+                And an even wittier subheading to boot. Jumpstart your marketing
+                efforts with this example based on Appleâ€™s marketing pages.
+              </p>
+              <a className="btn btn-outline-secondary" href="#">
+                Coming soon
+              </a>
+            </div>
+            <div className="product-device shadow-sm d-none d-md-block" />
+            <div className="product-device product-device-2 shadow-sm d-none d-md-block" />
+          </div>
+
+
+          {/* Custom styles for this template */}
+
+
+
+
+        </>
       </div>
-      <div className="product-device shadow-sm d-none d-md-block" />
-      <div className="product-device product-device-2 shadow-sm d-none d-md-block" />
-    </div>
-  
-  
-  {/* Custom styles for this template */}
- 
-  
- 
-  
-</>
-</div>
 
 
 
