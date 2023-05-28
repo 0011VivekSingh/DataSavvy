@@ -183,6 +183,45 @@ const app_config = {
     },
 
     // exponential smoothing
+    exponentialsmoothing: {
+
+      name: 'Exponential Smoothing',
+      description: 'exponential smoothing',
+      icon: 'exponentialsmoothing',
+      type: 'forecasting',
+      inputs: [
+        {
+          name: 'input range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Damping Factor',
+          type: 'number',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Labels',
+          type: 'checkbox',
+          description: 'this is checkbox',
+          required: true
+        }
+      ],
+      calc: (array1, array2) => {
+        
+
+
+      }
+    },
+
+
+
+          
+    
           
          
           
