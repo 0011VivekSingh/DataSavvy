@@ -151,7 +151,7 @@ const app_config = {
 
 
           type: 'checkbox',
-          description: 'this is chwckbox',
+          description: 'this is checkbox',
           required: true
         }
       ],
@@ -220,6 +220,62 @@ const app_config = {
           return result;
         }
       },
+
+      // moving average
+      movingaverage: {
+        name: 'Moving Average',
+        description: 'moving average',
+        icon: 'movingaverage',
+        type: 'forecasting',
+        inputs: [
+          {
+            name: 'input range',
+            type: 'array',
+            description: 'values',
+            placeholder: 'Enter Range Here',
+            required: true
+          },
+          {
+            name: 'Labels in the first row',
+            type: 'checkbox',
+            description: 'this is checkbox',
+            required: true
+
+          
+          },
+           {
+            name: 'Interval',
+            type: 'number',
+            description: 'this is number',
+            placeholder: 'Enter Range Here',
+            required: true
+          
+           }
+          ],
+        calc: (data, interval) => {
+          const result = [];
+          for (let i = 0; i < data.length - interval + 1; i++) {
+            let sum = 0;
+            for (let j = 0; j < interval; j++) {
+              sum += data[i + j];
+            }
+            result.push(sum / interval);
+          }
+          return result;
+        }
+      },
+
+            
+        
+
+        
+
+
+
+
+
+
+
         
         
 
