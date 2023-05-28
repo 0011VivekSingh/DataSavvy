@@ -5,7 +5,7 @@ const Home = () => {
     <>
       <header>
         {/* Cover Page */}
-        <div className="  container-fluid home " style={{ height: '90vh', backgroundImage: "url('/sky.png')" }}>
+        <div className="  container-fluid home " style={{backgroundImage: "url('/sky.png')" }}>
           <div className="row ">
             <div className="col-md-8 col-lg-6 my-auto">
               <h1 className="display-4 fw-bold text-white">Safe and Secure Data handling with DataSavvy</h1>
@@ -15,7 +15,7 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="col-md-8 col-sm-8 col-lg-6 my-auto ">
+            <div className="col-md-8 col-sm-8 col-lg-6">
               <img src="/section.png" className="d-block w-100 m-auto mt-4" alt="Bootstrap Themes" loading="lazy" />
             </div>
           </div>
