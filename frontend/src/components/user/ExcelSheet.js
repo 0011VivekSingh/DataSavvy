@@ -9,10 +9,12 @@ const ExcelSheet = () => {
   const [selInput, setSelInput] = useState(null);
 
   const [currentInputs, setCurrentInputs] = useState([]);
+  const [outputRange, setOutputRange] = useState('');
 
   useEffect(() => {
     sheet.create({
-      container: 'sheet'
+      container: 'sheet',
+      title: 'My WorkBook'
       //   plugins: ["chart"],
     });
     setSheet(sheet);
@@ -50,7 +52,43 @@ const ExcelSheet = () => {
 
   const calculateResult = () => {
       const res = selTool.calc(currentInputs[selInput].value);
+      // res will contain array of results
       console.log(res);
+      showOutputInSheet(res);
+  }
+
+  function columnToNumber(colName) {
+    let result = 0;
+    for (let i = 0; i < colName.length; i++) {
+      const char = colName.charCodeAt(i) - 64;
+      result = result * 26 + char;
+    }
+    console.log(result);
+    return result;
+  }
+
+  const convertExcelRange = (range) => {
+    const startCol = columnToNumber(range.charAt(0))-1;
+    const startRow = parseInt(range.charAt(1), 10) - 1; // subtract 1 to account for 0-based indexing
+    const endCol = columnToNumber(range.charAt(3))-1;
+    const endRow = parseInt(range.charAt(4), 10) - 1;
+    console.log(startCol, startRow, endCol, endRow);
+
+    return [startRow, startCol, endRow, endCol];
+  }
+
+  const showOutputInSheet = (results) => {
+    console.log(outputRange);
+    // const rowCol = convertExcelRange(outputRange);
+    // console.log(rowCol);
+    // let startCell = [rowCol[0], rowCol[1]];
+    let [row, col] = [10, 6];
+    results.forEach((result, index) => {
+      console.log(selTool.outputFormat[index]);
+      window.luckysheet.setCellValue(row+index, col, selTool.outputFormat[index].name);
+      window.luckysheet.setCellValue(row+index, col+1, result);
+    })
+    
   }
 
   const showToolBox = () => {
@@ -64,7 +102,9 @@ const ExcelSheet = () => {
             { currentInputs[index] && currentInputs[index].value }
           </>
         ))}
-        <button className='btn btn-primary' onClick={calculateResult}>Calculate</button>
+        {/* <span>Output Range : </span> */}
+        <input className='form-control' placeholder='Output Range' value={outputRange} onChange={e => setOutputRange(e.target.value)} />
+        <button className='btn btn-primary mt-3' onClick={calculateResult}>Calculate</button>
       </>
     );
   };
@@ -98,7 +138,7 @@ const luckyCss = {
   width: '70%',
   height: '100%',
   left: '0px',
-  top: '65px'
+  top: '80px'
   //   zIndex: "-1",
 };
 
@@ -109,7 +149,7 @@ const toolboxCss = {
   width: '30%',
   height: '100%',
   right: '0px',
-  top: '65px'
+  top: '80px'
   //   zIndex: "-1",
 };
 

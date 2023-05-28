@@ -1,13 +1,4 @@
-
-
-
-
-
-
-
-
 //   anova two factor with replication
-
 
 // anova two factor without replication
 function anovaTwoFactorWithoutReplication(data) {
@@ -71,111 +62,96 @@ function anovaTwoFactorWithoutReplication(data) {
   const fB = msB / msError;
 
   // calculate p-values
-  const pA = 1 - jStat.centralF.cdf(fA, dfA, dfTotal);
-  const pB = 1 - jStat.centralF.cdf(fB, dfB, dfTotal);
+  // const pA = 1 - jStat.centralF.cdf(fA, dfA, dfTotal);
+  // const pB = 1 - jStat.centralF.cdf(fB, dfB, dfTotal);
 
   return {
-    "dfA": dfA,
-    "dfB": dfB,
-    "dfRows": dfRows,
-    "dfCols": dfCols,
-    "dfTotal": dfTotal,
-    "ssA": ssA,
-    "ssB": ssB,
-    "ssRows": ssRows,
-    "ssCols": ssCols,
-    "ssError": ssTotal - ssA - ssB - ssRows - ssCols,
-    "msA": msA,
-    "msB": msB,
-    "msRows": msRows
-  };}
+    dfA: dfA,
+    dfB: dfB,
+    dfRows: dfRows,
+    dfCols: dfCols,
+    dfTotal: dfTotal,
+    ssA: ssA,
+    ssB: ssB,
+    ssRows: ssRows,
+    ssCols: ssCols,
+    ssError: ssTotal - ssA - ssB - ssRows - ssCols,
+    msA: msA,
+    msB: msB,
+    msRows: msRows
+  };
+}
 
-  // Covariance
-  function covariance(arr1, arr2) {
-    if (arr1.length !== arr2.length) {
-      throw new Error('Arrays must have the same length');
-    }
-   const n = arr1.length;
-    const mean1 = arr1.reduce((acc, val) => acc + val, 0) / n;
-    const mean2 = arr2.reduce((acc, val) => acc + val, 0) / n;
-   let cov = 0;
-    for (let i = 0; i < n; i++) {
-      cov += (arr1[i] - mean1) * (arr2[i] - mean2);
-    }
-  
-    return cov / (n - 1);
+// Covariance
+function covariance(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    throw new Error('Arrays must have the same length');
+  }
+  const n = arr1.length;
+  const mean1 = arr1.reduce((acc, val) => acc + val, 0) / n;
+  const mean2 = arr2.reduce((acc, val) => acc + val, 0) / n;
+  let cov = 0;
+  for (let i = 0; i < n; i++) {
+    cov += (arr1[i] - mean1) * (arr2[i] - mean2);
   }
 
+  return cov / (n - 1);
+}
 
-
-
-
-
-
-  // Correlation
-  function calculateCorrelation(array1, array2) {
-    if (array1.length !== array2.length) {
-      throw new Error('Array lengths must be equal.');
-    }
-    const n = array1.length;
-    // Calculate the means of the two arrays
-    const mean1 = array1.reduce((sum, value) => sum + value, 0) / n;
-    const mean2 = array2.reduce((sum, value) => sum + value, 0) / n;
-  
-    // Calculate the numerator and denominator for correlation
-    let numerator = 0;
-    let denominator1 = 0;
-    let denominator2 = 0;
-    for (let i = 0; i < n; i++) {
-      const deviation1 = array1[i] - mean1;
-      const deviation2 = array2[i] - mean2;
-  
-      numerator += deviation1 * deviation2;
-      denominator1 += deviation1 ** 2;
-      denominator2 += deviation2 ** 2;
-    }
-    // Calculate the correlation coefficient
-    const correlation = numerator / Math.sqrt(denominator1 * denominator2);
-   return correlation;
+// Correlation
+function calculateCorrelation(array1, array2) {
+  if (array1.length !== array2.length) {
+    throw new Error('Array lengths must be equal.');
   }
-    
-  
-  
-  
-  
-  
-  
+  const n = array1.length;
+  // Calculate the means of the two arrays
+  const mean1 = array1.reduce((sum, value) => sum + value, 0) / n;
+  const mean2 = array2.reduce((sum, value) => sum + value, 0) / n;
 
-  // median
-  function calculateMedian(array) {
-    // Sort the array in ascending order
-    const sortedArray = array.slice().sort((a, b) => a - b);
-    const length = sortedArray.length;
-    const middleIndex = Math.floor(length / 2);
-    if (length % 2 === 0) {
-      // If the array length is even, calculate the average of the middle two elements
-      const median = (sortedArray[middleIndex - 1] + sortedArray[middleIndex]) / 2;
-      return median;
-    } else {
-      // If the array length is odd, return the middle element
-      const median = sortedArray[middleIndex];
-      return median;
-    }
+  // Calculate the numerator and denominator for correlation
+  let numerator = 0;
+  let denominator1 = 0;
+  let denominator2 = 0;
+  for (let i = 0; i < n; i++) {
+    const deviation1 = array1[i] - mean1;
+    const deviation2 = array2[i] - mean2;
+
+    numerator += deviation1 * deviation2;
+    denominator1 += deviation1 ** 2;
+    denominator2 += deviation2 ** 2;
   }
-  
+  // Calculate the correlation coefficient
+  const correlation = numerator / Math.sqrt(denominator1 * denominator2);
+  return correlation;
+}
 
-  // exponential smoothing
-  exponentialSmoothing = (data, alpha) => {
-    const result = [data[0]];
-    for (let i = 1; i < data.length; i++) {
-      result.push(alpha * data[i] + (1 - alpha) * result[i - 1]);
-    }
-    return result;
+// median
+function calculateMedian(array) {
+  // Sort the array in ascending order
+  const sortedArray = array.slice().sort((a, b) => a - b);
+  const length = sortedArray.length;
+  const middleIndex = Math.floor(length / 2);
+  if (length % 2 === 0) {
+    // If the array length is even, calculate the average of the middle two elements
+    const median = (sortedArray[middleIndex - 1] + sortedArray[middleIndex]) / 2;
+    return median;
+  } else {
+    // If the array length is odd, return the middle element
+    const median = sortedArray[middleIndex];
+    return median;
   }
-  
+}
 
+// exponential smoothing
+const exponentialSmoothing = (data, alpha) => {
+  const result = [data[0]];
+  for (let i = 1; i < data.length; i++) {
+    result.push(alpha * data[i] + (1 - alpha) * result[i - 1]);
+  }
+  return result;
+};
 
-  //covariance
+//covariance
 function calculateCovariance(array1, array2) {
   if (array1.length !== array2.length) {
     throw new Error('Arrays must have the same length');
@@ -191,8 +167,8 @@ function calculateCovariance(array1, array2) {
     const deviation2 = array2[i] - mean2;
     covariance += deviation1 * deviation2;
   }
-covariance /= n;
-return covariance;
+  covariance /= n;
+  return covariance;
 }
 function calculateMean(array) {
   const sum = array.reduce((acc, val) => acc + val, 0);
@@ -206,21 +182,6 @@ function fTest(array1, array2) {
   const f = variance1 / variance2;
   return f;
 }
-function calculateVariance(array) {
-  const mean = calculateMean(array);
-  const n = array.length;
-  let sum = 0;
-  for (let i = 0; i < n; i++) {
-    sum += (array[i] - mean) ** 2;
-  }
-  const variance = sum / (n - 1);
-  return variance;
-}
-function calculateMean(array) {
-  const sum = array.reduce((acc, val) => acc + val, 0);
-  return sum / array.length;
-}
-
 
 //fourier analysis
 function fourierAnalysis(array) {
@@ -231,14 +192,12 @@ function fourierAnalysis(array) {
     real[i] = 0;
     imag[i] = 0;
     for (let j = 0; j < n; j++) {
-      real[i] += array[j] * Math.cos(2 * Math.PI * i * j / n);
-      imag[i] += -array[j] * Math.sin(2 * Math.PI * i * j / n);
+      real[i] += array[j] * Math.cos((2 * Math.PI * i * j) / n);
+      imag[i] += -array[j] * Math.sin((2 * Math.PI * i * j) / n);
     }
   }
   return { real, imag };
 }
-
-
 
 //histogram
 function histogram(array, bins) {
@@ -276,7 +235,6 @@ function movingAverage(array, windowSize) {
   return result;
 }
 
-
 //Random number generation
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -310,8 +268,7 @@ function randomPoisson(lambda) {
   return k - 1;
 }
 
-
-function randomBernoulli(p) { 
+function randomBernoulli(p) {
   return Math.random() < p ? 1 : 0;
 }
 function randomBinomial(n, p) {
@@ -369,10 +326,6 @@ function tTest(array1, array2) {
   const t = Math.abs(mean1 - mean2) / Math.sqrt(variance1 / n1 + variance2 / n2);
   return t;
 }
-function calculateMean(array) {
-  const sum = array.reduce((acc, val) => acc + val, 0);
-  return sum / array.length;
-}
 function calculateVariance(array) {
   const mean = calculateMean(array);
   const n = array.length;
@@ -405,9 +358,7 @@ function tTestUnequalVariance(array1, array2) {
   const variance2 = calculateVariance(array2);
   const n1 = array1.length;
   const n2 = array2.length;
-  const t =
-    Math.abs(mean1 - mean2) /
-    Math.sqrt(variance1 / n1 + variance2 / n2);
+  const t = Math.abs(mean1 - mean2) / Math.sqrt(variance1 / n1 + variance2 / n2);
   return t;
 }
 
@@ -476,7 +427,7 @@ function anovaTwoFactorReplication(data) {
 }
 
 //ANOVA two factor without replication
-function anovaTwoFactorWithoutReplication(data) {
+function anovaTwoFactorWithoutReplication2(data) {
   const n = data.length;
   const k = data[0].length;
   const mean = [];
@@ -499,39 +450,60 @@ function anovaTwoFactorWithoutReplication(data) {
   const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
   const f = meanSquareBetween / meanSquareWithin;
   return f;
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-    
-
-
-  
-  
 }
+
+function calculateMode(arr) {
+  let frequencyMap = {};
+  let maxFrequency = 0;
+  let modes = [];
+
+  // Count the frequency of each element
+  for (let i = 0; i < arr.length; i++) {
+    let element = arr[i];
+    frequencyMap[element] = (frequencyMap[element] || 0) + 1;
+    if (frequencyMap[element] > maxFrequency) {
+      maxFrequency = frequencyMap[element];
+    }
+  }
+
+  // Find the elements with maximum frequency
+  for (let key in frequencyMap) {
+    if (frequencyMap[key] === maxFrequency) {
+      modes.push(parseFloat(key)); // Convert key to number if needed
+    }
+  }
+
+  return modes;
+}
+
+
+export {
+  anovaTwoFactorWithoutReplication,
+  anovaTwoFactorReplication,
+  anovaSingleFactor,
+  calculateCorrelation,
+  calculateCovariance,
+  calculateMean,
+  calculateMedian,
+  calculateMode,
+  calculateVariance,
+  covariance,
+  exponentialSmoothing,
+  fTest,
+  fourierAnalysis,
+  histogram,
+  linearRegression,
+  movingAverage,
+  randomBernoulli,
+  randomBinomial,
+  randomExponential,
+  randomFloat,
+  randomInteger,
+  randomNormal,
+  randomPoisson,
+  sample,
+  tTest,
+  tTestEqualVariance,
+  tTestUnequalVariance,
+  zTest
+};
