@@ -2,14 +2,15 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-center text-white">
+    <footer className="bg-light text-center text-white">
   {/* Grid container */}
-  <div className="container p-4 pb-0">
+  <div className="container p-2 pb-0">
     {/* Section: Social media */}
-    <section className="mb-4">
+    <section className="mb-3">
       {/* Facebook */}
       <a
-        className="btn btn-outline-light btn-floating m-1"
+        className="btn text-white btn-floating m-1"
+        style={{ backgroundColor: "#3b5998" }}
         href="#!"
         role="button"
       >
@@ -17,7 +18,8 @@ const Footer = () => {
       </a>
       {/* Twitter */}
       <a
-        className="btn btn-outline-light btn-floating m-1"
+        className="btn text-white btn-floating m-1"
+        style={{ backgroundColor: "#55acee" }}
         href="#!"
         role="button"
       >
@@ -25,7 +27,8 @@ const Footer = () => {
       </a>
       {/* Google */}
       <a
-        className="btn btn-outline-light btn-floating m-1"
+        className="btn text-white btn-floating m-1"
+        style={{ backgroundColor: "#dd4b39" }}
         href="#!"
         role="button"
       >
@@ -33,7 +36,8 @@ const Footer = () => {
       </a>
       {/* Instagram */}
       <a
-        className="btn btn-outline-light btn-floating m-1"
+        className="btn text-white btn-floating m-1"
+        style={{ backgroundColor: "#ac2bac" }}
         href="#!"
         role="button"
       >
@@ -41,7 +45,8 @@ const Footer = () => {
       </a>
       {/* Linkedin */}
       <a
-        className="btn btn-outline-light btn-floating m-1"
+        className="btn text-white btn-floating m-1"
+        style={{ backgroundColor: "#0082ca" }}
         href="#!"
         role="button"
       >
@@ -49,7 +54,8 @@ const Footer = () => {
       </a>
       {/* Github */}
       <a
-        className="btn btn-outline-light btn-floating m-1"
+        className="btn text-white btn-floating m-1"
+        style={{ backgroundColor: "#333333" }}
         href="#!"
         role="button"
       >
@@ -71,6 +77,8 @@ const Footer = () => {
   </div>
   {/* Copyright */}
 </footer>
+
+
 
   )
 }

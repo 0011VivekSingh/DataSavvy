@@ -52,12 +52,12 @@ const Login = () => {
 
 
   return (
-    <section className="bg" style={{ backgroundColor:"#fcb900" , minHeight: '100vh'}}>
-      <div className="container py-3 h-100">
-        <div className="row d-flex justify-content-center align-items-center" style={{minHeight: '100vh'}}>
+    <section className="bg" style={{ backgroundColor:"#8696FE" , minHeight: '100vh'}}>
+      <div className="container py-5 h-100">
+        <div className="row d-flex justify-content-center align-items-center " style={{minHeight: '100vh'}}>
           <div className="col col-xl-10">
-            <div className="card " style={{ borderRadius: "1rem" }}>
-              <div className="row g-0">
+            <div className="card  " style={{ borderRadius: "1rem" }}>
+              <div className="row g-0"  >
                 <div className="col-md-6 col-lg-5 d-none d-md-block dis-block my-auto">
                   <img
                     src="/login.jpg"
@@ -71,13 +71,13 @@ const Login = () => {
 
                     <form onSubmit={loginform.handleSubmit}>
 
-                      <div className="d-flex align-items-center mb-3 pb-1">
-                      <img src="/pp.png" alt="logo" width="40" height="40" className="me-3 img-fluid" />
+                      <div className="d-flex align-items-center mb-2 pb-1">
+                      <img src="/pp.png" alt="logo" width="50" height="50" className="me-3 img-fluid" />
                         
                         <span className="h1 fw-bold mb-0">DataSavvy</span>
                       </div>
                       <h5
-                        className="fw-normal mb-3 pb-3"
+                        className="fw-normal mb-2 pb-2"
                         style={{ letterSpacing: 1 }}
                       >
                         Sign into your account
