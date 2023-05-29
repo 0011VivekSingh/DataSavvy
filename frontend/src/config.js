@@ -649,9 +649,8 @@ ftesttwosampleforvariances: {
       }
 
     ],
-    calc: (array,randomNumber,distribution) => {
-
-
+    calc: (min,max) =>{
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }},
 
     // rank and percentile
