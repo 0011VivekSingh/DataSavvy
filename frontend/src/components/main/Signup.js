@@ -86,9 +86,9 @@ const Signup = () => {
       //   backgroundImage:
       //     'url("/sss.jpg")', 
       // }}
-      // className="signup"
+      
     >
-      <div className=" d-flex align-items-center  h-100 gradient-custom-3" >
+      <div className=" d-flex align-items-center  h-100 gradient-custom-3" style={{minHeight: '90vh'}}>
         <div className="container  h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-12 col-md-9 col-lg-7 col-xl-6">
