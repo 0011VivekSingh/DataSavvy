@@ -107,10 +107,10 @@ const Navbar = () => {
                 />
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                {Object.keys(toolpack).map((tool) => (
+                {Object.entries(toolpack).map((tool) => (
                   <li>
-                    <a role="button" class="dropdown-item" onClick={(e) => setSelTool(toolpack[tool])}>
-                      {tool}
+                    <a role="button" class="dropdown-item" onClick={(e) => setSelTool(tool[1])}>
+                      {tool[1].name}
                     </a>
                     {/* <p className="text-small text-muted">{toolpack[tool].type}</p> */}
                   </li>
