@@ -3,57 +3,63 @@ import { Link, NavLink } from 'react-router-dom';
 import { useSheetContext } from '../../context/SheetProvider';
 import app_config from '../../config';
 import ReactModal from 'react-modal-resizable-draggable';
+import { useUserContext } from '../../context/UserProvider';
 
 const Navbar = () => {
-  const { selTool, setSelTool } = useSheetContext();
-  const { toolpack } = app_config;
 
-  const [modalOpen, setModalOpen] = useState(false);
+
+  const url = app_config.apiUrl;
+
+  const { loggedIn, setLoggedIn, logout } = useUserContext();
+  const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('user')));
+
+  const showAvatar = () => {
+    if (loggedIn)
+      return (
+        <div className="dropdown">
+          <a
+            className="dropdown-toggle d-flex align-items-center hidden-arrow"
+            href="#"
+            id="navbarDropdownMenuAvatar"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {currentUser !== null && (
+              <img
+                src={
+                  currentUser.avatar
+                    ? `${url}/${currentUser.avatar}`
+                    : 'https://png.pngtree.com/png-clipart/20210915/ourlarge/pngtree-avatar-placeholder-abstract-white-blue-green-png-image_3918476.jpg'
+                }
+                className="rounded-circle"
+                height={30}
+              />
+            )}
+          </a>
+          <ul className="dropdown-menu">
+            <li>
+              <NavLink className="dropdown-item" to="/user/userprofile">
+                Profile
+              </NavLink>
+            </li>
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+            <li>
+              <a className="dropdown-item" onClick={logout} type="button">
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      );
+  };
 
   return (
     <>
-      <div class="modal fade" id="toolpack" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Modal title
-              </h5>
-              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ReactModal
-        initWidth={700}
-        initHeight={300}
-        onFocus={() => console.log('Modal is clicked')}
-        className={'my-modal-custom-class'}
-        onRequestClose={(e) => setModalOpen(false)}
-        isOpen={modalOpen}
-      >
-        <h3>My Modal</h3>
-
-        <div className="body">
-          <div className="card-body">
-            <input className="form-control" />
-            <button className="btn btn-primary">Calculate Mean</button>
-          </div>
-        </div>
-
-        <button onClick={(e) => setModalOpen(false)}>Close modal</button>
-      </ReactModal>
       {/* Navbar */}
-      <nav className="navbar navbar-expand-md navbar-light fixed-top bg-light">
+      <nav className="navbar navbar-expand-md navbar-light bg-light">
         {/* Container wrapper */}
         <div className="container">
           {/* Toggle button */}
@@ -77,7 +83,7 @@ const Navbar = () => {
             </a>
 
             {/* Left links */}
-            <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink className="nav-link" to="/main/home">
                   Home
@@ -106,6 +112,8 @@ const Navbar = () => {
                 </NavLink>
               </li>
             </ul>
+
+            {showAvatar()}
 
             {/* Left links */}
           </div>

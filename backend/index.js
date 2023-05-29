@@ -3,7 +3,8 @@ const app = express();
 const port=5000;
 
 const userRouter = require('./routers/userRouter')//folder.....
-const toolRouter = require('./routers/toolRouter')
+const toolRouter = require('./routers/toolRouter') 
+const feedbackRouter = require('./routers/feedbackRouter') 
 
 const cors = require('cors')
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/user', userRouter);
 app.use('/tool', toolRouter);
+app.use('/feedback', feedbackRouter);
 
 
 

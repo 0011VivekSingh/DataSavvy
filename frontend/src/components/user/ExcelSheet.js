@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import app_config from '../../config';
 import { useSheetContext } from '../../context/SheetProvider';
+import { convertCellNotationToIndexes } from './utils';
 
 const ExcelSheet = () => {
   const [sheet, setSheet] = useState(window.luckysheet);
@@ -37,24 +38,34 @@ const ExcelSheet = () => {
 
   const getSelectedRangeData = () => {
     const data = window.luckysheet.getRangeArray('twoDimensional');
-    const range = window.luckysheet.getRange();
-    console.log(data);
-    convertToExcelRange(range);
-    console.log(data.flat());
-    updateInputValue(selInput, data.flat());
+    // const range = window.luckysheet.getRange();
+    // console.log(data);
+    // convertToExcelRange(range);
+    return data.flat();
+    // console.log(data.flat());
+    // updateInputValue(selInput, data.flat());
   };
 
   const updateInputValue = (index, value) => {
     const newInputs = [...currentInputs];
     newInputs[index].value = value;
     setCurrentInputs(newInputs);
+    console.log(newInputs);
   };
 
   const calculateResult = () => {
-      const res = selTool.calc(currentInputs[selInput].value);
+
+      const cellValues = [];
+      currentInputs.forEach((input, index) => {
+        cellValues.push(window.luckysheet.getRangeValue(input.value));
+      });
+      console.log(cellValues);
+      return;
+      const values = getSelectedRangeData();
+      const res = selTool.calc(values);
       // res will contain array of results
       console.log(res);
-      showOutputInSheet(res);
+      // showOutputInSheet(res);
   }
 
   function columnToNumber(colName) {
@@ -82,12 +93,15 @@ const ExcelSheet = () => {
     // const rowCol = convertExcelRange(outputRange);
     // console.log(rowCol);
     // let startCell = [rowCol[0], rowCol[1]];
-    let [row, col] = [10, 6];
+    let {row, column} = convertCellNotationToIndexes(outputRange);
+    console.log(row, column);
     results.forEach((result, index) => {
       console.log(selTool.outputFormat[index]);
-      window.luckysheet.setCellValue(row+index, col, selTool.outputFormat[index].name);
-      window.luckysheet.setCellValue(row+index, col+1, result);
-    })
+      window.luckysheet.setCellValue(row+index, column, selTool.outputFormat[index].name);
+      window.luckysheet.setCellValue(row+index, column+1, result);
+    });
+
+
     
   }
 
@@ -96,10 +110,10 @@ const ExcelSheet = () => {
       <>
         {selTool.inputs.map((input, index) => (
           <>
-            <button onClick={getSelectedRangeData}>get data</button>
+            {/* <button onClick={getSelectedRangeData}>get data</button> */}
             <label htmlFor={input.name}>{input.name}</label>
             <input className="form-control mb-3" onClick={(e) => setSelInput(index)} onChange={(e) => updateInputValue(index, e.target.value)} />
-            { currentInputs[index] && currentInputs[index].value }
+            {/* { currentInputs[index] && currentInputs[index].value } */}
           </>
         ))}
         {/* <span>Output Range : </span> */}
@@ -109,7 +123,7 @@ const ExcelSheet = () => {
     );
   };
 
-  // window.addEventListener("mousemove", () => {
+  // window.addEventListener("mousedown", () => {
   //   const arr = window.luckysheet.getRangeArray('twoDimensional');
   //   console.log(arr);
   // });

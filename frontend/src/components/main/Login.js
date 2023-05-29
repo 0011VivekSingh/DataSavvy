@@ -3,10 +3,12 @@ import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
 import { MDBInput } from "mdb-react-ui-kit";
 import { Link, useNavigate } from 'react-router-dom';
+import { useUserContext } from '../../context/UserProvider';
 
 const Login = () => {
 
   const navigate = useNavigate();
+  const { loggedIn, setLoggedIn, logout } = useUserContext();
 
   const loginform = useFormik({
     initialValues: {
@@ -31,6 +33,7 @@ const Login = () => {
           text: "You have successfully logged in",
         });
         const data = await res.json();
+        setLoggedIn(true);
         if(data.role==='admin'){
           sessionStorage.setItem('admin', JSON.stringify(data));
           navigate('/admin/dashboard');
