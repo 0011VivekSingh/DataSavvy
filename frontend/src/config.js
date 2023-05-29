@@ -12,7 +12,7 @@ const app_config = {
   },
 
   toolpack: {
-    descrtiveStatistics: {
+    DescriptiveStatistics: {
       name: 'Descriptive Statistics',
       description: 'Descriptive Statistics',
       icon: 'descriptiveStatistics',
@@ -251,6 +251,60 @@ const app_config = {
        return correlation;
       }
     },
+
+    // covariance
+    covariance: {
+      name: 'covariance',
+      description: 'covariance analysis',
+      icon: 'covariance',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'input range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Group by',
+          type: 'radio',
+          description: 'values',
+          options: [
+            { label: 'Columns', value: 'option1' },
+            { label: 'Rows', value: 'option2' },
+          ],
+          required: true
+        },
+        {
+          name: 'Labels in the first row',
+          type: 'checkbox',
+          description: 'this is checkbox',
+          required: true
+        }
+      ],
+      calc: (arr1, arr2) => {
+        
+          if (arr1.length !== arr2.length) {
+            throw new Error('Arrays must have the same length');
+          }
+          const n = arr1.length;
+          const mean1 = arr1.reduce((acc, val) => acc + val, 0) / n;
+          const mean2 = arr2.reduce((acc, val) => acc + val, 0) / n;
+          let cov = 0;
+          for (let i = 0; i < n; i++) {
+            cov += (arr1[i] - mean1) * (arr2[i] - mean2);
+          }
+          return cov / (n - 1);
+        
+        }
+      },
+
+        
+
+
+
+
 
     // exponential smoothing
     exponentialsmoothing: {
@@ -517,6 +571,127 @@ ftesttwosampleforvariances: {
   return result;
     }
   },
+
+  // fourier Analysis
+  Fourieranalysis: {
+    name: 'Fourier Analysis',
+    description: 'Fourier Analysis',
+    icon: 'Fourieranalysis',
+    type: 'forecasting',
+    inputs: [
+      {
+        name: 'input range',
+        type: 'array',
+        description: 'values',
+        placeholder: 'Enter Range Here',
+        required: true
+      },
+      {
+        name: 'Labels in the first row',
+        type: 'checkbox',
+        description: 'this is checkbox',
+        required: true
+      },
+    ],
+    calc: (array) => {
+      const n = array.length;
+  const real = new Array(n);
+  const imag = new Array(n);
+  for (let i = 0; i < n; i++) {
+    real[i] = 0;
+    imag[i] = 0;
+    for (let j = 0; j < n; j++) {
+      real[i] += array[j] * Math.cos((2 * Math.PI * i * j) / n);
+      imag[i] += -array[j] * Math.sin((2 * Math.PI * i * j) / n);
+    }
+  }
+  return { real, imag };
+    }
+  },
+
+  // Random Number Generation
+  RandomNumberGeneration: {
+    name: 'Random Number Generation',
+    description: 'Random Number Generation',
+    icon: 'RandomNumberGeneration',
+    type: 'statistical',
+    inputs: [
+      {
+        name: 'Number of variables',
+        type: 'array',
+        description: 'values',
+        placeholder: 'Enter Range Here',
+      },
+      {
+        name: 'Numbers of random numbers',
+        type: 'number',
+        description: 'values',
+        placeholder: 'Enter Range Here',
+
+
+      },
+      {
+        name: 'Distribution',
+        type: 'dropdown',
+        description: 'this is dropdown',
+        required: true,
+        options: [
+          { key: 'Normal', value: 'Normal' },
+          { key: 'Uniform', value: 'Uniform' },
+          { key: 'Bernoulli', value: 'Exponential' },
+          { key: 'Binomial', value: 'Gamma' },
+          { key: 'Poisson', value: 'poisson' },
+          { key: 'Patterned', value: 'patterned' },
+          { key: 'Discrete', value: 'discrete' }
+          
+        ]
+
+      }
+
+    ],
+    calc: (array,randomNumber,distribution) => {
+
+
+    }},
+
+    // rank and percentile
+    // RankandPercentile: {
+    //   name: 'Rank and Percentile',
+    //   description: 'Rank and Percentile',
+    //   icon: 'RankandPercentile',
+    //   type: 'statistical',
+    //   inputs: [
+    //     {
+    //       name: 'input range',
+
+    //       type: 'array',
+    //       description: 'values',
+
+    //       placeholder: 'Enter Range Here',
+    //       required: true
+    //     },
+    //     {
+    //       name: 'Grouped by',
+    //       type: 'radio',
+    //       description: 'this is radio',
+    //       required: true,
+    //       options: [
+
+    //         { key: 'Rank', value: 'Rank' },
+    //         { key: 'Percentile', value: 'Percentile' },
+
+    //       ]
+    //     },
+
+
+
+
+
+    
+
+
+
+
       
 
 

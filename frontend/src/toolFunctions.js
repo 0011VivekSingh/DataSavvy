@@ -278,6 +278,30 @@ function randomBinomial(n, p) {
   }
   return x;
 }
+function randomUniform(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+// Rank and Percentile
+function rank(array) {
+  const sortedArray = array.slice().sort((a, b) => a - b);
+  const ranks = array.slice().map((v) => sortedArray.indexOf(v) + 1);
+  return ranks;
+}
+
+function percentile(array, p) {
+  const ranks = rank(array);
+  const n = array.length;
+  const percentileIndex = (p / 100) * n - 1;
+  if (percentileIndex === Math.floor(percentileIndex)) {
+    return array[percentileIndex];
+  } else {
+    const k = Math.floor(percentileIndex);
+    const f = percentileIndex - k;
+    return array[k] + f * (array[k + 1] - array[k]);
+  }
+}
+
 
 //regression
 function linearRegression(x, y) {

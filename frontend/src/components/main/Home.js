@@ -5,7 +5,7 @@ const Home = () => {
     <>
       <header>
         {/* Cover Page */}
-        <div className="  container-fluid home " style={{ backgroundImage: "url('/sky.png')" }}>
+        <div className=" container-fluid  " style={{ backgroundImage: "url('/sky.png')" }}>
           <div className="container">
 
             <div className="row ">
@@ -18,7 +18,7 @@ const Home = () => {
               </div>
 
               <div className="col-md-6">
-                <img src="/v (3).gif" className="d-block w-100 m-auto mt-4" alt="Bootstrap Themes" loading="lazy" />
+                <img src="/section.png" className="d-block w-100 m-auto mt-4" alt="Bootstrap Themes" loading="lazy" />
               </div>
             </div>
           </div>
@@ -165,7 +165,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="container-fluid col-xl-10 col-xxl-8 px-1 py-3" style={{ backgroundImage: "url('/sky.png')" }} >
+      <div className="container-fluid col-xl-10 col-xxl-8 px-1 py-3" style= {{ backgroundColor: "#4093e4" }} >
         <>
           <div className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
             <div className="col-md-5 p-lg-5 mx-auto my-5">
