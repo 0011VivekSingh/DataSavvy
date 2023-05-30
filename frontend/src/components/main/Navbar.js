@@ -6,8 +6,6 @@ import ReactModal from 'react-modal-resizable-draggable';
 import { useUserContext } from '../../context/UserProvider';
 
 const Navbar = () => {
-
-
   const url = app_config.apiUrl;
 
   const { loggedIn, setLoggedIn, logout } = useUserContext();
