@@ -84,16 +84,19 @@ const Home = () => {
 
       <div id="carouselExampleControls" className="carousel slide" data-mdb-ride="carousel">
         <div className="carousel-inner " style={{ backgroundColor: '#FFD95A' }}>
+         
           <div className="carousel-item active ">
-            <img src="/dx.jpg" className="d-block w-100" alt="Wild Landscape" height={200} width={500} />
+            <img src="/sky.png" className="d-block w-100" alt="Wild Landscape" height={200} width={500} />
             <div class="carousel-caption d-none d-md-block">
-              <h1>“Data is like garbage. You’d better know what you are going to do with it before you collect it.” ~ Mark Twain</h1>
+              <h2>“Data is like garbage. You’d better know what you are going to do with it before you collect it.” 
+              <br />
+                ~ Mark Twain</h2>
             </div>
           </div>
 
           <div className="carousel-item ">
             <img
-              // src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp"
+              src="/sky.png"
               className="d-block w-100"
               alt="Camera"
               height={200}
@@ -102,21 +105,26 @@ const Home = () => {
             <div class="carousel-caption d-none d-md-block">
               <h1>
                 <div class="carousel-caption d-none d-md-block">
-                  <h1>First slide label</h1>
+                  <h2>“Data is a tool for enhancing intuition.”
+                    <br />
+~ Hilary Mason, data scientist and founder of Fast Forward Labs</h2>
                 </div>
               </h1>
             </div>
           </div>
           <div className="carousel-item ">
             <img
-              // src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp"
+              src="/sky.png"
               className="d-block w-100"
               alt="Exotic Fruits"
               height={200}
               width={500}
             />
             <div class="carousel-caption d-none d-md-block">
-              <h1>second slide label</h1>
+              <h2>“We are surrounded by data, but starved for insights.”
+                <br />
+                
+~ Jay Baer, marketing and customer experience expert</h2>
             </div>
           </div>
         </div>

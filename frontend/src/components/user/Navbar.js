@@ -2,12 +2,62 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useSheetContext } from '../../context/SheetProvider';
 import app_config from '../../config';
+import { useUserContext } from '../../context/UserProvider';
 
 const Navbar = () => {
   const { selTool, setSelTool } = useSheetContext();
   const { toolpack } = app_config;
 
   const [modalOpen, setModalOpen] = useState(false);
+
+  const url = app_config.apiUrl;
+  const { loggedIn, setLoggedIn, logout } = useUserContext();
+  const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('user')));
+  const showAvatar = () => {
+
+    if (loggedIn)
+      return (
+        <div className="dropdown">
+          <a
+            className="dropdown-toggle d-flex align-items-center hidden-arrow"
+            href="#"
+            id="navbarDropdownMenuAvatar"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {currentUser !== null && (
+              <img
+                src={
+                  currentUser.avatar
+                    ? `${url}/${currentUser.avatar}`
+                    : 'https://png.pngtree.com/png-clipart/20210915/ourlarge/pngtree-avatar-placeholder-abstract-white-blue-green-png-image_3918476.jpg'
+                }
+                className="rounded-circle"
+                height={30}
+              />
+            )}
+          </a>
+          <ul className="dropdown-menu">
+            <li>
+              <NavLink className="dropdown-item" to="/user/userprofile">
+                Profile
+              </NavLink>
+            </li>
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+            <li>
+              <a className="dropdown-item" onClick={logout} type="button">
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      );
+  };
+
+
 
   return (
     <>
@@ -35,12 +85,8 @@ const Navbar = () => {
             </NavLink>
             {/* Left links */}
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              {/*          
-          <li className="nav-item">
-		        <NavLink className="nav-link" to="/user/Home">
-              home
-			      </NavLink>
-          </li> */}
+                      
+          
               <li className="nav-item">
                 <NavLink className="nav-link" to="/user/useprofile">
                   UserProfile
@@ -58,11 +104,7 @@ const Navbar = () => {
                 </NavLink>
               </li>
 
-              {/* <li className="nav-item">
-                <NavLink className="nav-link" to="/user/Signup">
-                  Signup
-                </NavLink>
-              </li> */}
+              
               {/* <li className="nav-item">
                 <NavLink className="nav-link" to="/user/Feedback">
                   Feedback
@@ -78,14 +120,11 @@ const Navbar = () => {
                   Toolbar
                 </NavLink>
               </li>
-              {/* <li className="nav-item">
-                <NavLink className="nav-link" to="/user/excelsheet">
-                  Excelsheet
-                </NavLink>
-              </li> */}
+              
             </ul>
             {/* Left links */}
           </div>
+          {showAvatar()}
 
           {/* Collapsible wrapper */}
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">

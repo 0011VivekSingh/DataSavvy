@@ -3,7 +3,9 @@ import { Link, NavLink } from 'react-router-dom';
 import { useSheetContext } from '../../context/SheetProvider';
 import app_config from '../../config';
 import ReactModal from 'react-modal-resizable-draggable';
+
 import { useUserContext } from '../../context/UserProvider';
+
 
 const Navbar = () => {
   const url = app_config.apiUrl;
@@ -84,29 +86,25 @@ const Navbar = () => {
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink className="nav-link" to="/main/home">
-                  Home
+                  <b>Home</b>
                 </NavLink>
               </li>
 
               <li className="nav-item">
                 <NavLink className="nav-link" to="/main/login">
-                  login
+                 <b>Login</b> 
                 </NavLink>
               </li>
 
               <li className="nav-item">
                 <NavLink className="nav-link" to="/main/signup">
-                  Signup
+                <b>  Signup </b>
                 </NavLink>
               </li>
-              {/* <li className="nav-item">
-                <NavLink className="nav-link" to="/user/toolpack">
-                  Toolpack
-                </NavLink>
-              </li> */}
+              
               <li className="nav-item">
                 <NavLink className="nav-link" to="/main/feedback">
-                  Feedback
+                <b>  Feedback </b>
                 </NavLink>
               </li>
             </ul>

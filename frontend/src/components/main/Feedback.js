@@ -3,7 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-
+import { MDBInput } from 'mdb-react-ui-kit';
 const Feedback = () => {
 
   const navigate = useNavigate();
@@ -56,36 +56,61 @@ const Feedback = () => {
 
   return (
     <>
-      <div className=" container h-100vh mt-5 col-md-6 col-lg-5  align-items-center" style={{minHeight: '90vh'}}>
-        <h1>Contact Form</h1>
-        <form id="contact_form" name="contact_form" >
-          <div className="mb-5 row">
-            <div className="col">
-              <label>First Name</label>
-              <input type="text" required="" maxLength={50} className="form-control" id="first_name" name="first_name" />
-            </div>
-            <div className="col">
-              <label>Last Name</label>
-              <input type="text" required="" maxLength={50} className="form-control" id="last_name" name="last_name" />
-            </div>
+      <div className=" container h-100vh mt-5 col-md-6 col-lg-5  align-items-center gradient-custom-3" style={{minHeight: '90vh',backgroundColor:'4DB8FF'}}>
+        <h1 className="text-uppercase text-center mb-2">
+          Feedback Form</h1>
+
+        <form  onSubmit={feedbackForm.handleSubmit} id="contact_form"   >
+          
+          <div className="mb-3 ">
+          <MDBInput
+                       label='Name' 
+                       id='name'
+                      type='text'
+                      value={feedbackForm.values.name} 
+                      onChange={feedbackForm.handleChange}
+                      />
+                      <span classname="text-danger">{feedbackForm.errors.name}</span>
           </div>
-          <div className="mb-5 row">
-            <div className="col">
-              <label htmlFor="email_addr">Email address</label>
-              <input type="email" required="" maxLength={50} className="form-control" id="email_addr" name="email" placeholder="name@example.com" />
-            </div>
-            <div className="col">
-              <label htmlFor="phone_input">Phone</label>
-              <input type="tel" required="" maxLength={50} className="form-control" id="phone_input" name="Phone" placeholder="Phone" />
-            </div>
+
+            
+            
+          <div className="mb-3 ">
+          <MDBInput
+                       label='email' 
+                       id='email'
+                      type='email'
+                      value={feedbackForm.values.email} 
+                      onChange={feedbackForm.handleChange}
+                      />
+                      <span classname="text-danger">{feedbackForm.errors.email}</span>
+            
           </div>
-          <div className="mb-5">
-            <label htmlFor="message">Message</label>
-            <textarea className="form-control" id="message" name="message" rows={5} defaultValue={''} />
+          <div className="mb-3 ">
+          <MDBInput
+                        label='feedback'  
+                        id='feedback'
+                        type='text'
+                        value={feedbackForm.values.feedback}
+                        onChange={feedbackForm.handleChange}
+                        />
+                        <span classname="text-danger">{feedbackForm.errors.feedback}</span>
           </div>
-          <button type="submit" className="btn btn-primary px-4 btn-lg">
-            Post
-          </button>
+          <div className="mb-3 ">
+          <button
+                        type="submit"
+                        className="btn btn-primary btn-block btn-lg gradient-custom-4"
+                        disabled={feedbackForm.isSubmitting}
+                      >
+                        {feedbackForm.isubmitting && <span classname="spinner-border spinner-border-sm"></span>}
+                        &nbsp;&nbsp;
+                        submit
+                      </button>
+          </div>
+          
+
+
+          
         </form>
       </div>
     </>
