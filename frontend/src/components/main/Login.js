@@ -55,27 +55,28 @@ const Login = () => {
 
 
   return (
-    <section className="bg" style={{ backgroundColor:"#8696FE" , minHeight: '100vh'}}>
-      <div className="container py-5 h-100">
-        <div className="row d-flex justify-content-center align-items-center " style={{minHeight: '100vh'}}>
+    <section className="bg" style={{ backgroundImage:"url('/loginimg.jpg')" , minHeight: '100vh'}}>
+      <div className="container pt-2 pb-0 h-100">
+        <div className="row d-flex justify-content-center align-items-center " style={{minHeight: '100vh' }}>
           <div className="col col-xl-10">
-            <div className="card  " style={{ borderRadius: "1rem" }}>
-              <div className="row g-0"  >
-                <div className="col-md-6 col-lg-5 d-none d-md-block dis-block my-auto">
+            <div className="card  mx-auto  " style={{ borderRadius: "1rem"}}>
+              <div className="row g-0 "  > 
+                <div className="col-md-6 col-lg-7 d-none d-md-block dis-block my-auto">
+                
                   <img
-                    src="/login.jpg"
+                    src="/gif7.gif"
                     alt="login form"
                     className="img-fluid "
-                    style={{ borderRadius: "1rem 0 0 1rem",margin:'2 auto'  }}
+                    style={{ borderRadius: "1rem 0 0 1rem",margin:'1 auto' }}
                   />
                 </div>
-                <div className="col-md-6 col-lg-7 d-flex align-items-center">
+                <div className="col-md-6 col-lg-5 d-flex align-items-center">
                   <div className="card-body p-4 p-lg-5 text-black">
 
                     <form onSubmit={loginform.handleSubmit}>
 
-                      <div className="d-flex align-items-center mb-2 pb-1">
-                      <img src="/pp.png" alt="logo" width="50" height="50" className="me-3 img-fluid" />
+                      <div className="d-flex align-items-center mb-2 pb-0">
+                      <img src="/pp.png" alt="logo" width="50" height="50" className="me-2 img-fluid" />
                         
                         <span className="h1 fw-bold mb-0">DataSavvy</span>
                       </div>
@@ -83,7 +84,7 @@ const Login = () => {
                         className="fw-normal mb-2 pb-2"
                         style={{ letterSpacing: 1 }}
                       >
-                        Sign into your account
+                        Login into your account
                       </h5>
 
                       <MDBInput
@@ -110,15 +111,16 @@ const Login = () => {
                         <button
                           className="btn btn-dark btn-lg btn-block"
                           type="submit"
+                          
                         >
-                          Login
+                          <b>Login</b>
                         </button>
                       </div>
 
                       <a className="small text-muted" href="#!">
                         Forgot password?
                       </a>
-                      <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
+                      <p className="mb-4 pb-lg-2" style={{ color: "#393f81" }}>
                         Don't have an account?{" "}
                         <Link to="/main/signup" style={{ color: "#393f81" }}>
                           Register here
@@ -138,6 +140,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+
     </section>
 
   )

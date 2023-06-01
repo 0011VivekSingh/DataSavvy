@@ -56,7 +56,7 @@ const Feedback = () => {
 
   return (
     <>
-      <div className=" container h-100vh mt-5 col-md-6 col-lg-5  align-items-center gradient-custom-3" style={{minHeight: '90vh',backgroundColor:'4DB8FF'}}>
+      <div className=" container h-100vh mt-5 col-md-6 col-lg-5  align-items-center gradient-custom-3" style={{minHeight: '90vh',backgroundColor:'#4DB8FF'}}>
         <h1 className="text-uppercase text-center mb-2">
           Feedback Form</h1>
 

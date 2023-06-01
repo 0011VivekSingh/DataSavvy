@@ -1,4 +1,4 @@
-import { calculateMean, calculateMedian, calculateMode } from "./toolFunctions";
+import { calculateMean, calculateMedian, calculateMode,calculateVariance,rank } from "./toolFunctions";
 
 const app_config = {
   apiUrl: 'http://localhost:5000',
@@ -653,34 +653,295 @@ ftesttwosampleforvariances: {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }},
 
-    // rank and percentile
-    // RankandPercentile: {
-    //   name: 'Rank and Percentile',
-    //   description: 'Rank and Percentile',
-    //   icon: 'RankandPercentile',
-    //   type: 'statistical',
-    //   inputs: [
-    //     {
-    //       name: 'input range',
+    // ANOVA single factor
+    Anovasinglefactor: {
+      name: 'Anova single factor',
+      description: 'Anova single factor',
+      icon: 'Anovasinglefactor',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'input range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Grouped by',
+          type: 'radio',
+          description: 'this is radio',
+          required: true,
+          options: [
 
-    //       type: 'array',
-    //       description: 'values',
+            { key: 'Columns', value: 'columns' },
+            { key: 'Rows', value: 'rows' },
 
-    //       placeholder: 'Enter Range Here',
-    //       required: true
-    //     },
-    //     {
-    //       name: 'Grouped by',
-    //       type: 'radio',
-    //       description: 'this is radio',
-    //       required: true,
-    //       options: [
+          ]
+        },
+        {
+          name: 'Labels in the first row',
+          type: 'checkbox',
+          description: 'this is checkbox',
+          required: true
+        },
+        {
+          name: 'Alpha',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
 
-    //         { key: 'Rank', value: 'Rank' },
-    //         { key: 'Percentile', value: 'Percentile' },
+        }
+      ],
+      calc: (data) => {
+        const n = data.length;
+  const k = data[0].length;
+  const mean = [];
+  const variance = [];
+  for (let i = 0; i < k; i++) {
+    mean.push(calculateMean(data[i]));
+    variance.push(calculateVariance(data[i]));
+  }
+  let sumOfSquaresBetween = 0;
+  for (let i = 0; i < k; i++) {
+    sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
+  }
+  const degreesOfFreedomBetween = k - 1;
+  const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
+  let sumOfSquaresWithin = 0;
+  for (let i = 0; i < k; i++) {
+    sumOfSquaresWithin += (data[i].length - 1) * variance[i];
+  }
+  const degreesOfFreedomWithin = n - k;
+  const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
+  const f = meanSquareBetween / meanSquareWithin;
+  return f;
+    }},
+// ANOVA two factor with replication
+Anovatwofactorwithreplication: {
+  name: 'Input Range',
+  description: 'Input Range',
+  icon: 'InputRange',
+  type: 'statistical',
+  inputs: [
+    {
+      name: 'input range',
+      type: 'array',
+      description: 'values',
+      placeholder: 'Enter Range Here',
+      required: true
+    },
+    {
+      name: 'Rows per sample',
+      type: 'number',
+      description: 'this is number',
+      placeholder: 'Enter Range Here',
+      required: true
+    },
+    {
+      name: 'Alpha',
+      type: 'number',
+      description: 'this is number',
+      placeholder: 'Enter Range Here',
+      required: true
+    }
+  ],
+  calc: (data) => {
+    const n = data.length;
+  const k = data[0].length;
+  const mean = [];
+  const variance = [];
+  for (let i = 0; i < k; i++) {
+    mean.push(calculateMean(data[i]));
+    variance.push(calculateVariance(data[i]));
+  }
+  let sumOfSquaresBetween = 0;
+  for (let i = 0; i < k; i++) {
+    sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
+  }
+  const degreesOfFreedomBetween = k - 1;
+  const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
+  let sumOfSquaresWithin = 0;
+  for (let i = 0; i < k; i++) {
+    sumOfSquaresWithin += (data[i].length - 1) * variance[i];
+  }
+  const degreesOfFreedomWithin = n - k;
+  const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
+  const f = meanSquareBetween / meanSquareWithin;
+  return f;
+  }
+},
+// ANOVA two factor without replication
+Anovatwofactorwithoutreplication: {
+  name: 'Anova two factor without replication',
+  description: 'Anova two factor without replication',
+  icon: 'Anovatwofactorwithoutreplication',
+  type: 'statistical',
+  inputs: [
+    {
+      name: 'input range',
+      type: 'array',
+      description: 'values',
+      placeholder: 'Enter Range Here',
+      required: true
+    },
+    {
+      name: 'Rows per sample',
+      type: 'number',
+      description: 'this is number',
+      placeholder: 'Enter Range Here',
+      required: true
+    },
+    {
+      name: 'Alpha',
+      type: 'number',
+      description: 'this is number',
+      placeholder: 'Enter Range Here',
+      required: true
+    }
+  ],
+  calc: (data) => {
+    const n = data.length;
+  const k = data[0].length;
+  const mean = [];
+  const variance = [];
+  for (let i = 0; i < k; i++) {
+    mean.push(calculateMean(data[i]));
+    variance.push(calculateVariance(data[i]));
+  }
+  let sumOfSquaresBetween = 0;
+  for (let i = 0; i < k; i++) {
+    sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
+  }
+  const degreesOfFreedomBetween = k - 1;
+  const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
+  let sumOfSquaresWithin = 0;
+  for (let i = 0; i < k; i++) {
+    sumOfSquaresWithin += (data[i].length - 1) * variance[i];
+  }
+  const degreesOfFreedomWithin = n - k;
+  const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
+  const f = meanSquareBetween / meanSquareWithin;
+  return f;
+}},
 
-    //       ]
-    //     },
+// rank and percentile
+
+Rankandpercentile: {
+  name: 'Rank and percentile',
+  description: 'Rank and percentile',
+  icon: 'Rankandpercentile',
+  type: 'statistical',
+  inputs: [
+    {
+      name: 'input range',
+      type: 'array',
+      description: 'values',
+      placeholder: 'Enter Range Here',
+      required: true
+    },
+    {
+      name: 'Groups', 
+      type: 'number',
+      description: 'this is number',
+      placeholder: 'Enter Range Here',
+      required: true
+    },
+    {
+      name: 'Alpha',
+      type: 'number',
+      description: 'this is number',
+      placeholder: 'Enter Range Here',
+      required: true
+    }
+  ],
+  calc: (array,p) => {
+    
+      const sortedArray = array.slice().sort((a, b) => a - b);
+      const ranks = array.slice().map((v) => sortedArray.indexOf(v) + 1);
+      return ranks;
+    
+    
+    function percentile(array, p) {
+      const ranks = rank(array);
+      const n = array.length;
+      const percentileIndex = (p / 100) * n - 1;
+      if (percentileIndex === Math.floor(percentileIndex)) {
+        return array[percentileIndex];
+      } else {
+        const k = Math.floor(percentileIndex);
+        const f = percentileIndex - k;
+        return array[k] + f * (array[k + 1] - array[k]);
+      }
+    }
+    
+    
+    //regression
+    function linearRegression(x, y) {
+      const n = x.length;
+      // Calculate sum of x, y, x^2, xy
+      let sumX = 0;
+      let sumY = 0;
+      let sumXSquare = 0;
+      let sumXY = 0;
+      for (let i = 0; i < n; i++) {
+        sumX += x[i];
+        sumY += y[i];
+        sumXSquare += x[i] * x[i];
+        sumXY += x[i] * y[i];
+      }
+      // Calculate coefficients (slope and intercept)
+      const slope = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX * sumX);
+      const intercept = (sumY - slope * sumX) / n;
+    
+      // Return the coefficients as an object
+      return {
+        slope,
+        intercept
+      };
+    }
+  }
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+    
+    
+    
+  
+
 
 
 
@@ -764,15 +1025,12 @@ ftesttwosampleforvariances: {
 
 
 
+  }
+};
 
 
+  
 
-
-
-
-
-    }
-  };
 
 
   

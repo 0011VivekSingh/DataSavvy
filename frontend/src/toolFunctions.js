@@ -501,10 +501,21 @@ function calculateMode(arr) {
 }
 
 
+
+
+
+
+
+
+
+  
+
+
 export {
   anovaTwoFactorWithoutReplication,
   anovaTwoFactorReplication,
   anovaSingleFactor,
+  
   calculateCorrelation,
   calculateCovariance,
   calculateMean,
@@ -522,6 +533,8 @@ export {
   randomBinomial,
   randomExponential,
   randomFloat,
+  rank,
+  percentile,
   randomInteger,
   randomNormal,
   randomPoisson,
