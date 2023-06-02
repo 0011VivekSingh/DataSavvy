@@ -547,6 +547,9 @@ const calculateSum = (array) => {
   return sum;
 }
 
+
+
+
 export {
   anovaTwoFactorWithoutReplication,
   anovaTwoFactorReplication,
