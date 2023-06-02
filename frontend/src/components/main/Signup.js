@@ -151,7 +151,7 @@ const Signup = () => {
                         className="form-check-label text-dark"
                         htmlFor="form2Example3g"
                       >
-                       <b> I agree all statements in{" "} </b>
+                       <b> I agree all statements in</b>
                         <a href="#!" className="text-body ">
                       <b>   <u className="text-info" >Terms of service</u></b> 
                         </a>

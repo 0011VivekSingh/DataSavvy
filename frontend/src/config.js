@@ -1,4 +1,4 @@
-import { calculateMean, calculateMedian, calculateMode,calculateVariance,rank } from "./toolFunctions";
+import { calculateKurtosis, calculateMean, calculateMedian, calculateMode, calculateSkewness, calculateVariance, rank } from './toolFunctions';
 
 const app_config = {
   apiUrl: 'http://localhost:5000',
@@ -81,23 +81,63 @@ const app_config = {
             type: 'text',
             defaultValue: '1'
           }
-        },
+        }
       ],
       calc: (arr1) => {
-        let mean =  calculateMean(arr1);
+        let mean = calculateMean(arr1);
         let median = calculateMedian(arr1);
         let mode = calculateMode(arr1);
-        return [mean, median, mode];
+        let variance = calculateVariance(arr1);
+        let stError = Math.sqrt(variance / arr1.length);
+        let standardDeviation = Math.sqrt(variance);
+        let kurtosis = calculateKurtosis(arr1);
+        let skewness = calculateSkewness(arr1);
+        let min = Math.min(...arr1);
+        let max = Math.max(...arr1);
+        let range = max - min;
+        let sum = arr1.reduce((a, b) => a + b, 0);
+        let count = arr1.length;
+        return [mean, stError, median, mode, standardDeviation, variance, kurtosis, skewness, range, min, max, sum, count];
       },
       outputFormat: [
         {
-          name : 'Mean'
+          name: 'Mean'
         },
         {
-          name : 'Median'
+          name: 'Median'
         },
         {
-          name : 'Mode'
+          name: 'Mode'
+        },
+        {
+          name: 'Variance'
+        },
+        {
+          name: 'Standard Error'
+        },
+        {
+          name: 'Standard Deviation'
+        },
+        {
+          name: 'Kurtosis'
+        },
+        {
+          name: 'Skewness'
+        },
+        {
+          name: 'Range'
+        },
+        {
+          name: 'Min'
+        },
+        {
+          name: 'Max'
+        },
+        {
+          name: 'Sum'
+        },
+        {
+          name: 'Count'
         }
       ]
     },
@@ -122,8 +162,6 @@ const app_config = {
       }
     },
 
-
-
     median: {
       name: 'median',
       description: 'median',
@@ -139,21 +177,19 @@ const app_config = {
         }
       ],
       calc: (array) => {
-        
-          // Sort the array in ascending order
-          const sortedArray = array.slice().sort((a, b) => a - b);
-          const length = sortedArray.length;
-          const middleIndex = Math.floor(length / 2);
-          if (length % 2 === 0) {
-            // If the array length is even, calculate the average of the middle two elements
-            const median = (sortedArray[middleIndex - 1] + sortedArray[middleIndex]) / 2;
-            return median;
-          } else {
-            // If the array length is odd, return the middle element
-            const median = sortedArray[middleIndex];
-            return median;
-          }
-        
+        // Sort the array in ascending order
+        const sortedArray = array.slice().sort((a, b) => a - b);
+        const length = sortedArray.length;
+        const middleIndex = Math.floor(length / 2);
+        if (length % 2 === 0) {
+          // If the array length is even, calculate the average of the middle two elements
+          const median = (sortedArray[middleIndex - 1] + sortedArray[middleIndex]) / 2;
+          return median;
+        } else {
+          // If the array length is odd, return the middle element
+          const median = sortedArray[middleIndex];
+          return median;
+        }
       }
     },
 
@@ -164,7 +200,7 @@ const app_config = {
       type: 'statistical',
       inputs: [
         {
-          name: 'values', 
+          name: 'values',
           type: 'array',
           description: 'this is mode',
           placeholder: 'Enter Range Here',
@@ -175,16 +211,16 @@ const app_config = {
         // Count the frequency of each value in the array
         const frequencyMap = new Map();
         let maxFrequency = 0;
-      
+
         array.forEach((value) => {
           const frequency = (frequencyMap.get(value) || 0) + 1;
           frequencyMap.set(value, frequency);
-      
+
           if (frequency > maxFrequency) {
             maxFrequency = frequency;
           }
         });
-      
+
         // Find the values with the maximum frequency (the mode(s))
         const modeValues = [];
         frequencyMap.forEach((frequency, value) => {
@@ -192,12 +228,11 @@ const app_config = {
             modeValues.push(value);
           }
         });
-      
+
         return modeValues;
       }
-      
     },
-// regression
+    // regression
     regression: {
       name: 'Regression',
       description: 'regression analysis',
@@ -221,8 +256,8 @@ const app_config = {
           required: true
         }
       ],
-      calc: (x,y) => {
-         {
+      calc: (x, y) => {
+        {
           const n = x.length;
           // Calculate sum of x, y, x^2, xy
           let sumX = 0;
@@ -238,7 +273,7 @@ const app_config = {
           // Calculate coefficients (slope and intercept)
           const slope = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX * sumX);
           const intercept = (sumY - slope * sumX) / n;
-        
+
           // Return the coefficients as an object
           return {
             slope,
@@ -268,14 +303,12 @@ const app_config = {
           description: 'values',
           options: [
             { label: 'Columns', value: 'option1' },
-            { label: 'Rows', value: 'option2' },
-         
+            { label: 'Rows', value: 'option2' }
           ],
           required: true
         },
         {
           name: 'Labels in the first row',
-
 
           type: 'checkbox',
           description: 'this is checkbox',
@@ -290,7 +323,7 @@ const app_config = {
         // Calculate the means of the two arrays
         const mean1 = array1.reduce((sum, value) => sum + value, 0) / n;
         const mean2 = array2.reduce((sum, value) => sum + value, 0) / n;
-      
+
         // Calculate the numerator and denominator for correlation
         let numerator = 0;
         let denominator1 = 0;
@@ -298,14 +331,14 @@ const app_config = {
         for (let i = 0; i < n; i++) {
           const deviation1 = array1[i] - mean1;
           const deviation2 = array2[i] - mean2;
-      
+
           numerator += deviation1 * deviation2;
           denominator1 += deviation1 ** 2;
           denominator2 += deviation2 ** 2;
         }
         // Calculate the correlation coefficient
         const correlation = numerator / Math.sqrt(denominator1 * denominator2);
-       return correlation;
+        return correlation;
       }
     },
 
@@ -329,7 +362,7 @@ const app_config = {
           description: 'values',
           options: [
             { label: 'Columns', value: 'option1' },
-            { label: 'Rows', value: 'option2' },
+            { label: 'Rows', value: 'option2' }
           ],
           required: true
         },
@@ -341,31 +374,22 @@ const app_config = {
         }
       ],
       calc: (arr1, arr2) => {
-        
-          if (arr1.length !== arr2.length) {
-            throw new Error('Arrays must have the same length');
-          }
-          const n = arr1.length;
-          const mean1 = arr1.reduce((acc, val) => acc + val, 0) / n;
-          const mean2 = arr2.reduce((acc, val) => acc + val, 0) / n;
-          let cov = 0;
-          for (let i = 0; i < n; i++) {
-            cov += (arr1[i] - mean1) * (arr2[i] - mean2);
-          }
-          return cov / (n - 1);
-        
+        if (arr1.length !== arr2.length) {
+          throw new Error('Arrays must have the same length');
         }
-      },
-
-        
-
-
-
-
+        const n = arr1.length;
+        const mean1 = arr1.reduce((acc, val) => acc + val, 0) / n;
+        const mean2 = arr2.reduce((acc, val) => acc + val, 0) / n;
+        let cov = 0;
+        for (let i = 0; i < n; i++) {
+          cov += (arr1[i] - mean1) * (arr2[i] - mean2);
+        }
+        return cov / (n - 1);
+      }
+    },
 
     // exponential smoothing
     exponentialsmoothing: {
-
       name: 'Exponential Smoothing',
       description: 'exponential smoothing',
       icon: 'exponentialsmoothing',
@@ -393,322 +417,312 @@ const app_config = {
         }
       ],
       calc: (data, alpha) => {
-       
-          const result = [data[0]];
-          for (let i = 1; i < data.length; i++) {
-            result.push(alpha * data[i] + (1 - alpha) * result[i - 1]);
+        const result = [data[0]];
+        for (let i = 1; i < data.length; i++) {
+          result.push(alpha * data[i] + (1 - alpha) * result[i - 1]);
+        }
+        return result;
+      }
+    },
+
+    // moving average
+    movingaverage: {
+      name: 'Moving Average',
+      description: 'moving average',
+      icon: 'movingaverage',
+      type: 'forecasting',
+      inputs: [
+        {
+          name: 'input range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Labels in the first row',
+          type: 'checkbox',
+          description: 'this is checkbox',
+          required: true
+        },
+        {
+          name: 'Interval',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        }
+      ],
+      calc: (data, interval) => {
+        const result = [];
+        for (let i = 0; i < data.length - interval + 1; i++) {
+          let sum = 0;
+          for (let j = 0; j < interval; j++) {
+            sum += data[i + j];
           }
-          return result;
+          result.push(sum / interval);
         }
-      },
+        return result;
+      }
+    },
 
-      // moving average
-      movingaverage: {
-        name: 'Moving Average',
-        description: 'moving average',
-        icon: 'movingaverage',
-        type: 'forecasting',
-        inputs: [
-          {
-            name: 'input range',
-            type: 'array',
-            description: 'values',
-            placeholder: 'Enter Range Here',
-            required: true
-          },
-          {
-            name: 'Labels in the first row',
-            type: 'checkbox',
-            description: 'this is checkbox',
-            required: true
+    // f-test two-sample for variances
+    ftesttwosampleforvariances: {
+      name: 'f-Test Two-Sample for Variances',
+      description: 'f-test two-sample for variances',
+      icon: 'ftesttwosampleforvariances',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'Variable 1 range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Variable 2 range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Labels ',
+          type: 'checkbox',
+          description: 'this is checkbox',
+          required: true
+        },
+        {
+          name: 'Alpha',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        }
+      ],
+      calc: (sample1, sample2) => {
+        function fTestForTwoSampleVariance(sample1, sample2) {
+          // Calculate the sample variances
+          const variance1 = calculateVariance(sample1);
+          const variance2 = calculateVariance(sample2);
 
-          
-          },
-           {
-            name: 'Interval',
-            type: 'number',
-            description: 'this is number',
-            placeholder: 'Enter Range Here',
-            required: true
-          
-           }
-          ],
-        calc: (data, interval) => {
-          const result = [];
-          for (let i = 0; i < data.length - interval + 1; i++) {
-            let sum = 0;
-            for (let j = 0; j < interval; j++) {
-              sum += data[i + j];
-            }
-            result.push(sum / interval);
+          // Calculate the F-statistic
+          const fStatistic = variance1 / variance2;
+
+          // Calculate the degrees of freedom
+          const df1 = sample1.length - 1;
+          const df2 = sample2.length - 1;
+
+          // Calculate the p-value
+          const pValue = 2 * (1 - cumulativeDistributionFunction(fStatistic, df1, df2));
+
+          // Return the results
+          return {
+            fStatistic: fStatistic,
+            degreesOfFreedom: { numerator: df1, denominator: df2 },
+            pValue: pValue
+          };
+        }
+
+        // Helper function to calculate the variance of a sample
+        function calculateVariance(sample) {
+          const mean = sample.reduce((sum, value) => sum + value, 0) / sample.length;
+          const squaredDeviations = sample.map((value) => Math.pow(value - mean, 2));
+          const variance = squaredDeviations.reduce((sum, value) => sum + value, 0) / (sample.length - 1);
+          return variance;
+        }
+
+        // Helper function to calculate the cumulative distribution function (CDF) for the F-distribution
+        function cumulativeDistributionFunction(x, df1, df2) {
+          const numerator = Math.pow(df1 * x, df1) * Math.pow(df2, df2);
+          const denominator = Math.pow(df1 * x + df2, df1 + df2);
+          const quotient = numerator / denominator;
+
+          // Approximation using continued fraction expansion
+          let cf = 1.0;
+          let term = 1.0;
+          let i = df2 % 2 === 0 ? 2 : 1;
+          while (i <= df2 - 2) {
+            term *= df1 + i - 2;
+            term *= x;
+            cf += term;
+            i += 2;
           }
-          return result;
-        }
-      },
 
-
-// f-test two-sample for variances
-ftesttwosampleforvariances: {
-  name: 'f-Test Two-Sample for Variances',
-  description: 'f-test two-sample for variances',
-  icon: 'ftesttwosampleforvariances',
-  type: 'statistical',
-  inputs: [
-    {
-      name: 'Variable 1 range',
-      type: 'array',
-      description: 'values',
-      placeholder: 'Enter Range Here',
-      required: true
-    },
-    {
-      name: 'Variable 2 range',
-      type: 'array',
-      description: 'values',
-      placeholder: 'Enter Range Here',
-      required: true
-    },
-    {
-      name: 'Labels ',
-      type: 'checkbox',
-      description: 'this is checkbox',
-      required: true
-    },
-    {
-      name: 'Alpha',
-      type: 'number',
-      description: 'this is number',
-      placeholder: 'Enter Range Here',
-      required: true
-
-    }
-  ],
-  calc: (sample1,sample2) => {
-    function fTestForTwoSampleVariance(sample1, sample2) {
-      // Calculate the sample variances
-      const variance1 = calculateVariance(sample1);
-      const variance2 = calculateVariance(sample2);
-      
-      // Calculate the F-statistic
-      const fStatistic = variance1 / variance2;
-      
-      // Calculate the degrees of freedom
-      const df1 = sample1.length - 1;
-      const df2 = sample2.length - 1;
-      
-      // Calculate the p-value
-      const pValue = 2 * (1 - cumulativeDistributionFunction(fStatistic, df1, df2));
-      
-      // Return the results
-      return {
-        fStatistic: fStatistic,
-        degreesOfFreedom: { numerator: df1, denominator: df2 },
-        pValue: pValue
-      };
-    }
-    
-    // Helper function to calculate the variance of a sample
-    function calculateVariance(sample) {
-      const mean = sample.reduce((sum, value) => sum + value, 0) / sample.length;
-      const squaredDeviations = sample.map(value => Math.pow(value - mean, 2));
-      const variance = squaredDeviations.reduce((sum, value) => sum + value, 0) / (sample.length - 1);
-      return variance;
-    }
-    
-    // Helper function to calculate the cumulative distribution function (CDF) for the F-distribution
-    function cumulativeDistributionFunction(x, df1, df2) {
-      const numerator = Math.pow(df1 * x, df1) * Math.pow(df2, df2);
-      const denominator = Math.pow(df1 * x + df2, df1 + df2);
-      const quotient = numerator / denominator;
-      
-      // Approximation using continued fraction expansion
-      let cf = 1.0;
-      let term = 1.0;
-      let i = df2 % 2 === 0 ? 2 : 1;
-      while (i <= df2 - 2) {
-        term *= df1 + i - 2;
-        term *= x;
-        cf += term;
-        i += 2;
-      }
-      
-      return 1 - quotient * cf;
-    }
-  }},
-
-  // histogram
-  histogram: {
-    name: 'Histogram',
-    description: 'histogram',
-    icon: 'histogram',
-    type: 'statistical',
-    inputs: [
-      {
-        name: 'input range',
-        type: 'array',
-        description: 'values',
-        placeholder: 'Enter Range Here',
-        required: true
-      },
-      {
-        name: 'Bin Range',
-        type: 'number',
-        description: 'values',
-        placeholder: 'Enter Range Here',
-        required: true
-      },
-      {
-        name: 'Labels',
-        type: 'checkbox',
-        description: 'this is checkbox',
-        required: true
-      }
-    ],
-    calc: (array, bins) =>{
-      const n = array.length;
-      const min = Math.min(...array);
-      const max = Math.max(...array);
-      const binWidth = (max - min) / bins;
-      const result = new Array(bins).fill(0);
-      for (let i = 0; i < n; i++) {
-        const bin = Math.floor((array[i] - min) / binWidth);
-        if (bin < 0) {
-          result[0]++;
-        } else if (bin >= bins) {
-          result[bins - 1]++;
-        } else {
-          result[bin]++;
+          return 1 - quotient * cf;
         }
       }
-      return result;
-    }
-  },
+    },
 
-  // moving average
-  movingaverage: {
-    name: 'Moving Average',
-    description: 'moving average',
-    icon: 'movingaverage',
-    type: 'forecasting',
-    inputs: [
-      {
-        name: 'input range',
-        type: 'array',
-        description: 'values',
-        placeholder: 'Enter Range Here',
-        required: true
-      },
-      {
-        name: 'Labels in the first row',
-        type: 'checkbox',
-        description: 'this is checkbox',
-        required: true
-      },
-      {
-        name: 'Interval',
-        type: 'number',
-        description: 'this is number',
-        placeholder: 'Enter Range Here',
-        required: true
-
+    // histogram
+    histogram: {
+      name: 'Histogram',
+      description: 'histogram',
+      icon: 'histogram',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'input range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Bin Range',
+          type: 'number',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Labels',
+          type: 'checkbox',
+          description: 'this is checkbox',
+          required: true
+        }
+      ],
+      calc: (array, bins) => {
+        const n = array.length;
+        const min = Math.min(...array);
+        const max = Math.max(...array);
+        const binWidth = (max - min) / bins;
+        const result = new Array(bins).fill(0);
+        for (let i = 0; i < n; i++) {
+          const bin = Math.floor((array[i] - min) / binWidth);
+          if (bin < 0) {
+            result[0]++;
+          } else if (bin >= bins) {
+            result[bins - 1]++;
+          } else {
+            result[bin]++;
+          }
+        }
+        return result;
       }
-    ],
-    calc: (array,windowSize) => {
-      const result = [];
-  const n = array.length;
-  for (let i = 0; i < n; i++) {
-    let sum = 0;
-    let count = 0;
-    for (let j = Math.max(0, i - windowSize + 1); j <= i; j++) {
-      sum += array[j];
-      count++;
-    }
-    result.push(sum / count);
-  }
-  return result;
-    }
-  },
+    },
 
-  // fourier Analysis
-  Fourieranalysis: {
-    name: 'Fourier Analysis',
-    description: 'Fourier Analysis',
-    icon: 'Fourieranalysis',
-    type: 'forecasting',
-    inputs: [
-      {
-        name: 'input range',
-        type: 'array',
-        description: 'values',
-        placeholder: 'Enter Range Here',
-        required: true
-      },
-      {
-        name: 'Labels in the first row',
-        type: 'checkbox',
-        description: 'this is checkbox',
-        required: true
-      },
-    ],
-    calc: (array) => {
-      const n = array.length;
-  const real = new Array(n);
-  const imag = new Array(n);
-  for (let i = 0; i < n; i++) {
-    real[i] = 0;
-    imag[i] = 0;
-    for (let j = 0; j < n; j++) {
-      real[i] += array[j] * Math.cos((2 * Math.PI * i * j) / n);
-      imag[i] += -array[j] * Math.sin((2 * Math.PI * i * j) / n);
-    }
-  }
-  return { real, imag };
-    }
-  },
-
-  // Random Number Generation
-  RandomNumberGeneration: {
-    name: 'Random Number Generation',
-    description: 'Random Number Generation',
-    icon: 'RandomNumberGeneration',
-    type: 'statistical',
-    inputs: [
-      {
-        name: 'Number of variables',
-        type: 'array',
-        description: 'values',
-        placeholder: 'Enter Range Here',
-      },
-      {
-        name: 'Numbers of random numbers',
-        type: 'number',
-        description: 'values',
-        placeholder: 'Enter Range Here',
-
-
-      },
-      {
-        name: 'Distribution',
-        type: 'dropdown',
-        description: 'this is dropdown',
-        required: true,
-        options: [
-          { key: 'Normal', value: 'Normal' },
-          { key: 'Uniform', value: 'Uniform' },
-          { key: 'Bernoulli', value: 'Exponential' },
-          { key: 'Binomial', value: 'Gamma' },
-          { key: 'Poisson', value: 'poisson' },
-          { key: 'Patterned', value: 'patterned' },
-          { key: 'Discrete', value: 'discrete' }
-          
-        ]
-
+    // moving average
+    movingaverage: {
+      name: 'Moving Average',
+      description: 'moving average',
+      icon: 'movingaverage',
+      type: 'forecasting',
+      inputs: [
+        {
+          name: 'input range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Labels in the first row',
+          type: 'checkbox',
+          description: 'this is checkbox',
+          required: true
+        },
+        {
+          name: 'Interval',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        }
+      ],
+      calc: (array, windowSize) => {
+        const result = [];
+        const n = array.length;
+        for (let i = 0; i < n; i++) {
+          let sum = 0;
+          let count = 0;
+          for (let j = Math.max(0, i - windowSize + 1); j <= i; j++) {
+            sum += array[j];
+            count++;
+          }
+          result.push(sum / count);
+        }
+        return result;
       }
+    },
 
-    ],
-    calc: (min,max) =>{
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }},
+    // fourier Analysis
+    Fourieranalysis: {
+      name: 'Fourier Analysis',
+      description: 'Fourier Analysis',
+      icon: 'Fourieranalysis',
+      type: 'forecasting',
+      inputs: [
+        {
+          name: 'input range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Labels in the first row',
+          type: 'checkbox',
+          description: 'this is checkbox',
+          required: true
+        }
+      ],
+      calc: (array) => {
+        const n = array.length;
+        const real = new Array(n);
+        const imag = new Array(n);
+        for (let i = 0; i < n; i++) {
+          real[i] = 0;
+          imag[i] = 0;
+          for (let j = 0; j < n; j++) {
+            real[i] += array[j] * Math.cos((2 * Math.PI * i * j) / n);
+            imag[i] += -array[j] * Math.sin((2 * Math.PI * i * j) / n);
+          }
+        }
+        return { real, imag };
+      }
+    },
+
+    // Random Number Generation
+    RandomNumberGeneration: {
+      name: 'Random Number Generation',
+      description: 'Random Number Generation',
+      icon: 'RandomNumberGeneration',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'Number of variables',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here'
+        },
+        {
+          name: 'Numbers of random numbers',
+          type: 'number',
+          description: 'values',
+          placeholder: 'Enter Range Here'
+        },
+        {
+          name: 'Distribution',
+          type: 'dropdown',
+          description: 'this is dropdown',
+          required: true,
+          options: [
+            { key: 'Normal', value: 'Normal' },
+            { key: 'Uniform', value: 'Uniform' },
+            { key: 'Bernoulli', value: 'Exponential' },
+            { key: 'Binomial', value: 'Gamma' },
+            { key: 'Poisson', value: 'poisson' },
+            { key: 'Patterned', value: 'patterned' },
+            { key: 'Discrete', value: 'discrete' }
+          ]
+        }
+      ],
+      calc: (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+    },
 
     // ANOVA single factor
     Anovasinglefactor: {
@@ -730,10 +744,8 @@ ftesttwosampleforvariances: {
           description: 'this is radio',
           required: true,
           options: [
-
             { key: 'Columns', value: 'columns' },
-            { key: 'Rows', value: 'rows' },
-
+            { key: 'Rows', value: 'rows' }
           ]
         },
         {
@@ -748,348 +760,217 @@ ftesttwosampleforvariances: {
           description: 'this is number',
           placeholder: 'Enter Range Here',
           required: true
-
         }
       ],
       calc: (data) => {
         const n = data.length;
-  const k = data[0].length;
-  const mean = [];
-  const variance = [];
-  for (let i = 0; i < k; i++) {
-    mean.push(calculateMean(data[i]));
-    variance.push(calculateVariance(data[i]));
-  }
-  let sumOfSquaresBetween = 0;
-  for (let i = 0; i < k; i++) {
-    sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
-  }
-  const degreesOfFreedomBetween = k - 1;
-  const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
-  let sumOfSquaresWithin = 0;
-  for (let i = 0; i < k; i++) {
-    sumOfSquaresWithin += (data[i].length - 1) * variance[i];
-  }
-  const degreesOfFreedomWithin = n - k;
-  const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
-  const f = meanSquareBetween / meanSquareWithin;
-  return f;
-    }},
-// ANOVA two factor with replication
-Anovatwofactorwithreplication: {
-  name: 'Input Range',
-  description: 'Input Range',
-  icon: 'InputRange',
-  type: 'statistical',
-  inputs: [
-    {
-      name: 'input range',
-      type: 'array',
-      description: 'values',
-      placeholder: 'Enter Range Here',
-      required: true
+        const k = data[0].length;
+        const mean = [];
+        const variance = [];
+        for (let i = 0; i < k; i++) {
+          mean.push(calculateMean(data[i]));
+          variance.push(calculateVariance(data[i]));
+        }
+        let sumOfSquaresBetween = 0;
+        for (let i = 0; i < k; i++) {
+          sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
+        }
+        const degreesOfFreedomBetween = k - 1;
+        const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
+        let sumOfSquaresWithin = 0;
+        for (let i = 0; i < k; i++) {
+          sumOfSquaresWithin += (data[i].length - 1) * variance[i];
+        }
+        const degreesOfFreedomWithin = n - k;
+        const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
+        const f = meanSquareBetween / meanSquareWithin;
+        return f;
+      }
     },
-    {
-      name: 'Rows per sample',
-      type: 'number',
-      description: 'this is number',
-      placeholder: 'Enter Range Here',
-      required: true
+    // ANOVA two factor with replication
+    Anovatwofactorwithreplication: {
+      name: 'Input Range',
+      description: 'Input Range',
+      icon: 'InputRange',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'input range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Rows per sample',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Alpha',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        }
+      ],
+      calc: (data) => {
+        const n = data.length;
+        const k = data[0].length;
+        const mean = [];
+        const variance = [];
+        for (let i = 0; i < k; i++) {
+          mean.push(calculateMean(data[i]));
+          variance.push(calculateVariance(data[i]));
+        }
+        let sumOfSquaresBetween = 0;
+        for (let i = 0; i < k; i++) {
+          sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
+        }
+        const degreesOfFreedomBetween = k - 1;
+        const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
+        let sumOfSquaresWithin = 0;
+        for (let i = 0; i < k; i++) {
+          sumOfSquaresWithin += (data[i].length - 1) * variance[i];
+        }
+        const degreesOfFreedomWithin = n - k;
+        const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
+        const f = meanSquareBetween / meanSquareWithin;
+        return f;
+      }
     },
-    {
-      name: 'Alpha',
-      type: 'number',
-      description: 'this is number',
-      placeholder: 'Enter Range Here',
-      required: true
-    }
-  ],
-  calc: (data) => {
-    const n = data.length;
-  const k = data[0].length;
-  const mean = [];
-  const variance = [];
-  for (let i = 0; i < k; i++) {
-    mean.push(calculateMean(data[i]));
-    variance.push(calculateVariance(data[i]));
-  }
-  let sumOfSquaresBetween = 0;
-  for (let i = 0; i < k; i++) {
-    sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
-  }
-  const degreesOfFreedomBetween = k - 1;
-  const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
-  let sumOfSquaresWithin = 0;
-  for (let i = 0; i < k; i++) {
-    sumOfSquaresWithin += (data[i].length - 1) * variance[i];
-  }
-  const degreesOfFreedomWithin = n - k;
-  const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
-  const f = meanSquareBetween / meanSquareWithin;
-  return f;
-  }
-},
-// ANOVA two factor without replication
-Anovatwofactorwithoutreplication: {
-  name: 'Anova two factor without replication',
-  description: 'Anova two factor without replication',
-  icon: 'Anovatwofactorwithoutreplication',
-  type: 'statistical',
-  inputs: [
-    {
-      name: 'input range',
-      type: 'array',
-      description: 'values',
-      placeholder: 'Enter Range Here',
-      required: true
+    // ANOVA two factor without replication
+    Anovatwofactorwithoutreplication: {
+      name: 'Anova two factor without replication',
+      description: 'Anova two factor without replication',
+      icon: 'Anovatwofactorwithoutreplication',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'input range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Rows per sample',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Alpha',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        }
+      ],
+      calc: (data) => {
+        const n = data.length;
+        const k = data[0].length;
+        const mean = [];
+        const variance = [];
+        for (let i = 0; i < k; i++) {
+          mean.push(calculateMean(data[i]));
+          variance.push(calculateVariance(data[i]));
+        }
+        let sumOfSquaresBetween = 0;
+        for (let i = 0; i < k; i++) {
+          sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
+        }
+        const degreesOfFreedomBetween = k - 1;
+        const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
+        let sumOfSquaresWithin = 0;
+        for (let i = 0; i < k; i++) {
+          sumOfSquaresWithin += (data[i].length - 1) * variance[i];
+        }
+        const degreesOfFreedomWithin = n - k;
+        const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
+        const f = meanSquareBetween / meanSquareWithin;
+        return f;
+      }
     },
-    {
-      name: 'Rows per sample',
-      type: 'number',
-      description: 'this is number',
-      placeholder: 'Enter Range Here',
-      required: true
-    },
-    {
-      name: 'Alpha',
-      type: 'number',
-      description: 'this is number',
-      placeholder: 'Enter Range Here',
-      required: true
-    }
-  ],
-  calc: (data) => {
-    const n = data.length;
-  const k = data[0].length;
-  const mean = [];
-  const variance = [];
-  for (let i = 0; i < k; i++) {
-    mean.push(calculateMean(data[i]));
-    variance.push(calculateVariance(data[i]));
-  }
-  let sumOfSquaresBetween = 0;
-  for (let i = 0; i < k; i++) {
-    sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
-  }
-  const degreesOfFreedomBetween = k - 1;
-  const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
-  let sumOfSquaresWithin = 0;
-  for (let i = 0; i < k; i++) {
-    sumOfSquaresWithin += (data[i].length - 1) * variance[i];
-  }
-  const degreesOfFreedomWithin = n - k;
-  const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
-  const f = meanSquareBetween / meanSquareWithin;
-  return f;
-}},
 
-// rank and percentile
+    // rank and percentile
 
-Rankandpercentile: {
-  name: 'Rank and percentile',
-  description: 'Rank and percentile',
-  icon: 'Rankandpercentile',
-  type: 'statistical',
-  inputs: [
-    {
-      name: 'input range',
-      type: 'array',
-      description: 'values',
-      placeholder: 'Enter Range Here',
-      required: true
-    },
-    {
-      name: 'Groups', 
-      type: 'number',
-      description: 'this is number',
-      placeholder: 'Enter Range Here',
-      required: true
-    },
-    {
-      name: 'Alpha',
-      type: 'number',
-      description: 'this is number',
-      placeholder: 'Enter Range Here',
-      required: true
-    }
-  ],
-  calc: (array,p) => {
-    
-      const sortedArray = array.slice().sort((a, b) => a - b);
-      const ranks = array.slice().map((v) => sortedArray.indexOf(v) + 1);
-      return ranks;
-    
-    
-    function percentile(array, p) {
-      const ranks = rank(array);
-      const n = array.length;
-      const percentileIndex = (p / 100) * n - 1;
-      if (percentileIndex === Math.floor(percentileIndex)) {
-        return array[percentileIndex];
-      } else {
-        const k = Math.floor(percentileIndex);
-        const f = percentileIndex - k;
-        return array[k] + f * (array[k + 1] - array[k]);
+    Rankandpercentile: {
+      name: 'Rank and percentile',
+      description: 'Rank and percentile',
+      icon: 'Rankandpercentile',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'input range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Groups',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Alpha',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        }
+      ],
+      calc: (array, p) => {
+        const sortedArray = array.slice().sort((a, b) => a - b);
+        const ranks = array.slice().map((v) => sortedArray.indexOf(v) + 1);
+        return ranks;
+
+        function percentile(array, p) {
+          const ranks = rank(array);
+          const n = array.length;
+          const percentileIndex = (p / 100) * n - 1;
+          if (percentileIndex === Math.floor(percentileIndex)) {
+            return array[percentileIndex];
+          } else {
+            const k = Math.floor(percentileIndex);
+            const f = percentileIndex - k;
+            return array[k] + f * (array[k + 1] - array[k]);
+          }
+        }
+
+        //regression
+        function linearRegression(x, y) {
+          const n = x.length;
+          // Calculate sum of x, y, x^2, xy
+          let sumX = 0;
+          let sumY = 0;
+          let sumXSquare = 0;
+          let sumXY = 0;
+          for (let i = 0; i < n; i++) {
+            sumX += x[i];
+            sumY += y[i];
+            sumXSquare += x[i] * x[i];
+            sumXY += x[i] * y[i];
+          }
+          // Calculate coefficients (slope and intercept)
+          const slope = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX * sumX);
+          const intercept = (sumY - slope * sumX) / n;
+
+          // Return the coefficients as an object
+          return {
+            slope,
+            intercept
+          };
+        }
       }
     }
-    
-    
-    //regression
-    function linearRegression(x, y) {
-      const n = x.length;
-      // Calculate sum of x, y, x^2, xy
-      let sumX = 0;
-      let sumY = 0;
-      let sumXSquare = 0;
-      let sumXY = 0;
-      for (let i = 0; i < n; i++) {
-        sumX += x[i];
-        sumY += y[i];
-        sumXSquare += x[i] * x[i];
-        sumXY += x[i] * y[i];
-      }
-      // Calculate coefficients (slope and intercept)
-      const slope = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX * sumX);
-      const intercept = (sumY - slope * sumX) / n;
-    
-      // Return the coefficients as an object
-      return {
-        slope,
-        intercept
-      };
-    }
-  }
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-},
-
-
-
-    
-    
-    
-  
-
-
-
-
-
-
-    
-
-
-
-
-      
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-    
-      
-      
-      
-    
-    
-
-
-
-
-
-            
-        
-
-        
-
-
-
-
-
-
-
-        
-        
-
-
-
-
-
-
-          
-    
-          
-         
-          
-        
-
-
-    
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
   }
 };
-
-
-  
-
-
-
-  
 
 export default app_config;
