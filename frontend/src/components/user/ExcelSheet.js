@@ -61,6 +61,7 @@ const ExcelSheet = () => {
     // console.log(cellValues);
     // return;
     const values = getSelectedRangeData();
+    console.log(values);
     const res = selTool.calc(values);
     // res will contain array of results
     console.log(res);

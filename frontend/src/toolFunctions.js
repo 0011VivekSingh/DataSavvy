@@ -501,15 +501,51 @@ function calculateMode(arr) {
 }
 
 
+const calculateKurtosis = (array) => {
+  const n = array.length;
+  const mean = calculateMean(array);
+  const variance = calculateVariance(array);
+  let sum = 0;
+  for (let i = 0; i < n; i++) {
+    sum += (array[i] - mean) ** 4;
+  }
+  const kurtosis = (sum / n) / (variance ** 2) - 3;
+  return kurtosis;
+}
 
+const calculateSkewness = (array) => {
+  const n = array.length;
+  const mean = calculateMean(array);
+  const variance = calculateVariance(array);
+  let sum = 0;
+  for (let i = 0; i < n; i++) {
+    sum += (array[i] - mean) ** 3;
+  }
+  const skewness = sum / (n * variance ** (3 / 2));
+  return skewness;
+}
 
+const calculateRange = (array) => {
+  const min = Math.min(...array);
+  const max = Math.max(...array);
+  const range = max - min;
+  return range;
+}
 
-
-
-
-
+const calculateMinimum = (array) => {
+  const min = Math.min(...array);
+  return min;
+}
   
+const calculateMaximum = (array) => {
+  const max = Math.max(...array);
+  return max;
+}
 
+const calculateSum = (array) => {
+  const sum = array.reduce((acc, val) => acc + val, 0);
+  return sum;
+}
 
 export {
   anovaTwoFactorWithoutReplication,
@@ -542,5 +578,11 @@ export {
   tTest,
   tTestEqualVariance,
   tTestUnequalVariance,
-  zTest
+  zTest,
+  calculateKurtosis,
+  calculateSkewness,
+  calculateRange,
+  calculateMinimum,
+  calculateMaximum,
+  calculateSum
 };
