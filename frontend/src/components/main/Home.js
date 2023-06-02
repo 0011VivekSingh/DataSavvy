@@ -10,7 +10,8 @@ const Home = () => {
 
             <div className="row ">
               <div className="col-md-6 my-auto">
-                <h1 className="display-4 fw-bold text-white">Safe and Secure Data handling with <span style={{color:"orange"}}> DataSavvy </span></h1>
+                <h1 className="display-4 fw-bold text-white">Safe and Secure Data handling with 
+                <span style={{color:"orange"}}> DataSavvy </span></h1>
 
                 <p className="h5 mt-4" style={{ color: 'white' }}>
                   "Unlock the power of data with DataSavvy - Your personalized data analysis platform."
@@ -135,6 +136,56 @@ const Home = () => {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
+
+      <section>
+      <section>
+  <div className="row d-flex justify-content-center">
+    <div className="col-md-10 col-xl-8 text-center">
+      <h3 className="mb-4">Our Team</h3>
+      <p className="mb-4 pb-2 mb-md-5 pb-md-0">
+      Welcome to our website! We're a dedicated team focused on delivering the best experience. With diverse expertise and customer-centric approach, we strive for excellence in design, user experiences, and solutions. Expect top-notch products and services that exceed expectations. Thank you for visiting, and get ready for an exceptional journey with us!
+
+
+
+
+      </p>
+    </div>
+  </div>
+  <div className="row text-center">
+    <div className="col-md-4 mb-5 mb-md-0">
+      <div className="d-flex justify-content-center mb-4">
+        <img
+          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+          className="rounded-circle shadow-1-strong"
+          width={150}
+          height={150}
+        />
+      </div>
+      <h5 className="mb-3">Vivek Singh</h5>
+      <h6 className="text-primary mb-3">Web Developer</h6>
+      
+      
+    </div>
+    <div className="col-md-4 mb-5 mb-md-0">
+      <div className="d-flex justify-content-center mb-4">
+        <img
+          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(2).webp"
+          className="rounded-circle shadow-1-strong"
+          width={150}
+          height={150}
+        />
+      </div>
+      <h5 className="mb-3">Arpita Shukla</h5>
+      <h6 className="text-primary mb-3">,</h6>
+     
+    </div>
+    
+  </div>
+</section>
+
+  
+</section>
+
 
       
 

@@ -79,9 +79,9 @@ const Signup = () => {
         <div className="container  h-100">
           <div className="row d-flex  align-items-center h-100 w-75">
             <div className="col-12 col-md-9 col-lg-7 col-xl-6">
-              <div className="card my-5" style={{backgroundColor:"transparent"}}  >
+              <div className="card my-5"   >
                 <div className="card-body py-5 px-5">
-                  <h2 className="text-uppercase text-center mb-5 mt-0 text-light">
+                  <h2 className="text-uppercase text-center mb-5 mt-0 text-dark">
                    <b> Create your account</b>
                   </h2>
 
@@ -91,10 +91,13 @@ const Signup = () => {
                     <MDBInput 
                     
                        label='Name' 
+                       className='mttt'
                        id='name'
+                       
                       type='text'
                       value={signupForm.values.name} 
                       onChange={signupForm.handleChange}
+                      
                       />
                       <span classname="text-danger">{signupForm.errors.name}</span>
                       </div>
@@ -114,7 +117,7 @@ const Signup = () => {
                     <div className=" mb-4 inp">
                     <MDBInput
                     
-                       label='Password' 
+                       label= 'Password' 
                        id='password'
                       type='password'
                       value={signupForm.values.password} 
@@ -133,6 +136,8 @@ const Signup = () => {
                       />
                       <span classname="text-danger">{signupForm.errors.password}</span>
                       </div>
+
+                      
                       
                     
                     <div className="form-check d-flex justify-content-center mb-2">
@@ -143,7 +148,7 @@ const Signup = () => {
                         id="form2Example3cg"
                       />
                       <label
-                        className="form-check-label text-light"
+                        className="form-check-label text-dark"
                         htmlFor="form2Example3g"
                       >
                        <b> I agree all statements in{" "} </b>
@@ -164,9 +169,9 @@ const Signup = () => {
                       </button>
                     </div>
                     <p className="text-center text-muted mt-2 mb-0 text-primary">
-                     <b className="text-light"> Have already an account?{" "}</b>
+                     <b className="text-dark"> Have already an account?{" "}</b>
                       <Link to="/main/login" className="fw-bold text-body ">
-                       <b> <u className="text-light" >Login here</u></b>
+                       <b> <u className="text-dark" >Login here</u></b>
                       </Link>
                     </p>
                   </form>
