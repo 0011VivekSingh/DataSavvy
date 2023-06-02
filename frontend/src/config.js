@@ -19,12 +19,69 @@ const app_config = {
       type: 'statistical',
       inputs: [
         {
-          name: 'values',
+          name: 'Input Range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
           required: true
-        }
+        },
+        {
+          name: 'Grouped By',
+          category: 'Input',
+          type: 'radio',
+          options: ['Columns', 'Rows'],
+          default: 'Columns',
+          description: 'values',
+          required: true
+        },
+        {
+          name: 'Labels in First Row',
+          category: 'Input',
+          type: 'checkbox',
+          description: 'values',
+          required: false
+        },
+        {
+          name: 'Summary Statistics',
+          category: 'Output',
+          type: 'checkbox',
+          description: 'values',
+          required: false
+        },
+        {
+          name: 'Confidence level for Mean',
+          category: 'Output',
+          type: 'checkbox',
+          description: 'values',
+          required: false,
+          requireInputbox: {
+            type: 'text',
+            defaultValue: '0.95'
+          }
+        },
+        {
+          name: 'Kth Largest',
+          category: 'Output',
+          type: 'checkbox',
+          description: 'values',
+          required: false,
+          requireInputbox: {
+            type: 'text',
+            defaultValue: '1'
+          }
+        },
+        {
+          name: 'Kth Smallest',
+          category: 'Output',
+          type: 'checkbox',
+          description: 'values',
+          required: false,
+          requireInputbox: {
+            type: 'text',
+            defaultValue: '1'
+          }
+        },
       ],
       calc: (arr1) => {
         let mean =  calculateMean(arr1);

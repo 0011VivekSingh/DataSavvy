@@ -1,37 +1,27 @@
-import { useFormik, validateYupSchema } from "formik";
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { useFormik, validateYupSchema } from 'formik';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import * as Yup from 'yup';
-import { MDBInput } from "mdb-react-ui-kit";
-
-
+import { MDBInput } from 'mdb-react-ui-kit';
 
 const SignupSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .min(2, 'Too Short!')
-    .max(10, 'Too Long!')
-    .required('Required'),
+  name: Yup.string().required('Name is Required').min(4, 'Too Short!').max(10, 'Too Long!').required('Required'),
 
   email: Yup.string().email('Invalid email').required('Required'),
-  password: Yup
-    .string()
+  password: Yup.string()
     .required('Please Enter your password')
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
     ),
-  cPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+  cPassword: Yup.string().required('Please Confirm your password').oneOf([Yup.ref('password'), null], 'Passwords must match')
 });
 
-
-
-
-
 const Signup = () => {
-
   const navigate = useNavigate();
+
+  const [agreeTerms, setAgreeTerms] = useState(false);
 
   const signupForm = useFormik({
     initialValues: {
@@ -41,52 +31,49 @@ const Signup = () => {
       cPassword: ''
     },
     onSubmit: async (values, { setSubmitting }) => {
+      if(!agreeTerms){
+        Swal.fire({
+          icon: 'error',
+          title: 'oops',
+          text: 'You must agree to terms and conditions'
+        });
+        return;
+      }
       // setSubmitting(true);
       console.log(values);
       const res = await fetch('http://localhost:5000/user/add', {
-
         method: 'POST',
         body: JSON.stringify(values),
         headers: {
           'Content-Type': 'application/json'
         }
-      }
-      )
+      });
       console.log(res.status);
       if (res.status == 200) {
-
         Swal.fire({
-
           icon: 'success',
           title: 'Success',
           text: 'you have sucessfully registered'
-        })
+        });
         navigate('/main/login');
       } else {
-
         Swal.fire({
-
           icon: 'error',
           title: 'oops',
           text: 'something is wrong'
-        })
+        });
       }
-
     },
-    validateSchema: SignupSchema
+    validationSchema: SignupSchema
   });
-
-
-
 
   return (
     <section
       className="signup"
       // style={{
       //   backgroundImage:
-      //     'url("/sss.jpg")', 
+      //     'url("/sss.jpg")',
       // }}
-      
     >
       <div className=" d-flex align-items-center  h-100 gradient-custom-3" style={{minHeight: '90vh', backgroundImage:"url('/Signupp.jpg')",backgroundSize:"cover",backgroundRepeat:'no-repeat'}}>
         <div className="container  h-100">
@@ -182,7 +169,6 @@ const Signup = () => {
                        <b> <u className="text-light" >Login here</u></b>
                       </Link>
                     </p>
-                    
                   </form>
                 </div>
               </div>
