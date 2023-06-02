@@ -13,4 +13,15 @@
 }
 
   
+#luckysheet_info_detail{
+  display: none !important;
+}
 
+#luckysheet-wa-editor{
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+#luckysheet-wa-editor::-webkit-scrollbar {
+  display: none;
+}

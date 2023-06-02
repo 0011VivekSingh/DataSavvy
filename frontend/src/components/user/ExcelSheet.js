@@ -106,11 +106,11 @@ const ExcelSheet = () => {
     // console.log(range);
     const values = window.luckysheet.getRangeValue();
     // console.log(values);
-    const selectedValues = values.map(val => val[0] ? parseInt(val[0].m) : 0);
+    const selectedValues = values.map((val) => (val[0] ? parseInt(val[0].m) : 0));
     console.log(selectedValues);
     setSelInput(null);
     updateInputValue(index, selectedValues);
-  }
+  };
 
   // const getOutputSelectionValue = () => {
   //   const values = window.luckysheet.getRangeValue(range);
@@ -120,23 +120,68 @@ const ExcelSheet = () => {
   //   setSelInput(null);
   // }
 
+  const showInputBox = (input, index) => {
+    if (input.type === 'array')
+      return (
+        <div className='mt-4'>
+          <label className='fw-bold' htmlFor={input.name}>{input.name}</label>
+          <div className="input-group mb-3">
+            <input className="form-control" onChange={(e) => updateInputValue(index, e.target.value)} />
+            <button className={`btn ${selInput === index ? 'btn-secondary' : 'btn-primary'}`} onClick={(e) => (selInput !== null ? getSelectionValue(index) : setSelInput(index))}>
+              <i class="fas fa-pen-alt"></i>
+            </button>
+          </div>
+        </div>
+      );
+    else if (input.type === 'radio')
+      return (
+        <div className='mt-4'>
+          <label className='fw-bold' htmlFor={input.name}>{input.name}</label>
+          <br />
+          {input.options.map((option) => (
+            <>
+              <input type="radio" name={input.name} /> <label>{option}</label> &nbsp;&nbsp;
+            </>
+          ))}
+        </div>
+      );
+    else if (input.type === 'checkbox')
+      return (
+        <div className='mt-4'>
+          <input type="checkbox" name={input.name} /> <label >{input.name}</label>
+        </div>
+      );
+  };
+
+  const showInputCategory = (category) => {
+    console.log(selTool.inputs.filter((tool) => tool.category === category));
+    return selTool.inputs.filter((tool) => tool.category === category).map((input, index) => showInputBox(input, index));
+  };
+
   const showToolBox = () => {
     return (
       <>
-        {selTool.inputs.map((input, index) => (
+        <h5 className="mt-5">{selTool.name}</h5>
+        <hr />
+        {/* {selTool.inputs.map((input, index) => (
           <>
-            {/* <button onClick={getSelectedRangeData}>get data</button> */}
             <label htmlFor={input.name}>{input.name}</label>
             <div className="input-group mb-3">
-              <input className="form-control"  onChange={(e) => updateInputValue(index, e.target.value)} />
-              <button className={`btn ${selInput === index ? 'btn-secondary' : 'btn-primary'}`} onClick={(e) => selInput !==null ? getSelectionValue(index) : setSelInput(index)}>
+              <input className="form-control" onChange={(e) => updateInputValue(index, e.target.value)} />
+              <button
+                className={`btn ${selInput === index ? 'btn-secondary' : 'btn-primary'}`}
+                onClick={(e) => (selInput !== null ? getSelectionValue(index) : setSelInput(index))}
+              >
                 <i class="fas fa-pen-alt"></i>
               </button>
             </div>
-            {/* { currentInputs[index] && currentInputs[index].value } */}
           </>
-        ))}
-        {/* <span>Output Range : </span> */}
+        ))} */}
+        {/* <p className='mb-0 mt-5'>Input</p> */}
+        <div className=''>
+        {showInputCategory('Input')}
+        </div>
+        {showInputCategory('Output')}
         <div className="input-group">
           <input className="form-control" placeholder="Output Range" value={outputRange} onChange={(e) => setOutputRange(e.target.value)} />
           <button className="btn btn-secondary">
@@ -155,15 +200,45 @@ const ExcelSheet = () => {
   //   console.log(arr);
   // });
 
+  const selectTool = (e) => {
+    let index = e.target.value;
+    // console.log(toolpack[Object.keys(toolpack)[index]]);
+    setSelTool(toolpack[Object.keys(toolpack)[index]]);
+  };
+
   return (
     <div>
       <div className="row">
         <div id="sheet" style={luckyCss}></div>
         <div className="tool-box" style={toolboxCss}>
-          <div className="card mt-5">
+          <div className="card" style={{ height: '100%' }}>
             <div className="card-header">
               <h4>Toolbox</h4>
-              {selTool && showToolBox()}
+            </div>
+            <div className="card-body">
+              <label className="fw-bold">Select Tool From Toolpak</label>
+              <select className="form-control" onChange={selectTool}>
+                <option onClick={(e) => setSelTool(null)} value={0}>
+                  Select a Tool
+                </option>
+                {Object.entries(toolpack).map((tool, index) => (
+                  <option role="button" value={index}>
+                    {tool[1].name}
+                  </option>
+                ))}
+              </select>
+              {selTool ? (
+                showToolBox()
+              ) : (
+                <div>
+                  <img
+                    className="img-fluid"
+                    alt=""
+                    src="https://static.vecteezy.com/system/resources/previews/019/848/796/original/flat-magnifying-glass-icon-optical-tool-for-finding-details-reading-small-print-discovery-research-search-analysis-concept-minimal-style-of-magnifier-loupe-search-free-vector.jpg"
+                  />
+                  <p className="h6 text-muted text-center mt-3">Select a Tool to Continue</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -176,7 +251,7 @@ const luckyCss = {
   margin: '0px',
   padding: '0px',
   position: 'absolute',
-  width: '70%',
+  width: '80%',
   height: '100%',
   left: '0px',
   top: '80px'
@@ -187,7 +262,7 @@ const toolboxCss = {
   margin: '0px',
   padding: '0px',
   position: 'absolute',
-  width: '30%',
+  width: '20%',
   height: '100%',
   right: '0px',
   top: '80px'
