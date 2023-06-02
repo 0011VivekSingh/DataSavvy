@@ -126,7 +126,7 @@ const Signup = () => {
 
                     <div className=" mb-4 inp">
                     <MDBInput
-                    color="red"
+                    
                        label='Password' 
                        id='password'
                       type='password'

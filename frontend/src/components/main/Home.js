@@ -32,7 +32,7 @@ const Home = () => {
      
       <div data-draggable="true" className="" style={{ position: 'relative',backgroundColor:'#fffff' }}>
         <section draggable="false" className="container pt-5 mt-2" data-v-271253ee="" style={{backgroundImage:"url('/hhh.jpg')" ,borderRadius:"20px"}}>
-          <section className="mb-5 text-center">
+          <section className="mb-2 text-center">
             <div className="d-flex justify-content-center">
               <div className="text-center" >
                 <h2 className="fw-bold mb-3 text-center">
