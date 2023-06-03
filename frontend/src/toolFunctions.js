@@ -322,10 +322,10 @@ function linearRegression(x, y) {
   const intercept = (sumY - slope * sumX) / n;
 
   // Return the coefficients as an object
-  return {
+  return [
     slope,
     intercept
-  };
+  ];
 }
 
 // sampling
