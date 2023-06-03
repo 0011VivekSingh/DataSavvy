@@ -162,15 +162,15 @@ const app_config = {
       inputs: [
         {
           name: 'X-Range',
-          section: 'Input',
           type: 'array',
+          category: 'Input',
           description: 'independent variable',
           placeholder: 'Enter X-Range Here',
           required: true
         },
         {
           name: 'Y-Range',
-          section: 'Input',
+          category: 'Input',
           type: 'array',
           description: 'independent variable',
           placeholder: 'Enter Y-Range Here',
@@ -178,29 +178,27 @@ const app_config = {
         }
       ],
       calc: (x, y) => {
-        {
-          const n = x.length;
-          // Calculate sum of x, y, x^2, xy
-          let sumX = 0;
-          let sumY = 0;
-          let sumXSquare = 0;
-          let sumXY = 0;
-          for (let i = 0; i < n; i++) {
-            sumX += x[i];
-            sumY += y[i];
-            sumXSquare += x[i] * x[i];
-            sumXY += x[i] * y[i];
-          }
-          // Calculate coefficients (slope and intercept)
-          const slope = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX * sumX);
-          const intercept = (sumY - slope * sumX) / n;
-
-          // Return the coefficients as an object
-          return {
-            slope,
-            intercept
-          };
+        const n = x.length;
+        // Calculate sum of x, y, x^2, xy
+        let sumX = 0;
+        let sumY = 0;
+        let sumXSquare = 0;
+        let sumXY = 0;
+        for (let i = 0; i < n; i++) {
+          sumX += x[i];
+          sumY += y[i];
+          sumXSquare += x[i] * x[i];
+          sumXY += x[i] * y[i];
         }
+        // Calculate coefficients (slope and intercept)
+        const slope = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX * sumX);
+        const intercept = (sumY - slope * sumX) / n;
+
+        // Return the coefficients as an object
+        return {
+          slope,
+          intercept
+        };
       }
     },
 

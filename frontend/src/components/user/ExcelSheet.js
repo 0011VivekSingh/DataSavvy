@@ -54,12 +54,7 @@ const ExcelSheet = () => {
   };
 
   const calculateResult = () => {
-    // const cellValues = [];
-    // currentInputs.forEach((input, index) => {
-    //   cellValues.push(window.luckysheet.getRangeValue(input.value));
-    // });
-    // console.log(cellValues);
-    // return;
+    
     const values = getSelectedRangeData();
     console.log(values);
     const res = selTool.calc(values);
