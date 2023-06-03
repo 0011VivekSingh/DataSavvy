@@ -1,4 +1,15 @@
-import { calculateKurtosis, calculateMean, calculateMedian, calculateMode, calculateSkewness, calculateVariance, rank } from './toolFunctions';
+import { zTest } from './toolFunctions';
+import { tTestEqualVariance } from './toolFunctions';
+import { rank } from './toolFunctions';
+import { anovaSingleFactor } from './toolFunctions';
+import { exponentialSmoothing } from './toolFunctions';
+import { anovaTwoFactorReplication } from './toolFunctions';
+import { fourierAnalysis } from './toolFunctions';
+import { anovaTwoFactorWithoutReplication } from './toolFunctions';
+import { tTest } from './toolFunctions';
+import { tTestUnequalVariance } from './toolFunctions';
+import { fTest } from './toolFunctions';
+import { calculateCovariance, calculateKurtosis, calculateMean, calculateMedian, calculateMode, calculateSkewness, calculateVariance, movingAverage } from './toolFunctions';
 
 const app_config = {
   apiUrl: 'http://localhost:5000',
@@ -141,7 +152,8 @@ const app_config = {
         }
       ]
     },
-   
+
+    // regression
     regression: {
       name: 'Regression',
       description: 'regression analysis',
@@ -251,7 +263,7 @@ const app_config = {
       }
     },
 
-    // covariance
+    // covariance done
     covariance: {
       name: 'covariance',
       description: 'covariance analysis',
@@ -282,19 +294,17 @@ const app_config = {
           required: true
         }
       ],
-      calc: (arr1, arr2) => {
-        if (arr1.length !== arr2.length) {
-          throw new Error('Arrays must have the same length');
+
+      calc: (array1, array2) => {
+        let Covariance = calculateCovariance(array1, array2);
+        return [Covariance];
+      },
+
+      outputFormat: [
+        {
+          name: 'Covariance'
         }
-        const n = arr1.length;
-        const mean1 = arr1.reduce((acc, val) => acc + val, 0) / n;
-        const mean2 = arr2.reduce((acc, val) => acc + val, 0) / n;
-        let cov = 0;
-        for (let i = 0; i < n; i++) {
-          cov += (arr1[i] - mean1) * (arr2[i] - mean2);
-        }
-        return cov / (n - 1);
-      }
+      ]
     },
 
     // exponential smoothing
@@ -326,12 +336,14 @@ const app_config = {
         }
       ],
       calc: (data, alpha) => {
-        const result = [data[0]];
-        for (let i = 1; i < data.length; i++) {
-          result.push(alpha * data[i] + (1 - alpha) * result[i - 1]);
+        let exponentialSmooth = exponentialSmoothing(data, alpha);
+        return [exponentialSmooth];
+      },
+      outputFormat: [
+        {
+          name: 'Exponential Smoothing'
         }
-        return result;
-      }
+      ]
     },
 
     // moving average
@@ -362,17 +374,15 @@ const app_config = {
           required: true
         }
       ],
-      calc: (data, interval) => {
-        const result = [];
-        for (let i = 0; i < data.length - interval + 1; i++) {
-          let sum = 0;
-          for (let j = 0; j < interval; j++) {
-            sum += data[i + j];
-          }
-          result.push(sum / interval);
+      calc: (array, windowSize) => {
+        let movingAvg = movingAverage(array, windowSize);
+        return [movingAvg];
+      },
+      outputFormat: [
+        {
+          name: 'Moving Average'
         }
-        return result;
-      }
+      ]
     },
 
     // f-test two-sample for variances
@@ -411,57 +421,14 @@ const app_config = {
         }
       ],
       calc: (sample1, sample2) => {
-        function fTestForTwoSampleVariance(sample1, sample2) {
-          // Calculate the sample variances
-          const variance1 = calculateVariance(sample1);
-          const variance2 = calculateVariance(sample2);
-
-          // Calculate the F-statistic
-          const fStatistic = variance1 / variance2;
-
-          // Calculate the degrees of freedom
-          const df1 = sample1.length - 1;
-          const df2 = sample2.length - 1;
-
-          // Calculate the p-value
-          const pValue = 2 * (1 - cumulativeDistributionFunction(fStatistic, df1, df2));
-
-          // Return the results
-          return {
-            fStatistic: fStatistic,
-            degreesOfFreedom: { numerator: df1, denominator: df2 },
-            pValue: pValue
-          };
+        let fTest = fTest(sample1, sample2);
+        return [fTest];
+      },
+      outputFormat: [
+        {
+          name: 'f-Test Two-Sample for Variances'
         }
-
-        // Helper function to calculate the variance of a sample
-        function calculateVariance(sample) {
-          const mean = sample.reduce((sum, value) => sum + value, 0) / sample.length;
-          const squaredDeviations = sample.map((value) => Math.pow(value - mean, 2));
-          const variance = squaredDeviations.reduce((sum, value) => sum + value, 0) / (sample.length - 1);
-          return variance;
-        }
-
-        // Helper function to calculate the cumulative distribution function (CDF) for the F-distribution
-        function cumulativeDistributionFunction(x, df1, df2) {
-          const numerator = Math.pow(df1 * x, df1) * Math.pow(df2, df2);
-          const denominator = Math.pow(df1 * x + df2, df1 + df2);
-          const quotient = numerator / denominator;
-
-          // Approximation using continued fraction expansion
-          let cf = 1.0;
-          let term = 1.0;
-          let i = df2 % 2 === 0 ? 2 : 1;
-          while (i <= df2 - 2) {
-            term *= df1 + i - 2;
-            term *= x;
-            cf += term;
-            i += 2;
-          }
-
-          return 1 - quotient * cf;
-        }
-      }
+      ]
     },
 
     // histogram
@@ -493,23 +460,14 @@ const app_config = {
         }
       ],
       calc: (array, bins) => {
-        const n = array.length;
-        const min = Math.min(...array);
-        const max = Math.max(...array);
-        const binWidth = (max - min) / bins;
-        const result = new Array(bins).fill(0);
-        for (let i = 0; i < n; i++) {
-          const bin = Math.floor((array[i] - min) / binWidth);
-          if (bin < 0) {
-            result[0]++;
-          } else if (bin >= bins) {
-            result[bins - 1]++;
-          } else {
-            result[bin]++;
-          }
+        let histogram = histogram(array, bins);
+        return [histogram];
+      },
+      outputFormat: [
+        {
+          name: 'Histogram'
         }
-        return result;
-      }
+      ]
     },
 
     // moving average
@@ -541,19 +499,14 @@ const app_config = {
         }
       ],
       calc: (array, windowSize) => {
-        const result = [];
-        const n = array.length;
-        for (let i = 0; i < n; i++) {
-          let sum = 0;
-          let count = 0;
-          for (let j = Math.max(0, i - windowSize + 1); j <= i; j++) {
-            sum += array[j];
-            count++;
-          }
-          result.push(sum / count);
+        let movingAvg = movingAverage(array, windowSize);
+        return [movingAvg];
+      },
+      outputFormat: [
+        {
+          name: 'Moving Average'
         }
-        return result;
-      }
+      ]
     },
 
     // fourier Analysis
@@ -578,19 +531,14 @@ const app_config = {
         }
       ],
       calc: (array) => {
-        const n = array.length;
-        const real = new Array(n);
-        const imag = new Array(n);
-        for (let i = 0; i < n; i++) {
-          real[i] = 0;
-          imag[i] = 0;
-          for (let j = 0; j < n; j++) {
-            real[i] += array[j] * Math.cos((2 * Math.PI * i * j) / n);
-            imag[i] += -array[j] * Math.sin((2 * Math.PI * i * j) / n);
-          }
+        let fourier = fourierAnalysis(array);
+        return [fourier];
+      },
+      outputFormat: [
+        {
+          name: 'Fourier Analysis'
         }
-        return { real, imag };
-      }
+      ]
     },
 
     // Random Number Generation
@@ -629,8 +577,14 @@ const app_config = {
         }
       ],
       calc: (min, max) => {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
+        let random = random(min, max);
+        return [random];
+      },
+      outputFormat: [
+        {
+          name: 'Random Number Generation'
+        }
+      ]
     },
 
     // ANOVA single factor
@@ -672,29 +626,14 @@ const app_config = {
         }
       ],
       calc: (data) => {
-        const n = data.length;
-        const k = data[0].length;
-        const mean = [];
-        const variance = [];
-        for (let i = 0; i < k; i++) {
-          mean.push(calculateMean(data[i]));
-          variance.push(calculateVariance(data[i]));
+        let anova = anovaSingleFactor(data);
+        return [anova];
+      },
+      outputFormat: [
+        {
+          name: 'Anova single factor'
         }
-        let sumOfSquaresBetween = 0;
-        for (let i = 0; i < k; i++) {
-          sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
-        }
-        const degreesOfFreedomBetween = k - 1;
-        const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
-        let sumOfSquaresWithin = 0;
-        for (let i = 0; i < k; i++) {
-          sumOfSquaresWithin += (data[i].length - 1) * variance[i];
-        }
-        const degreesOfFreedomWithin = n - k;
-        const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
-        const f = meanSquareBetween / meanSquareWithin;
-        return f;
-      }
+      ]
     },
     // ANOVA two factor with replication
     Anovatwofactorwithreplication: {
@@ -726,30 +665,17 @@ const app_config = {
         }
       ],
       calc: (data) => {
-        const n = data.length;
-        const k = data[0].length;
-        const mean = [];
-        const variance = [];
-        for (let i = 0; i < k; i++) {
-          mean.push(calculateMean(data[i]));
-          variance.push(calculateVariance(data[i]));
+        let anova2 = anovaTwoFactorReplication(data);
+        return [anova2];
+      },
+
+      outputFormat: [
+        {
+          name: 'Anova two factor with replication'
         }
-        let sumOfSquaresBetween = 0;
-        for (let i = 0; i < k; i++) {
-          sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
-        }
-        const degreesOfFreedomBetween = k - 1;
-        const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
-        let sumOfSquaresWithin = 0;
-        for (let i = 0; i < k; i++) {
-          sumOfSquaresWithin += (data[i].length - 1) * variance[i];
-        }
-        const degreesOfFreedomWithin = n - k;
-        const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
-        const f = meanSquareBetween / meanSquareWithin;
-        return f;
-      }
+      ]
     },
+
     // ANOVA two factor without replication
     Anovatwofactorwithoutreplication: {
       name: 'Anova two factor without replication',
@@ -780,29 +706,14 @@ const app_config = {
         }
       ],
       calc: (data) => {
-        const n = data.length;
-        const k = data[0].length;
-        const mean = [];
-        const variance = [];
-        for (let i = 0; i < k; i++) {
-          mean.push(calculateMean(data[i]));
-          variance.push(calculateVariance(data[i]));
+        let anova3 = anovaTwoFactorWithoutReplication(data);
+        return [anova3];
+      },
+      outputFormat: [
+        {
+          name: 'Anova two factor without replication'
         }
-        let sumOfSquaresBetween = 0;
-        for (let i = 0; i < k; i++) {
-          sumOfSquaresBetween += data[i].length * (mean[i] - calculateMean(mean)) ** 2;
-        }
-        const degreesOfFreedomBetween = k - 1;
-        const meanSquareBetween = sumOfSquaresBetween / degreesOfFreedomBetween;
-        let sumOfSquaresWithin = 0;
-        for (let i = 0; i < k; i++) {
-          sumOfSquaresWithin += (data[i].length - 1) * variance[i];
-        }
-        const degreesOfFreedomWithin = n - k;
-        const meanSquareWithin = sumOfSquaresWithin / degreesOfFreedomWithin;
-        const f = meanSquareBetween / meanSquareWithin;
-        return f;
-      }
+      ]
     },
 
     // rank and percentile
@@ -836,47 +747,258 @@ const app_config = {
         }
       ],
       calc: (array, p) => {
-        const sortedArray = array.slice().sort((a, b) => a - b);
-        const ranks = array.slice().map((v) => sortedArray.indexOf(v) + 1);
-        return ranks;
-
-        function percentile(array, p) {
-          const ranks = rank(array);
-          const n = array.length;
-          const percentileIndex = (p / 100) * n - 1;
-          if (percentileIndex === Math.floor(percentileIndex)) {
-            return array[percentileIndex];
-          } else {
-            const k = Math.floor(percentileIndex);
-            const f = percentileIndex - k;
-            return array[k] + f * (array[k + 1] - array[k]);
-          }
+        let rank = rank(array, p);
+        return [rank];
+      },
+      outputFormat: [
+        {
+          name: 'Rank and percentile'
         }
+      ]
+    },
 
-        //regression
-        function linearRegression(x, y) {
-          const n = x.length;
-          // Calculate sum of x, y, x^2, xy
-          let sumX = 0;
-          let sumY = 0;
-          let sumXSquare = 0;
-          let sumXY = 0;
-          for (let i = 0; i < n; i++) {
-            sumX += x[i];
-            sumY += y[i];
-            sumXSquare += x[i] * x[i];
-            sumXY += x[i] * y[i];
-          }
-          // Calculate coefficients (slope and intercept)
-          const slope = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX * sumX);
-          const intercept = (sumY - slope * sumX) / n;
+    // sampling
+    sample: {
+      name: 'Sampling',
+      description: 'Sampling',
+      icon: 'Sampling',
+      type: 'statistical',
 
-          // Return the coefficients as an object
-          return {
-            slope,
-            intercept
-          };
+      inputs: [
+        {
+          name: 'input range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'labels',
+          type: 'checkbox',
+          description: 'this is checkbox',
+          required: true
+        },
+        {
+          name: 'Sampling Method',
+          category: 'input',
+          type: 'radio',
+          description: 'this is radio',
+          required: true,
+          options: ['periodic', 'random']
         }
+      ],
+      calc: (data) => {
+        let sample = sample(data);
+        return [sample];
+      },
+      outputFormat: [
+        {
+          name: 'Sampling'
+        }
+      ]
+    },
+
+    // t test
+    ttest: {
+      name: 'T test',
+      description: 'T test',
+      icon: 'Ttest',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'input 1 range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'input 2 range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Hypothesized Mean Difference',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Labels',
+          type: 'checkbox',
+          description: 'this is checkbox',
+          required: true
+        },
+        {
+          name: 'Alpha',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        }
+      ],
+      calc: (data) => {
+        let ttest = tTest(data);
+        return [ttest];
+      }
+    },
+
+    //  t-test assuming equal variances
+    ttestEqualVariance: {
+      name: 'T test assuming equal variances',
+      description: 'T test assuming equal variances',
+      icon: 'TtestEqualVariance',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'input 1 range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'input 2 range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Hypothesized Mean Difference',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Labels',
+          type: 'checkbox',
+          description: 'this is checkbox',
+          required: true
+        },
+        {
+          name: 'Alpha',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        }
+      ],
+      calc: (data) => {
+        let ttest2 = tTestEqualVariance(data);
+        return [ttest2];
+      }
+    },
+
+    // t-test assuming unequal variances
+    ttestUnequalVariance: {
+      name: 'T test assuming unequal variances',
+      description: 'T test assuming unequal variances',
+      icon: 'TtestUnequalVariance',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'input 1 range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'input 2 range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Hypothesized Mean Difference',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+
+          required: true
+        },
+        {
+          name: 'Labels',
+          type: 'checkbox',
+          description: 'this is checkbox',
+          required: true
+        },
+        {
+          name: 'Alpha',
+          type: 'number',
+
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        }
+      ],
+      calc: (data) => {
+        let ttest3 = tTestUnequalVariance(data);
+        return [ttest3];
+      }
+    },
+
+    // z-test
+    ztest: {
+      name: 'Z test',
+      description: 'Z test',
+      icon: 'Ztest',
+      type: 'statistical',
+      inputs: [
+        {
+          name: 'input range',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+
+        {
+          name: 'Hyperthesized mean difference',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Variable 1 Variance (known)',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Variable 2 Variance (known)',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'Labels',
+
+          type: 'checkbox',
+          description: 'this is checkbox',
+          required: true
+        },
+        {
+          name: 'Alpha',
+          type: 'number',
+          description: 'this is number',
+          placeholder: 'Enter Range Here',
+          required: true
+        }
+      ],
+
+      calc: (array1, array2) => {
+        let ztest = zTest(array1, array2);
+        return [ztest];
       }
     }
   }

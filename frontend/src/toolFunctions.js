@@ -152,7 +152,7 @@ const exponentialSmoothing = (data, alpha) => {
 };
 
 //covariance
-function calculateCovariance(array1, array2) {
+function calculateCovariance(array1 , array2) {
   if (array1.length !== array2.length) {
     throw new Error('Arrays must have the same length');
   }
@@ -476,14 +476,14 @@ function anovaTwoFactorWithoutReplication2(data) {
   return f;
 }
 
-function calculateMode(arr) {
+function calculateMode(arr1) {
   let frequencyMap = {};
   let maxFrequency = 0;
   let modes = [];
 
   // Count the frequency of each element
-  for (let i = 0; i < arr.length; i++) {
-    let element = arr[i];
+  for (let i = 0; i < arr1.length; i++) {
+    let element = arr1[i];
     frequencyMap[element] = (frequencyMap[element] || 0) + 1;
     if (frequencyMap[element] > maxFrequency) {
       maxFrequency = frequencyMap[element];
@@ -547,6 +547,15 @@ const calculateSum = (array) => {
   return sum;
 }
 
+// Z-test for one sample for mean
+
+
+
+
+
+
+
+
 export {
   anovaTwoFactorWithoutReplication,
   anovaTwoFactorReplication,
@@ -563,6 +572,11 @@ export {
   fTest,
   fourierAnalysis,
   histogram,
+  tTest,
+  tTestEqualVariance,
+  tTestUnequalVariance,
+  zTest,
+  
   linearRegression,
   movingAverage,
   randomBernoulli,
@@ -575,14 +589,14 @@ export {
   randomNormal,
   randomPoisson,
   sample,
-  tTest,
-  tTestEqualVariance,
-  tTestUnequalVariance,
-  zTest,
   calculateKurtosis,
   calculateSkewness,
   calculateRange,
   calculateMinimum,
   calculateMaximum,
   calculateSum
+
+  
+ 
+  
 };
