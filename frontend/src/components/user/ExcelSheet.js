@@ -54,10 +54,12 @@ const ExcelSheet = () => {
   };
 
   const calculateResult = () => {
-    
-    const values = getSelectedRangeData();
-    console.log(values);
-    const res = selTool.calc(values);
+
+    console.log(currentInputs);
+    // return;
+    // const values = getSelectedRangeData();
+    // console.log(values);
+    const res = selTool.calc(currentInputs);
     // res will contain array of results
     console.log(res);
     showOutputInSheet(res);
@@ -79,7 +81,6 @@ const ExcelSheet = () => {
     const endCol = columnToNumber(range.charAt(3)) - 1;
     const endRow = parseInt(range.charAt(4), 10) - 1;
     console.log(startCol, startRow, endCol, endRow);
-
     return [startRow, startCol, endRow, endCol];
   };
 
@@ -119,8 +120,10 @@ const ExcelSheet = () => {
   const showInputBox = (input, index) => {
     if (input.type === 'array')
       return (
-        <div className='mt-4'>
-          <label className='fw-bold' htmlFor={input.name}>{input.name}</label>
+        <div className="mt-4">
+          <label className="fw-bold" htmlFor={input.name}>
+            {input.name}
+          </label>
           <div className="input-group mb-3">
             <input className="form-control" onChange={(e) => updateInputValue(index, e.target.value)} />
             <button className={`btn ${selInput === index ? 'btn-secondary' : 'btn-primary'}`} onClick={(e) => (selInput !== null ? getSelectionValue(index) : setSelInput(index))}>
@@ -131,8 +134,10 @@ const ExcelSheet = () => {
       );
     else if (input.type === 'radio')
       return (
-        <div className='mt-4'>
-          <label className='fw-bold' htmlFor={input.name}>{input.name}</label>
+        <div className="mt-4">
+          <label className="fw-bold" htmlFor={input.name}>
+            {input.name}
+          </label>
           <br />
           {input.options.map((option) => (
             <>
@@ -143,8 +148,8 @@ const ExcelSheet = () => {
       );
     else if (input.type === 'checkbox')
       return (
-        <div className='mt-4'>
-          <input type="checkbox" name={input.name} /> <label >{input.name}</label>
+        <div className="mt-4">
+          <input type="checkbox" name={input.name} /> <label>{input.name}</label>
         </div>
       );
   };
@@ -174,9 +179,7 @@ const ExcelSheet = () => {
           </>
         ))} */}
         {/* <p className='mb-0 mt-5'>Input</p> */}
-        <div className=''>
-        {showInputCategory('Input')}
-        </div>
+        <div className="">{showInputCategory('Input')}</div>
         {showInputCategory('Output')}
         <div className="input-group">
           <input className="form-control" placeholder="Output Range" value={outputRange} onChange={(e) => setOutputRange(e.target.value)} />

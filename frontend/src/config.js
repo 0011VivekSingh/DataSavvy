@@ -1,4 +1,4 @@
-import { calculateCorrelation, zTest } from './toolFunctions';
+import { calculateCorrelation, linearRegression, zTest } from './toolFunctions';
 import { tTestEqualVariance } from './toolFunctions';
 import { rank } from './toolFunctions';
 import { anovaSingleFactor } from './toolFunctions';
@@ -94,7 +94,9 @@ const app_config = {
           }
         }
       ],
-      calc: (arr1) => {
+      calc: (inputsArray) => {
+        let arr1 = inputsArray[0].value;
+
         let mean = calculateMean(arr1);
         let median = calculateMedian(arr1);
         let mode = calculateMode(arr1);
@@ -177,29 +179,23 @@ const app_config = {
           required: true
         }
       ],
-      calc: (x, y) => {
-        const n = x.length;
-        // Calculate sum of x, y, x^2, xy
-        let sumX = 0;
-        let sumY = 0;
-        let sumXSquare = 0;
-        let sumXY = 0;
-        for (let i = 0; i < n; i++) {
-          sumX += x[i];
-          sumY += y[i];
-          sumXSquare += x[i] * x[i];
-          sumXY += x[i] * y[i];
-        }
-        // Calculate coefficients (slope and intercept)
-        const slope = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX * sumX);
-        const intercept = (sumY - slope * sumX) / n;
-
+      calc: (inputRange) => {
+        const x = inputRange[0].value;
+        const y = inputRange[1].value;
+          console.log(inputRange);
+        const [slope, intercept] = linearRegression(x, y);
+        console.log(slope, intercept);
         // Return the coefficients as an object
-        return {
-          slope,
-          intercept
-        };
-      }
+        return [slope, intercept];
+      },
+      outputFormat: [
+        {
+          name: 'Slope'
+        },
+        {
+          name: 'Intercept'
+        }
+      ]
     },
 
     // correlation
@@ -243,12 +239,9 @@ const app_config = {
       },
       outputFormat: [
         {
-
           name: 'Correlation'
         }
       ]
-
-
     },
 
     // covariance done
@@ -606,7 +599,7 @@ const app_config = {
     // ANOVA single factor
     Anovasinglefactor: {
       name: 'Anova single factor',
-      
+
       description: 'Anova single factor',
       icon: 'Anovasinglefactor',
       type: 'statistical',
@@ -747,7 +740,7 @@ const app_config = {
 
     Rankandpercentile: {
       name: 'Rank and percentile',
-      
+
       description: 'Rank and percentile',
       icon: 'Rankandpercentile',
       type: 'statistical',
