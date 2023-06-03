@@ -1,4 +1,4 @@
-import { zTest } from './toolFunctions';
+import { calculateCorrelation, zTest } from './toolFunctions';
 import { tTestEqualVariance } from './toolFunctions';
 import { rank } from './toolFunctions';
 import { anovaSingleFactor } from './toolFunctions';
@@ -211,6 +211,7 @@ const app_config = {
       inputs: [
         {
           name: 'input range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -218,6 +219,7 @@ const app_config = {
         },
         {
           name: 'Group by',
+          category: 'Input',
           type: 'radio',
           description: 'values',
           options: [
@@ -228,6 +230,7 @@ const app_config = {
         },
         {
           name: 'Labels in the first row',
+          category: 'Input',
 
           type: 'checkbox',
           description: 'this is checkbox',
@@ -235,30 +238,17 @@ const app_config = {
         }
       ],
       calc: (array1, array2) => {
-        if (array1.length !== array2.length) {
-          throw new Error('Array lengths must be equal.');
-        }
-        const n = array1.length;
-        // Calculate the means of the two arrays
-        const mean1 = array1.reduce((sum, value) => sum + value, 0) / n;
-        const mean2 = array2.reduce((sum, value) => sum + value, 0) / n;
+        let correlation = calculateCorrelation(array1, array2);
+        return [correlation];
+      },
+      outputFormat: [
+        {
 
-        // Calculate the numerator and denominator for correlation
-        let numerator = 0;
-        let denominator1 = 0;
-        let denominator2 = 0;
-        for (let i = 0; i < n; i++) {
-          const deviation1 = array1[i] - mean1;
-          const deviation2 = array2[i] - mean2;
-
-          numerator += deviation1 * deviation2;
-          denominator1 += deviation1 ** 2;
-          denominator2 += deviation2 ** 2;
+          name: 'Correlation'
         }
-        // Calculate the correlation coefficient
-        const correlation = numerator / Math.sqrt(denominator1 * denominator2);
-        return correlation;
-      }
+      ]
+
+
     },
 
     // covariance done
@@ -270,6 +260,7 @@ const app_config = {
       inputs: [
         {
           name: 'input range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -278,6 +269,7 @@ const app_config = {
         {
           name: 'Group by',
           type: 'radio',
+          category: 'Input',
           description: 'values',
           options: [
             { label: 'Columns', value: 'option1' },
@@ -287,6 +279,7 @@ const app_config = {
         },
         {
           name: 'Labels in the first row',
+          category: 'Input',
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
@@ -308,12 +301,14 @@ const app_config = {
     // exponential smoothing
     exponentialsmoothing: {
       name: 'Exponential Smoothing',
+
       description: 'exponential smoothing',
       icon: 'exponentialsmoothing',
       type: 'forecasting',
       inputs: [
         {
           name: 'input range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -321,6 +316,7 @@ const app_config = {
         },
         {
           name: 'Damping Factor',
+          category: 'Input',
           type: 'number',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -328,6 +324,7 @@ const app_config = {
         },
         {
           name: 'Labels',
+          category: 'Input',
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
@@ -347,12 +344,14 @@ const app_config = {
     // moving average
     movingaverage: {
       name: 'Moving Average',
+
       description: 'moving average',
       icon: 'movingaverage',
       type: 'forecasting',
       inputs: [
         {
           name: 'input range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -360,12 +359,14 @@ const app_config = {
         },
         {
           name: 'Labels in the first row',
+          category: 'Input',
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
         },
         {
           name: 'Interval',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -392,6 +393,7 @@ const app_config = {
       inputs: [
         {
           name: 'Variable 1 range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -399,6 +401,7 @@ const app_config = {
         },
         {
           name: 'Variable 2 range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -406,12 +409,15 @@ const app_config = {
         },
         {
           name: 'Labels ',
+          category: 'Input',
+
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
         },
         {
           name: 'Alpha',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -438,6 +444,7 @@ const app_config = {
       inputs: [
         {
           name: 'input range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -445,6 +452,7 @@ const app_config = {
         },
         {
           name: 'Bin Range',
+          category: 'Input',
           type: 'number',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -452,6 +460,7 @@ const app_config = {
         },
         {
           name: 'Labels',
+          category: 'Input',
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
@@ -477,6 +486,7 @@ const app_config = {
       inputs: [
         {
           name: 'input range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -484,12 +494,14 @@ const app_config = {
         },
         {
           name: 'Labels in the first row',
+          category: 'Input',
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
         },
         {
           name: 'Interval',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -516,6 +528,7 @@ const app_config = {
       inputs: [
         {
           name: 'input range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -523,6 +536,7 @@ const app_config = {
         },
         {
           name: 'Labels in the first row',
+          category: 'Input',
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
@@ -548,18 +562,22 @@ const app_config = {
       inputs: [
         {
           name: 'Number of variables',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here'
         },
         {
           name: 'Numbers of random numbers',
+          category: 'Input',
           type: 'number',
           description: 'values',
           placeholder: 'Enter Range Here'
         },
         {
           name: 'Distribution',
+          category: 'Input',
+
           type: 'dropdown',
           description: 'this is dropdown',
           required: true,
@@ -588,12 +606,14 @@ const app_config = {
     // ANOVA single factor
     Anovasinglefactor: {
       name: 'Anova single factor',
+      
       description: 'Anova single factor',
       icon: 'Anovasinglefactor',
       type: 'statistical',
       inputs: [
         {
           name: 'input range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -601,6 +621,7 @@ const app_config = {
         },
         {
           name: 'Grouped by',
+          category: 'Input',
           type: 'radio',
           description: 'this is radio',
           required: true,
@@ -611,12 +632,14 @@ const app_config = {
         },
         {
           name: 'Labels in the first row',
+          category: 'Input',
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
         },
         {
           name: 'Alpha',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -642,6 +665,7 @@ const app_config = {
       inputs: [
         {
           name: 'input range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -649,6 +673,7 @@ const app_config = {
         },
         {
           name: 'Rows per sample',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -656,6 +681,7 @@ const app_config = {
         },
         {
           name: 'Alpha',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -683,6 +709,7 @@ const app_config = {
       inputs: [
         {
           name: 'input range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -690,6 +717,7 @@ const app_config = {
         },
         {
           name: 'Rows per sample',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -697,6 +725,7 @@ const app_config = {
         },
         {
           name: 'Alpha',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -718,12 +747,14 @@ const app_config = {
 
     Rankandpercentile: {
       name: 'Rank and percentile',
+      
       description: 'Rank and percentile',
       icon: 'Rankandpercentile',
       type: 'statistical',
       inputs: [
         {
           name: 'input range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -731,6 +762,7 @@ const app_config = {
         },
         {
           name: 'Groups',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -738,6 +770,7 @@ const app_config = {
         },
         {
           name: 'Alpha',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -765,6 +798,8 @@ const app_config = {
       inputs: [
         {
           name: 'input range',
+          category: 'Input',
+
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -772,12 +807,14 @@ const app_config = {
         },
         {
           name: 'labels',
+          category: 'Input',
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
         },
         {
           name: 'Sampling Method',
+
           category: 'input',
           type: 'radio',
           description: 'this is radio',
@@ -805,6 +842,7 @@ const app_config = {
       inputs: [
         {
           name: 'input 1 range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -812,6 +850,7 @@ const app_config = {
         },
         {
           name: 'input 2 range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -819,6 +858,7 @@ const app_config = {
         },
         {
           name: 'Hypothesized Mean Difference',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -826,12 +866,14 @@ const app_config = {
         },
         {
           name: 'Labels',
+          category: 'Input',
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
         },
         {
           name: 'Alpha',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -853,6 +895,7 @@ const app_config = {
       inputs: [
         {
           name: 'input 1 range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -860,6 +903,7 @@ const app_config = {
         },
         {
           name: 'input 2 range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -867,6 +911,7 @@ const app_config = {
         },
         {
           name: 'Hypothesized Mean Difference',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -874,12 +919,14 @@ const app_config = {
         },
         {
           name: 'Labels',
+          category: 'Input',
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
         },
         {
           name: 'Alpha',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -901,6 +948,7 @@ const app_config = {
       inputs: [
         {
           name: 'input 1 range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -908,6 +956,7 @@ const app_config = {
         },
         {
           name: 'input 2 range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -915,6 +964,7 @@ const app_config = {
         },
         {
           name: 'Hypothesized Mean Difference',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -923,12 +973,14 @@ const app_config = {
         },
         {
           name: 'Labels',
+          category: 'Input',
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
         },
         {
           name: 'Alpha',
+          category: 'Input',
           type: 'number',
 
           description: 'this is number',
@@ -951,6 +1003,7 @@ const app_config = {
       inputs: [
         {
           name: 'input range',
+          category: 'Input',
           type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
@@ -959,6 +1012,7 @@ const app_config = {
 
         {
           name: 'Hyperthesized mean difference',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -966,6 +1020,8 @@ const app_config = {
         },
         {
           name: 'Variable 1 Variance (known)',
+          category: 'Input',
+
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -973,6 +1029,7 @@ const app_config = {
         },
         {
           name: 'Variable 2 Variance (known)',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
@@ -980,6 +1037,7 @@ const app_config = {
         },
         {
           name: 'Labels',
+          category: 'Input',
 
           type: 'checkbox',
           description: 'this is checkbox',
@@ -987,6 +1045,7 @@ const app_config = {
         },
         {
           name: 'Alpha',
+          category: 'Input',
           type: 'number',
           description: 'this is number',
           placeholder: 'Enter Range Here',
