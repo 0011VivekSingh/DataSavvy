@@ -1059,6 +1059,6 @@ const app_config = {
       }
     }
   }
-};
+};  // end of app_config              
 
 export default app_config;
