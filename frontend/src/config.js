@@ -233,7 +233,9 @@ const app_config = {
           required: true
         }
       ],
-      calc: (array1, array2) => {
+      calc: (inputRange) => {
+        let array1 = inputRange[0].value;
+        let array2 = inputRange[1].value;
         let correlation = calculateCorrelation(array1, array2);
         return [correlation];
       },
@@ -279,7 +281,9 @@ const app_config = {
         }
       ],
 
-      calc: (array1, array2) => {
+      calc: (inputRange) => {
+        let array1 = inputRange[0].value;
+        let array2 = inputRange[1].value;
         let Covariance = calculateCovariance(array1, array2);
         return [Covariance];
       },
@@ -323,7 +327,9 @@ const app_config = {
           required: true
         }
       ],
-      calc: (data, alpha) => {
+      calc: (inputRange) => {
+        let data = inputRange[0].value;
+        let alpha = inputRange[1].value;
         let exponentialSmooth = exponentialSmoothing(data, alpha);
         return [exponentialSmooth];
       },
@@ -366,7 +372,9 @@ const app_config = {
           required: true
         }
       ],
-      calc: (array, windowSize) => {
+      calc: (inputRange) => {
+        let array = inputRange[0].value;
+        let windowSize = inputRange[1].value;
         let movingAvg = movingAverage(array, windowSize);
         return [movingAvg];
       },
@@ -417,7 +425,9 @@ const app_config = {
           required: true
         }
       ],
-      calc: (sample1, sample2) => {
+      calc: (inputRange) => {
+        let sample1 = inputRange[0].value;
+        let sample2 = inputRange[1].value;
         let fTest = fTest(sample1, sample2);
         return [fTest];
       },
@@ -459,7 +469,9 @@ const app_config = {
           required: true
         }
       ],
-      calc: (array, bins) => {
+      calc: (inputRange) => {
+        let array = inputRange[0].value;
+        let bins = inputRange[1].value;
         let histogram = histogram(array, bins);
         return [histogram];
       },
@@ -470,48 +482,7 @@ const app_config = {
       ]
     },
 
-    // moving average
-    movingaverage: {
-      name: 'Moving Average',
-      description: 'moving average',
-      icon: 'movingaverage',
-      type: 'forecasting',
-      inputs: [
-        {
-          name: 'input range',
-          category: 'Input',
-          type: 'array',
-          description: 'values',
-          placeholder: 'Enter Range Here',
-          required: true
-        },
-        {
-          name: 'Labels in the first row',
-          category: 'Input',
-          type: 'checkbox',
-          description: 'this is checkbox',
-          required: true
-        },
-        {
-          name: 'Interval',
-          category: 'Input',
-          type: 'number',
-          description: 'this is number',
-          placeholder: 'Enter Range Here',
-          required: true
-        }
-      ],
-      calc: (array, windowSize) => {
-        let movingAvg = movingAverage(array, windowSize);
-        return [movingAvg];
-      },
-      outputFormat: [
-        {
-          name: 'Moving Average'
-        }
-      ]
-    },
-
+   
     // fourier Analysis
     Fourieranalysis: {
       name: 'Fourier Analysis',
@@ -535,7 +506,8 @@ const app_config = {
           required: true
         }
       ],
-      calc: (array) => {
+      calc: (inputRange) => {
+        let array = inputRange[0].value;
         let fourier = fourierAnalysis(array);
         return [fourier];
       },
@@ -546,7 +518,7 @@ const app_config = {
       ]
     },
 
-    // Random Number Generation
+    ////// Random Number Generation
     RandomNumberGeneration: {
       name: 'Random Number Generation',
       description: 'Random Number Generation',
@@ -585,7 +557,9 @@ const app_config = {
           ]
         }
       ],
-      calc: (min, max) => {
+      calc: (InputRange) => {
+        let min = InputRange[0].value;
+        let max = InputRange[1].value;
         let random = random(min, max);
         return [random];
       },
@@ -618,10 +592,7 @@ const app_config = {
           type: 'radio',
           description: 'this is radio',
           required: true,
-          options: [
-            { key: 'Columns', value: 'columns' },
-            { key: 'Rows', value: 'rows' }
-          ]
+          options: [ 'Columns','rows']
         },
         {
           name: 'Labels in the first row',
@@ -639,7 +610,9 @@ const app_config = {
           required: true
         }
       ],
-      calc: (data) => {
+      calc: (inputRange) => {
+        let data = inputRange[0].value;
+
         let anova = anovaSingleFactor(data);
         return [anova];
       },
@@ -681,7 +654,8 @@ const app_config = {
           required: true
         }
       ],
-      calc: (data) => {
+      calc: (inputRange) => {
+        let data = inputRange[0].value;
         let anova2 = anovaTwoFactorReplication(data);
         return [anova2];
       },
@@ -725,7 +699,9 @@ const app_config = {
           required: true
         }
       ],
-      calc: (data) => {
+      calc: (inputRange) => {
+        let data = inputRange[0].value;
+
         let anova3 = anovaTwoFactorWithoutReplication(data);
         return [anova3];
       },
@@ -770,7 +746,9 @@ const app_config = {
           required: true
         }
       ],
-      calc: (array, p) => {
+      calc: (inputRange) => {
+        let array = inputRange[0].value;
+        let p = inputRange[1].value;
         let rank = rank(array, p);
         return [rank];
       },
@@ -815,7 +793,8 @@ const app_config = {
           options: ['periodic', 'random']
         }
       ],
-      calc: (data) => {
+      calc: (inputRange) => {
+        let data = inputRange[0].value;
         let sample = sample(data);
         return [sample];
       },
@@ -873,7 +852,8 @@ const app_config = {
           required: true
         }
       ],
-      calc: (data) => {
+      calc: (inputRange) => {
+        let data = inputRange[0].value;
         let ttest = tTest(data);
         return [ttest];
       }
@@ -926,7 +906,8 @@ const app_config = {
           required: true
         }
       ],
-      calc: (data) => {
+      calc: (inputRange) => {
+        let data = inputRange[0].value;
         let ttest2 = tTestEqualVariance(data);
         return [ttest2];
       }
@@ -981,7 +962,8 @@ const app_config = {
           required: true
         }
       ],
-      calc: (data) => {
+      calc: (inputRange) => {
+        let data = inputRange[0].value;
         let ttest3 = tTestUnequalVariance(data);
         return [ttest3];
       }
@@ -1046,12 +1028,14 @@ const app_config = {
         }
       ],
 
-      calc: (array1, array2) => {
+      calc: (inputRange) => {
+        let array1 = inputRange[0].value;
+        let array2 = inputRange[1].value;
         let ztest = zTest(array1, array2);
         return [ztest];
       }
     }
   }
-};
+};  // end of app_config              
 
 export default app_config;
