@@ -4,7 +4,8 @@ const myschema = new Schema({
  
     name: String,
     description: String,
-    data: Object,
+    type: String,
+    inputs: {type : Array, "default" : []},
     formula : String,
     user: {type : String, ref: 'users'},
     createdAt: Date,

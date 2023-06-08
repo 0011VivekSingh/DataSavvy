@@ -25,6 +25,7 @@ import UserAuth from './auth/UserAuth';
 import ExcelSheet from './components/user/ExcelSheet';
 import SheetProvider from './context/SheetProvider';
 import UserProvider from './context/UserProvider';
+import {Toaster} from 'react-hot-toast';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
     <BrowserRouter>
       <UserProvider>
         <SheetProvider>
+          <Toaster position='top-right' />
           <Routes>
             <Route path="/" element={<Navigate to="/main/home" />} />
 
