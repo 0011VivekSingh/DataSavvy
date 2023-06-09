@@ -56,17 +56,17 @@ const Feedback = () => {
 
   return (
     <>
-    <div className=" container h-100vh mt-5 col-md-6 col-lg-5  align-items-center gradient-custom-3" style={{minHeight: '90vh',backgroundColor:'#4DB8FF'}}>
-      <h1 className="text-uppercase text-center mb-2">
+    <div className=" container h-100vh mt-5 col-md-6 col-lg-5  align-items-center gradient-custom-3" style={{minHeight: '90vh',backgroundColor:"white" ,borderRadius:"12px"}}>
+      <h1 className="text-uppercase text-center mt-5 mb-5">
         Feedback Form</h1>
 
       <form  onSubmit={feedbackForm.handleSubmit} id="contact_form"   >
         
-        <div className="mb-3 ">
+        <div className="mb-4 ps-4 pe-5">
         <MDBInput
                      label='Name' 
                      id='name'
-                    type='text'
+                    type='text '
                     value={feedbackForm.values.name} 
                     onChange={feedbackForm.handleChange}
                     />
@@ -75,7 +75,7 @@ const Feedback = () => {
 
           
           
-        <div className="mb-3 ">
+        <div className="mb-4 ps-4 pe-5 ">
         <MDBInput
                      label='email' 
                      id='email'
@@ -86,7 +86,7 @@ const Feedback = () => {
                     <span classname="text-danger">{feedbackForm.errors.email}</span>
           
         </div>
-        <div className="mb-3 ">
+        <div className="mb-4 ps-4 pe-5">
         <MDBInput
                       label='feedback'  
                       id='feedback'
@@ -96,7 +96,7 @@ const Feedback = () => {
                       />
                       <span classname="text-danger">{feedbackForm.errors.feedback}</span>
         </div>
-        <div className="mb-3 ">
+        <div className="mb-4 ps-4 pe-5 ">
         <button
                       type="submit"
                       className="btn btn-primary btn-block btn-lg gradient-custom-4"
@@ -113,6 +113,9 @@ const Feedback = () => {
         
       </form>
     </div>
+
+
+    
   </>
   );
 };

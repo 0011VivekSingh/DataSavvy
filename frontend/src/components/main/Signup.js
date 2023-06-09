@@ -160,12 +160,12 @@ const Signup = () => {
                     <div className="d-flex justify-content-center">
                       <button
                         type="submit"
-                        className="btn btn-outline-light btn-block btn-lg gradient-custom-4"
+                        className="btn btn-outline-dark  btn-block btn-lg gradient-custom-4"
                         disabled={signupForm.isSubmitting}
                       >
                         {signupForm.isubmitting && <span classname="spinner-border spinner-border-sm"></span>}
                         &nbsp;&nbsp;
-                      <b className="text-light">  Register</b>
+                      <b className="text-dark">  Register</b>
                       </button>
                     </div>
                     <p className="text-center text-muted mt-2 mb-0 text-primary">
