@@ -6,8 +6,8 @@ const AddNewTool = () => {
 
   return (
     
-    <div className="container">
-      <div className="row justify-content-center">
+    <div className="container " style={{backgroundImage:"url('/hhh.jpg')", minHeight:'100vh',marginTop:'50px',padding:"5px"}}>
+      <div className="row d-flex justify-content-center align-items-center " style={{minHeight:'90vh'}}>
         <div className="col-md-6">
           <form>
             <div className="form-group">
@@ -28,7 +28,7 @@ const AddNewTool = () => {
                 placeholder="Enter description"
               />
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="data">Data:</label>
               <input
                 type="text"
@@ -36,11 +36,11 @@ const AddNewTool = () => {
                 id="data"
                 placeholder="Enter data"
               />
-            </div>
+            </div> */}
             <div className="form-group">
               <label htmlFor="formula">Formula:</label>
               <input
-                type="text"
+                type="textArea"
                 className="form-control"
                 id="formula"
                 placeholder="Enter formula"

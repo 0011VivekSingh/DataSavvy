@@ -156,16 +156,17 @@ const Home = () => {
               <div className="card mb-3 " style={{ backgroundImage: "url('/hhh.jpg')" ,borderRadius:"15px" }} >
 
                 <div className="row g-0 d-flex align-items-center">
-                  <div className="col-lg-7 col-xl-5 d-none d-lg-flex">
+                  <div className="col-lg-7 col-xl-5 d-none d-lg-flex "  >
 
 
                     <img
-                      src="/firstsec.png"
+                      src="/ab.gif"
                       height={400}
                       width={400}
                       alt="about section"
                       className="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5"
                       aria-controls="#picker-editor"
+                      style={{borderRadius:"15px"}}
                     />
                   </div>
                   <div className="col-lg-5 col-xl-7">
@@ -174,7 +175,7 @@ const Home = () => {
                       {" "}
                       <h1 className="fw-bold text-center " style={{ color: "orange" }}>
                         ABOUT US
-                      </h1>{" "}
+                      </h1>
 
                       <p className="text-light mb-4 fs-5">
                         Data Analysis Toolpaks is a set of data analysis tools.
@@ -247,34 +248,9 @@ const Home = () => {
             </div>
 
           </div>
+
         </section>
       </section>
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </>
   );
