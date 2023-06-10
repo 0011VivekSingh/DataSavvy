@@ -51,71 +51,51 @@ const AddNewTool = () => {
   };
 
   return (
-    <div className="d-flex align-items-center" style={{ height: '80vh' }}>
-      <div className="container ">
-        <div className="row w-100">
-          <div
-            className="col-md-6"
-            style={{
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-              backgroundImage: `url('https://res.cloudinary.com/dyd911kmh/image/upload/v1652357545/shutterstock_1770654182_d43667c1bc.jpg')`
-            }}
-          ></div>
-          <div className="col-md-6">
-            <h2 className="mb-5">Add New Analysis Tool</h2>
-            <form onSubmit={toolForm.handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name">Name:</label>
-                <input type="text" className="form-control mb-3" id="name" onChange={toolForm.handleChange} value={toolForm.values.name} placeholder="Enter name" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="description">Description:</label>
-                <input
-                  type="text"
-                  className="form-control mb-3"
-                  id="description"
-                  onChange={toolForm.handleChange}
-                  value={toolForm.values.description}
-                  placeholder="Enter description"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="type">Type</label>
-                <select className="form-control" id="type" onChange={toolForm.handleChange} value={toolForm.values.type}>
-                  <option value="statistical">Statistical</option>
-                  <option value="statistical">Statistical</option>
-                  <option value="statistical">Statistical</option>
-                  <option value="statistical">Statistical</option>
-                </select>
-              </div>
-              <div className="mt-4">
-                <label>No. of Inputs</label>
-                <div className="d-flex">
-                  {inputs.map((input, index) => (
-                    <input className="form-control me-3" disabled />
-                  ))}
-                </div>
-                <button className="btn btn-primary mt-2" onClick={addInput}>
-                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                </button>
-              </div>
-              <div className="form-group mt-4">
-                <label htmlFor="formula">Formula</label>
-                <textarea
-                  type="text"
-                  className="form-control mb-3"
-                  id="formula"
-                  onChange={toolForm.handleChange}
-                  value={toolForm.values.formula}
-                  placeholder="Enter formula"
-                ></textarea>
-              </div>
-              <button type="submit" className="btn btn-primary mt-5">
-                Submit
-              </button>
-            </form>
-          </div>
+    
+    <div className="container " style={{backgroundImage:"url('/hhh.jpg')", minHeight:'100vh',marginTop:'50px',padding:"5px"}}>
+      <div className="row d-flex justify-content-center align-items-center " style={{minHeight:'90vh'}}>
+        <div className="col-md-6">
+          <form>
+            <div className="form-group">
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                placeholder="Enter name"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="description">Description:</label>
+              <input
+                type="text"
+                className="form-control"
+                id="description"
+                placeholder="Enter description"
+              />
+            </div>
+            {/* <div className="form-group">
+              <label htmlFor="data">Data:</label>
+              <input
+                type="text"
+                className="form-control"
+                id="data"
+                placeholder="Enter data"
+              />
+            </div> */}
+            <div className="form-group">
+              <label htmlFor="formula">Formula:</label>
+              <input
+                type="textArea"
+                className="form-control"
+                id="formula"
+                placeholder="Enter formula"
+              />
+            </div>
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
+          </form>
         </div>
       </div>
     </div>

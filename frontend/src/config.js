@@ -7,9 +7,10 @@ import { anovaTwoFactorReplication } from './toolFunctions';
 import { fourierAnalysis } from './toolFunctions';
 import { anovaTwoFactorWithoutReplication } from './toolFunctions';
 import { tTest } from './toolFunctions';
+import { histogram } from './toolFunctions';
 import { tTestUnequalVariance } from './toolFunctions';
 import { fTest } from './toolFunctions';
-import { calculateCovariance, calculateKurtosis, calculateMean, calculateMedian, calculateMode, calculateSkewness, calculateVariance, movingAverage } from './toolFunctions';
+import { calculateCovariance, calculateKurtosis, calculateMean, calculateMedian, calculateMode, calculateSkewness, calculateVariance, movingAverage  } from './toolFunctions';
 
 const app_config = {
   apiUrl: 'http://localhost:5000',
@@ -441,7 +442,7 @@ const app_config = {
     // histogram
     histogram: {
       name: 'Histogram',
-      description: 'histogram',
+      description:'histogram',
       icon: 'histogram',
       type: 'statistical',
       inputs: [
@@ -454,9 +455,9 @@ const app_config = {
           required: true
         },
         {
-          name: 'Bin Range',
+          name:'Bin Range',
           category: 'Input',
-          type: 'number',
+          type: 'array',
           description: 'values',
           placeholder: 'Enter Range Here',
           required: true

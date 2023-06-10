@@ -31,14 +31,14 @@ const Signup = () => {
       cPassword: ''
     },
     onSubmit: async (values, { setSubmitting }) => {
-      if(!agreeTerms){
-        Swal.fire({
-          icon: 'error',
-          title: 'oops',
-          text: 'You must agree to terms and conditions'
-        });
-        return;
-      }
+      // if(!agreeTerms){
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'oops',
+      //     text: 'You must agree to terms and conditions'
+      //   });
+      //   return;
+      // }
       // setSubmitting(true);
       console.log(values);
       const res = await fetch('http://localhost:5000/user/add', {
@@ -64,7 +64,7 @@ const Signup = () => {
         });
       }
     },
-    validationSchema: SignupSchema
+    // validationSchema: SignupSchema
   });
 
   return (
@@ -128,10 +128,10 @@ const Signup = () => {
                     <div className=" mb-4 ">
                     <MDBInput
                        label='Confirm Password' 
-                       id='password'
+                       id='cPassword'
                       type='password'
                       
-                      value={signupForm.values.password} 
+                      value={signupForm.values.cPassword} 
                       onChange={signupForm.handleChange}
                       />
                       <span classname="text-danger">{signupForm.errors.password}</span>
@@ -160,12 +160,12 @@ const Signup = () => {
                     <div className="d-flex justify-content-center">
                       <button
                         type="submit"
-                        className="btn btn-outline-light btn-block btn-lg gradient-custom-4"
+                        className="btn btn-outline-dark  btn-block btn-lg gradient-custom-4"
                         disabled={signupForm.isSubmitting}
                       >
                         {signupForm.isubmitting && <span classname="spinner-border spinner-border-sm"></span>}
                         &nbsp;&nbsp;
-                      <b className="text-light">  Register</b>
+                      <b className="text-dark">  Register</b>
                       </button>
                     </div>
                     <p className="text-center text-muted mt-2 mb-0 text-primary">

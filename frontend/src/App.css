@@ -1,19 +1,4 @@
-/* .bg{
- background-color: rgb(170, 125, 212);
- background-image: url('../public/homepage.jpg');
- background-size: contain;
- 
-               background-repeat: "no-repeat",
-} */
-.signup{
-  background-color: #83c4f0;
-  
-  
-  
-}
-/* #name{
-  background-color: antiquewhite;
-} */
+
 
   @keyframes fadeIn {
     from { opacity: 0; }
@@ -42,3 +27,11 @@
   display: none;
 }
 
+body{
+  
+  background-color: #858381;
+}
+
+#carouselExampleControls{
+  background-color: aqua !important;
+}
