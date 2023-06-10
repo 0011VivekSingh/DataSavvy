@@ -5,14 +5,31 @@ import { convertCellNotationToIndexes } from './utils';
 
 const ExcelSheet = () => {
   const [sheet, setSheet] = useState(window.luckysheet);
-  const { toolpack } = app_config;
+  const { toolpack, apiUrl } = app_config;
   const { selTool, setSelTool } = useSheetContext();
   const [selInput, setSelInput] = useState(null);
+
+  // const [tools, setTools] = useState([...toolpack]);
 
   const [currentInputs, setCurrentInputs] = useState([]);
   const [outputRange, setOutputRange] = useState('');
 
+  const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('user')));
+
+  // const fetchTools = async () => {
+  //   try {
+  //     const response = await fetch(`${apiUrl}/tool/getbyuser/${currentUser._id}`);
+  //     const data = await response.json();
+  //     console.log(data);
+  //     setTools(...tools, data);
+  //     // setToolList(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   useEffect(() => {
+    // fetchTools();
     sheet.create({
       container: 'sheet',
       title: 'My WorkBook'
