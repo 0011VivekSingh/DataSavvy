@@ -158,7 +158,7 @@ const ExcelSheet = () => {
           <br />
           {input.options.map((option) => (
             <>
-              <input type="radio" name={input.name} /> <label>{option}</label> &nbsp;&nbsp;
+              <input type="radio" name={input.name} /> <label>{option.label}</label> &nbsp;&nbsp;
             </>
           ))}
         </div>
@@ -177,6 +177,7 @@ const ExcelSheet = () => {
   };
 
   const showToolBox = () => {
+    console.log(selTool);
     return (
       <>
         <h5 className="mt-5">{selTool.name}</h5>
@@ -197,7 +198,7 @@ const ExcelSheet = () => {
         ))} */}
         {/* <p className='mb-0 mt-5'>Input</p> */}
         <div className="">{showInputCategory('Input')}</div>
-        {showInputCategory('Output')}
+        {/* {showInputCategory('Output')} */}
         <div className="input-group">
           <input className="form-control" placeholder="Output Range" value={outputRange} onChange={(e) => setOutputRange(e.target.value)} />
           <button className="btn btn-secondary">

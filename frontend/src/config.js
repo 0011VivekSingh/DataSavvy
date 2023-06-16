@@ -10,7 +10,7 @@ import { tTest } from './toolFunctions';
 import { histogram } from './toolFunctions';
 import { tTestUnequalVariance } from './toolFunctions';
 import { fTest } from './toolFunctions';
-import { calculateCovariance, calculateKurtosis, calculateMean, calculateMedian, calculateMode, calculateSkewness, calculateVariance, movingAverage  } from './toolFunctions';
+import { calculateCovariance, calculateKurtosis, calculateMean, calculateMedian, calculateMode, calculateSkewness, calculateVariance, movingAverage } from './toolFunctions';
 
 const app_config = {
   apiUrl: 'http://localhost:5000',
@@ -183,7 +183,7 @@ const app_config = {
       calc: (inputRange) => {
         const x = inputRange[0].value;
         const y = inputRange[1].value;
-          console.log(inputRange);
+        console.log(inputRange);
         const [slope, intercept] = linearRegression(x, y);
         console.log(slope, intercept);
         // Return the coefficients as an object
@@ -207,7 +207,15 @@ const app_config = {
       type: 'statistical',
       inputs: [
         {
-          name: 'input range',
+          name: 'input range A',
+          category: 'Input',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'input range B',
           category: 'Input',
           type: 'array',
           description: 'values',
@@ -228,7 +236,6 @@ const app_config = {
         {
           name: 'Labels in the first row',
           category: 'Input',
-
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
@@ -442,7 +449,7 @@ const app_config = {
     // histogram
     histogram: {
       name: 'Histogram',
-      description:'histogram',
+      description: 'histogram',
       icon: 'histogram',
       type: 'statistical',
       inputs: [
@@ -455,7 +462,7 @@ const app_config = {
           required: true
         },
         {
-          name:'Bin Range',
+          name: 'Bin Range',
           category: 'Input',
           type: 'array',
           description: 'values',
@@ -483,7 +490,6 @@ const app_config = {
       ]
     },
 
-   
     // fourier Analysis
     Fourieranalysis: {
       name: 'Fourier Analysis',
@@ -593,7 +599,7 @@ const app_config = {
           type: 'radio',
           description: 'this is radio',
           required: true,
-          options: [ 'Columns','rows']
+          options: ['Columns', 'rows']
         },
         {
           name: 'Labels in the first row',
@@ -1037,6 +1043,6 @@ const app_config = {
       }
     }
   }
-};  // end of app_config              
+}; // end of app_config
 
 export default app_config;
