@@ -1,4 +1,4 @@
-import { calculateCorrelation, linearRegression, zTest } from './toolFunctions';
+import { calculateCorrelation, linearRegression, randomBernoulli, zTest } from './toolFunctions';
 import { tTestEqualVariance } from './toolFunctions';
 import { rank } from './toolFunctions';
 import { anovaSingleFactor } from './toolFunctions';
@@ -337,7 +337,7 @@ const app_config = {
       ],
       calc: (inputRange) => {
         let data = inputRange[0].value;
-        let alpha = inputRange[1].value;
+        let alpha = inputRange[1].value ? inputRange[1].value : 0.5;
         let exponentialSmooth = exponentialSmoothing(data, alpha);
         return [exponentialSmooth];
       },
@@ -436,8 +436,8 @@ const app_config = {
       calc: (inputRange) => {
         let sample1 = inputRange[0].value;
         let sample2 = inputRange[1].value;
-        let fTest = fTest(sample1, sample2);
-        return [fTest];
+        let result = fTest(sample1, sample2);
+        return [result];
       },
       outputFormat: [
         {
@@ -567,8 +567,8 @@ const app_config = {
       calc: (InputRange) => {
         let min = InputRange[0].value;
         let max = InputRange[1].value;
-        let random = random(min, max);
-        return [random];
+        let result = randomBernoulli(min, max);
+        return [result];
       },
       outputFormat: [
         {
