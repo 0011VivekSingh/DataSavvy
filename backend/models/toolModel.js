@@ -8,6 +8,7 @@ const myschema = new Schema({
     inputs: {type : Array, "default" : []},
     formula : String,
     user: {type : String, ref: 'users'},
+    category: {type : String, default: 'custom'},
     createdAt: Date,
 
 });

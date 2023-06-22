@@ -14,22 +14,25 @@ const ExcelSheet = () => {
   const [currentInputs, setCurrentInputs] = useState([]);
   const [outputRange, setOutputRange] = useState('');
 
+  const [userTools, setUserTools] = useState([]);
+
   const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('user')));
 
-  // const fetchTools = async () => {
-  //   try {
-  //     const response = await fetch(`${apiUrl}/tool/getbyuser/${currentUser._id}`);
-  //     const data = await response.json();
-  //     console.log(data);
-  //     setTools(...tools, data);
-  //     // setToolList(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const fetchTools = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/tool/getbyuser/${currentUser._id}`);
+      const data = await response.json();
+      console.log(data);
+      // setTools(...tools, data);
+      // setToolList(data);
+      setUserTools(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    // fetchTools();
+    fetchTools();
     sheet.create({
       container: 'sheet',
       title: 'My WorkBook'
@@ -41,7 +44,7 @@ const ExcelSheet = () => {
   useEffect(() => {
     // console.log(selTool);
     if (selTool !== null) {
-      console.log(selTool.inputs);
+      // console.log(selTool.inputs);
       setCurrentInputs(selTool.inputs);
     }
   }, [selTool]);
@@ -76,7 +79,16 @@ const ExcelSheet = () => {
     // return;
     // const values = getSelectedRangeData();
     // console.log(values);
-    const res = selTool.calc(currentInputs);
+    let res = null;
+    console.log(selTool);
+    if(selTool.category === 'custom'){
+      const calcFunction = new Function('arr', selTool.formula);
+      // console.log(calcFunction);
+      // console.log(currentInputs);
+      res = calcFunction(currentInputs[0].value);
+    }else{
+      res = selTool.calc(currentInputs);
+    }
     // res will contain array of results
     console.log(res);
     showOutputInSheet(res);
@@ -108,6 +120,11 @@ const ExcelSheet = () => {
     // let startCell = [rowCol[0], rowCol[1]];
     let { row, column } = convertCellNotationToIndexes(outputRange);
     console.log(row, column);
+    if(selTool.category === 'custom'){
+      window.luckysheet.setCellValue(row, column, 'Result');
+      window.luckysheet.setCellValue(row, column + 1, results[0]);
+      return;
+    }
     results.forEach((result, index) => {
       console.log(selTool.outputFormat[index]);
       window.luckysheet.setCellValue(row + index, column, selTool.outputFormat[index].name);
@@ -144,7 +161,7 @@ const ExcelSheet = () => {
           <div className="input-group mb-3">
             <input className="form-control" onChange={(e) => updateInputValue(index, e.target.value)} />
             <button className={`btn ${selInput === index ? 'btn-secondary' : 'btn-primary'}`} onClick={(e) => (selInput !== null ? getSelectionValue(index) : setSelInput(index))}>
-              <i class="fas fa-pen-alt"></i>
+              <i className="fas fa-pen-alt"></i>
             </button>
           </div>
         </div>
@@ -172,12 +189,12 @@ const ExcelSheet = () => {
   };
 
   const showInputCategory = (category) => {
-    console.log(selTool.inputs.filter((tool) => tool.category === category));
+    // console.log(selTool.inputs.filter((tool) => tool.category === category));
     return selTool.inputs.filter((tool) => tool.category === category).map((input, index) => showInputBox(input, index));
   };
 
   const showToolBox = () => {
-    console.log(selTool);
+    // console.log(selTool);
     return (
       <>
         <h5 className="mt-5">{selTool.name}</h5>
@@ -191,7 +208,7 @@ const ExcelSheet = () => {
                 className={`btn ${selInput === index ? 'btn-secondary' : 'btn-primary'}`}
                 onClick={(e) => (selInput !== null ? getSelectionValue(index) : setSelInput(index))}
               >
-                <i class="fas fa-pen-alt"></i>
+                <i className="fas fa-pen-alt"></i>
               </button>
             </div>
           </>
@@ -202,7 +219,7 @@ const ExcelSheet = () => {
         <div className="input-group">
           <input className="form-control" placeholder="Output Range" value={outputRange} onChange={(e) => setOutputRange(e.target.value)} />
           <button className="btn btn-secondary">
-            <i class="fas fa-pen-alt"></i>
+            <i className="fas fa-pen-alt"></i>
           </button>
         </div>
         <button className="btn btn-primary mt-3" onClick={calculateResult}>
@@ -218,10 +235,19 @@ const ExcelSheet = () => {
   // });
 
   const selectTool = (e) => {
+    console.log(e.target.value);
+    if(e.target.value > Object.keys(toolpack).length-1){
+      setSelTool(userTools[e.target.value-Object.keys(toolpack).length]);
+    }else{
+      setSelTool(toolpack[Object.keys(toolpack)[e.target.value]]);
+    }
+  };
+
+  const selectUserTool = (e) => {
     let index = e.target.value;
     // console.log(toolpack[Object.keys(toolpack)[index]]);
-    setSelTool(toolpack[Object.keys(toolpack)[index]]);
-  };
+    
+  }
 
   return (
     <div>
@@ -243,7 +269,15 @@ const ExcelSheet = () => {
                     {tool[1].name}
                   </option>
                 ))}
+                {
+                  userTools.map((tool, index) => (
+                    <option role="button" value={index+Object.keys(toolpack).length}>
+                      {tool.name}
+                    </option>
+                  ))
+                }
               </select>
+              
               {selTool ? (
                 showToolBox()
               ) : (
