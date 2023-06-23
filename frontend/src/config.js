@@ -1,4 +1,4 @@
-import { calculateCorrelation, linearRegression, zTest } from './toolFunctions';
+import { calculateCorrelation, linearRegression, randomBernoulli, zTest } from './toolFunctions';
 import { tTestEqualVariance } from './toolFunctions';
 import { rank } from './toolFunctions';
 import { anovaSingleFactor } from './toolFunctions';
@@ -183,7 +183,7 @@ const app_config = {
       calc: (inputRange) => {
         const x = inputRange[0].value;
         const y = inputRange[1].value;
-          console.log(inputRange);
+        console.log(inputRange);
         const [slope, intercept] = linearRegression(x, y);
         console.log(slope, intercept);
         // Return the coefficients as an object
@@ -208,7 +208,15 @@ const app_config = {
       type: 'statistical',
       inputs: [
         {
-          name: 'input range',
+          name: 'input range A',
+          category: 'Input',
+          type: 'array',
+          description: 'values',
+          placeholder: 'Enter Range Here',
+          required: true
+        },
+        {
+          name: 'input range B',
           category: 'Input',
           type: 'array',
           description: 'values',
@@ -229,7 +237,6 @@ const app_config = {
         {
           name: 'Labels in the first row',
           category: 'Input',
-
           type: 'checkbox',
           description: 'this is checkbox',
           required: true
@@ -331,7 +338,7 @@ const app_config = {
       ],
       calc: (inputRange) => {
         let data = inputRange[0].value;
-        let alpha = inputRange[1].value;
+        let alpha = inputRange[1].value ? inputRange[1].value : 0.5;
         let exponentialSmooth = exponentialSmoothing(data, alpha);
         return [exponentialSmooth];
       },
@@ -430,8 +437,8 @@ const app_config = {
       calc: (inputRange) => {
         let sample1 = inputRange[0].value;
         let sample2 = inputRange[1].value;
-        let fTest = fTest(sample1, sample2);
-        return [fTest];
+        let result = fTest(sample1, sample2);
+        return [result];
       },
       outputFormat: [
         {
@@ -443,7 +450,7 @@ const app_config = {
     // histogram
     histogram: {
       name: 'Histogram',
-      description:'histogram',
+      description: 'histogram',
       icon: 'histogram',
       type: 'statistical',
       inputs: [
@@ -456,7 +463,7 @@ const app_config = {
           required: true
         },
         {
-          name:'Bin Range',
+          name: 'Bin Range',
           category: 'Input',
           type: 'array',
           description: 'values',
@@ -484,7 +491,6 @@ const app_config = {
       ]
     },
 
-   
     // fourier Analysis
     Fourieranalysis: {
       name: 'Fourier Analysis',
@@ -562,8 +568,8 @@ const app_config = {
       calc: (InputRange) => {
         let min = InputRange[0].value;
         let max = InputRange[1].value;
-        let random = random(min, max);
-        return [random];
+        let result = randomBernoulli(min, max);
+        return [result];
       },
       outputFormat: [
         {
@@ -594,7 +600,7 @@ const app_config = {
           type: 'radio',
           description: 'this is radio',
           required: true,
-          options: [ 'Columns','rows']
+          options: ['Columns', 'rows']
         },
         {
           name: 'Labels in the first row',
@@ -1038,6 +1044,6 @@ const app_config = {
       }
     }
   }
-};  // end of app_config              
+}; // end of app_config
 
 export default app_config;

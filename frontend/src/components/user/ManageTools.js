@@ -51,20 +51,11 @@ const AddNewTool = () => {
   };
 
   return (
-    <div className="d-flex align-items-center" style={{ height: '80vh' }}>
-      <div className="container ">
-        <div className="row w-100">
-          <div
-            className="col-md-6"
-            style={{
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-              backgroundImage: `url('https://res.cloudinary.com/dyd911kmh/image/upload/v1652357545/shutterstock_1770654182_d43667c1bc.jpg')`
-            }}
-          ></div>
-          <div className="col-md-6">
-            <h2 className="mb-5">Add New Analysis Tool</h2>
-            <form onSubmit={toolForm.handleSubmit}>
+    
+    <div className="container " style={{backgroundImage:"url('/hhh.jpg')", minHeight:'100vh',marginTop:'50px',padding:"5px"}}>
+      <div className="row d-flex justify-content-center align-items-center " style={{minHeight:'90vh'}}>
+        <div className="col-md-6">
+        <form onSubmit={toolForm.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Name:</label>
                 <input type="text" className="form-control mb-3" id="name" onChange={toolForm.handleChange} value={toolForm.values.name} placeholder="Enter name" />
@@ -115,7 +106,6 @@ const AddNewTool = () => {
                 Submit
               </button>
             </form>
-          </div>
         </div>
       </div>
     </div>
