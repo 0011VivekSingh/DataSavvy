@@ -307,7 +307,6 @@ const app_config = {
     // exponential smoothing
     exponentialsmoothing: {
       name: 'Exponential Smoothing',
-
       description: 'exponential smoothing',
       icon: 'exponentialsmoothing',
       type: 'forecasting',
@@ -481,8 +480,8 @@ const app_config = {
       calc: (inputRange) => {
         let array = inputRange[0].value;
         let bins = inputRange[1].value;
-        let histogram = histogram(array, bins);
-        return [histogram];
+        let answer = histogram(array, bins);
+        return [answer];
       },
       outputFormat: [
         {

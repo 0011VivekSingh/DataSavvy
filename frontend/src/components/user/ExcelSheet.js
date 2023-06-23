@@ -83,8 +83,8 @@ const ExcelSheet = () => {
     console.log(selTool);
     if(selTool.category === 'custom'){
       const calcFunction = new Function('arr', selTool.formula);
-      // console.log(calcFunction);
-      // console.log(currentInputs);
+      console.log(calcFunction);
+      console.log(currentInputs[0].value);
       res = calcFunction(currentInputs[0].value);
     }else{
       res = selTool.calc(currentInputs);
@@ -122,14 +122,25 @@ const ExcelSheet = () => {
     console.log(row, column);
     if(selTool.category === 'custom'){
       window.luckysheet.setCellValue(row, column, 'Result');
-      window.luckysheet.setCellValue(row, column + 1, results[0]);
+      window.luckysheet.setCellValue(row, column + 1, results);
       return;
     }
-    results.forEach((result, index) => {
-      console.log(selTool.outputFormat[index]);
-      window.luckysheet.setCellValue(row + index, column, selTool.outputFormat[index].name);
-      window.luckysheet.setCellValue(row + index, column + 1, result);
-    });
+    console.log(typeof(results[0]) === 'object');
+    if(typeof(results[0]) === 'object' ){
+      results = results[0];
+      results.forEach((result, index) => {
+        console.log(selTool.outputFormat[index]);
+        window.luckysheet.setCellValue(row + index, column, '');
+        window.luckysheet.setCellValue(row + index, column + 1, result);
+      });
+      return;
+    }else{
+      results.forEach((result, index) => {
+        console.log(selTool.outputFormat[index]);
+        window.luckysheet.setCellValue(row + index, column, selTool.outputFormat[index].name);
+        window.luckysheet.setCellValue(row + index, column + 1, result);
+      });
+    }
   };
 
   const getSelectionValue = (index) => {
