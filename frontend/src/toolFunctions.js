@@ -560,7 +560,6 @@ export {
   anovaTwoFactorWithoutReplication,
   anovaTwoFactorReplication,
   anovaSingleFactor,
-  
   calculateCorrelation,
   calculateCovariance,
   calculateMean,

@@ -10,10 +10,10 @@ const Home = () => {
 
             <div className="row ">
               <div className="col-md-6 my-auto">
-                <h1 className="display-4 fw-bold text-white">Safe and Secure Data handling with
+                <h1 className="display-4 fw-bold text-white">Safe and Secure Data Analysis with
                   <span style={{ color: "orange" }}> DataSavvy </span></h1>
 
-                <p className="h5 mt-4" style={{ color: 'white' }}>
+                <p className="h5 mt-5" style={{ color: 'white' }}>
                   "Unlock the power of data with DataSavvy - Your personalized data analysis platform."
                 </p>
               </div>

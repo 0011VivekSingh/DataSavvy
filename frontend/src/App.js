@@ -25,6 +25,7 @@ import UserAuth from './auth/UserAuth';
 import ExcelSheet from './components/user/ExcelSheet';
 import SheetProvider from './context/SheetProvider';
 import UserProvider from './context/UserProvider';
+import Tools from './components/user/Tools';
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
               <Route path="ManageTools" element={<ManageTools />} />
               <Route path="ManageDataset" element={<ManageDataset />} />
               <Route path="toolbar" element={<Toolbar />} />
+              <Route path="tools" element={<Tools/>} />
             </Route>
 
             <Route path="admin" element={<Admin />}>

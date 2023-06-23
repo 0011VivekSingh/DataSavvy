@@ -91,16 +91,16 @@ const Navbar = () => {
               </li>
 
               <li className="nav-item">
+                <NavLink className="nav-link" to="/main/signup">
+                <b>  Signup </b>
+                </NavLink>
+              </li>
+              <li className="nav-item">
                 <NavLink className="nav-link" to="/main/login">
                  <b>Login</b> 
                 </NavLink>
               </li>
 
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/main/signup">
-                <b>  Signup </b>
-                </NavLink>
-              </li>
               
               <li className="nav-item">
                 <NavLink className="nav-link" to="/main/feedback">

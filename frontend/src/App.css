@@ -35,3 +35,7 @@ body{
 #carouselExampleControls{
   background-color: aqua !important;
 }
+.tol{
+  background-color: rgb(240, 238, 235) !important;
+  height: 100vh;
+}

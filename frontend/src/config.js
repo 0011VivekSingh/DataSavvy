@@ -10,7 +10,7 @@ import { tTest } from './toolFunctions';
 import { histogram } from './toolFunctions';
 import { tTestUnequalVariance } from './toolFunctions';
 import { fTest } from './toolFunctions';
-import { calculateCovariance, calculateKurtosis, calculateMean, calculateMedian, calculateMode, calculateSkewness, calculateVariance, movingAverage  } from './toolFunctions';
+import { calculateCovariance, calculateKurtosis, calculateMean, calculateMedian, calculateMode, calculateSkewness, calculateVariance, movingAverage ,ftest } from './toolFunctions';
 
 const app_config = {
   apiUrl: 'http://localhost:5000',
@@ -189,7 +189,8 @@ const app_config = {
         // Return the coefficients as an object
         return [slope, intercept];
       },
-      outputFormat: [
+      
+      outputFormat:[
         {
           name: 'Slope'
         },
